@@ -1,0 +1,132 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36" version="24.7.7">
+  <diagram name="Page-1" id="9-5UBTBktTCmrauaOCZ5">
+    <mxGraphModel dx="1595" dy="701" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="OeODY6j1MzYCoBJknC6D-1" value="ShowRunnablesScreen" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="96" y="263" width="323" height="344" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-2" value="- __model: Model&lt;div&gt;- __widget:&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.QStackedWidget&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __scroll_area:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QScrollArea&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __vbox:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QVBoxLayout&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-1">
+          <mxGeometry y="26" width="323" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-3" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-1">
+          <mxGeometry y="94" width="323" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-4" value="+ ShowRunnablesScreen(model: Model, widget: QtWidgets.QStackedWidget, searched_runnabels: List)&lt;div&gt;- __init_ui(searched_runnables: List): Void&lt;/div&gt;&lt;div&gt;- __fulfill_vbox(runnable_ FileInfo, main: Bool): Void&lt;/div&gt;&lt;div&gt;- __add_found_runnables(searched_runnables: List): Void&lt;/div&gt;&lt;div&gt;- __add_search_bar(): Void&lt;/div&gt;&lt;div&gt;- __search(): Void&lt;/div&gt;&lt;div&gt;- __add_vertical_spacing(space_gap: Int): Void&lt;/div&gt;&lt;div&gt;- __try_load_runnable(runnable: FileInfo): Void&lt;/div&gt;&lt;div&gt;- __set_main(runnable: FileInfo): Void&lt;/div&gt;&lt;div&gt;- __unset_main(runnable: FileInfo): Void&lt;/div&gt;&lt;div&gt;- __clear_history(): Void&lt;/div&gt;&lt;div&gt;- __show_runnables_screen(searched_runnables: List): Void&lt;/div&gt;&lt;div&gt;- &lt;u&gt;__show_message_box&lt;/u&gt;(message_box_text: String, message_box_title: String): Void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-1">
+          <mxGeometry y="102" width="323" height="242" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-5" value="Model" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="-139" y="706" width="140" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-7" value="..." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-5">
+          <mxGeometry y="29" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-8" value="Main" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="-139" y="263" width="140" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-9" value="..." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-8">
+          <mxGeometry y="29" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-10" value="QtWidgets.QDialog" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;whiteSpace=wrap;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="590.5" y="72" width="140" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-11" value="..." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-10">
+          <mxGeometry y="29" width="140" height="25" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-12" value="RunnableConfigScreen" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="499" y="263" width="323" height="415" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-13" value="- __model: Model&lt;div&gt;- __widget:&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.QStackedWidget&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __scroll_area:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QScrollArea&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __vbox:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QVBoxLayout&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __runnable: FileInfo&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- __button_widget: QtWidget.QWidget&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-12">
+          <mxGeometry y="26" width="323" height="96" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-14" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-12">
+          <mxGeometry y="122" width="323" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-15" value="+ RunnableConfigScreen(model: Model, widget: QtWidgets.QStackedWidget, clear: Bool)&lt;div&gt;- __init_ui(clear: bool): Void&lt;/div&gt;&lt;div&gt;- __go_to_show_runnables_screen(): Void&lt;/div&gt;&lt;div&gt;- __show_prog_details(clear: Bool): Void&lt;/div&gt;&lt;div&gt;- __show_prog_args(clear: Bool): Void&lt;/div&gt;&lt;div&gt;- &lt;u&gt;__split_argument_label_info&lt;/u&gt;(arg_description: String) : String&lt;/div&gt;&lt;div&gt;- &lt;u&gt;__add_arg_desc_style&lt;/u&gt;(arg_desc: String): String&lt;/div&gt;&lt;div&gt;- __add_input_field(arg: Argument): Void&lt;/div&gt;&lt;div&gt;- __equip_button_action(button: NormalTextButton): Void&lt;/div&gt;&lt;div&gt;- __add_vertical_spacing(space_gap: Int): Void&lt;/div&gt;&lt;div&gt;- __run_configuration(): Void&lt;/div&gt;&lt;div&gt;+ &lt;u&gt;extract_argument&lt;/u&gt;(text: String): String&lt;/div&gt;&lt;div&gt;+&lt;u&gt; remove_text_in_angle_brackets&lt;/u&gt;(text: String): String&lt;/div&gt;&lt;div&gt;- __clear_args(): Void&lt;/div&gt;&lt;div&gt;- __save_config(): Void&lt;/div&gt;&lt;div&gt;- __load_config(): Void&lt;/div&gt;&lt;div&gt;- &lt;u&gt;__list_reducer&lt;/u&gt;(arg_list: List): List&lt;br&gt;&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-12">
+          <mxGeometry y="130" width="323" height="285" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-16" value="RunnerScreen" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="954" y="263" width="323" height="217" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-17" value="&lt;div&gt;- __model: Model&lt;div&gt;- __widget:&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.QStackedWidget&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __scroll_area:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QScrollArea&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __vbox:&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QtWidgets.&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;QVBoxLayout&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;- __runnable: FileInfo&lt;/span&gt;&lt;/div&gt;&lt;div&gt;- __button_widget: QtWidget.QWidget&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-16">
+          <mxGeometry y="26" width="323" height="98" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-18" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-16">
+          <mxGeometry y="124" width="323" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-19" value="+ RunnerScreen(model: Model, widget: QtWidgets.QStackedWidget, command: String)&lt;div&gt;- __init_ui(searched_runnables: List): Void&lt;/div&gt;&lt;div&gt;- __run_program(): Void&lt;br&gt;&lt;/div&gt;&lt;div&gt;- __back(): Void&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="OeODY6j1MzYCoBJknC6D-16">
+          <mxGeometry y="132" width="323" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;endSize=20;strokeColor=default;" edge="1" parent="1" source="OeODY6j1MzYCoBJknC6D-12" target="OeODY6j1MzYCoBJknC6D-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="251" y="456" as="sourcePoint" />
+            <mxPoint x="251" y="366" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;endSize=20;strokeColor=default;" edge="1" parent="1" source="OeODY6j1MzYCoBJknC6D-1" target="OeODY6j1MzYCoBJknC6D-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="671" y="273" as="sourcePoint" />
+            <mxPoint x="671" y="136" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="258" y="205" />
+              <mxPoint x="661" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;endSize=20;strokeColor=default;" edge="1" parent="1" source="OeODY6j1MzYCoBJknC6D-16" target="OeODY6j1MzYCoBJknC6D-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="681" y="283" as="sourcePoint" />
+            <mxPoint x="681" y="146" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="1116" y="205" />
+              <mxPoint x="661" y="205" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=15;" edge="1" parent="1" source="OeODY6j1MzYCoBJknC6D-8" target="OeODY6j1MzYCoBJknC6D-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0.17000000000007276" y="476" as="sourcePoint" />
+            <mxPoint x="0.17000000000007276" y="375" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="49" y="306" />
+              <mxPoint x="49" y="306" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=15;" edge="1" parent="1" source="OeODY6j1MzYCoBJknC6D-5" target="OeODY6j1MzYCoBJknC6D-12">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="11" y="316" as="sourcePoint" />
+            <mxPoint x="106" y="316" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="37" y="733" />
+              <mxPoint x="37" y="654" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=15;" edge="1" parent="1" source="OeODY6j1MzYCoBJknC6D-5" target="OeODY6j1MzYCoBJknC6D-16">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="21" y="326" as="sourcePoint" />
+            <mxPoint x="116" y="326" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="38" y="733" />
+              <mxPoint x="38" y="708" />
+              <mxPoint x="862" y="708" />
+              <mxPoint x="862" y="372" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="OeODY6j1MzYCoBJknC6D-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=15;" edge="1" parent="1" source="OeODY6j1MzYCoBJknC6D-5" target="OeODY6j1MzYCoBJknC6D-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="31" y="336" as="sourcePoint" />
+            <mxPoint x="126" y="336" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="38" y="733" />
+              <mxPoint x="38" y="336" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
