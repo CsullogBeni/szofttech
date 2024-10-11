@@ -1,5 +1,3 @@
-import sys
-import pathlib
 import ast
 from typing import List, Tuple, Optional
 
@@ -26,10 +24,23 @@ def extract_arguments(file_path: str) -> Tuple[Optional[str], Optional[str], Lis
         tree = ast.parse(file.read(), filename=file_path)
 
     class ArgumentVisitor(ast.NodeVisitor):
+        """
+        Extracts program name, description and arguments from the given python script.
+        """
         def __init__(self):
             self.parsers = {}
 
         def visit_Assign(self, node: ast.Assign):
+            """
+            Processes Assign nodes in the AST tree.
+
+            This function will extract `prog` and `description` variables from the given
+            python script. It will also extract information from the ArgumentParser
+            constructor. That information will be stored in the `parsers` dictionary.
+
+            Args:
+                node:       The Assign node to be processed.
+            """
             try:
                 nonlocal prog_name, prog_description
                 if isinstance(node.targets[0], ast.Attribute) and isinstance(node.value, ast.Str):
@@ -55,6 +66,17 @@ def extract_arguments(file_path: str) -> Tuple[Optional[str], Optional[str], Lis
             self.generic_visit(node)
 
         def visit_Call(self, node: ast):
+            """
+            Processes Call nodes in the AST tree.
+
+            This function will extract information from `add_argument` method calls.
+            It will extract the argument name, default value, help text, type, required
+            status, action, and choices from the `add_argument` call. This information
+            will be stored in the `args` list.
+
+            Args:
+                node:       The Call node to be processed.
+            """
             if isinstance(node.func, ast.Attribute) and node.func.attr == 'add_argument':
                 parser_name = node.func.value.id if isinstance(node.func.value, ast.Name) else None
                 parser_info = self.parsers.get(parser_name, {})
@@ -103,7 +125,3 @@ def extract_arguments(file_path: str) -> Tuple[Optional[str], Optional[str], Lis
     visitor = ArgumentVisitor()
     visitor.visit(tree)
     return prog_name, prog_description, args
-
-
-if __name__ == '__main__':
-    print(extract_arguments(r'C:\Git\szofttech\tests\test_files\calculator\calculator.py'))
