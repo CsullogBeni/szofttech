@@ -72,6 +72,7 @@ class Model:
                 for l in listdir(elem):
                     queue.put(path.join(elem, l))
             if path.isfile(elem):
-                [nam, desc, args] = argument_visitor.extract_arguments(elem)
+                [nam, desc, args] = extract_arguments(elem)
                 if nam == None or desc == None: continue
-                self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args]))
+                # TODO: Figure out what actually "is main runnable" means
+                self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args], True))
