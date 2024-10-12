@@ -44,7 +44,7 @@ class DataAccess(IDataAccess):
         """
         if not os.path.exists(self.__app_data_path):
             os.makedirs(self.__app_data_path, exist_ok=True)
-        file_name = f"{runnable}.json" 
+        file_name = f"{runnable.replace('/','_').replace('\'','_')}.json" 
         file_path = os.path.join(self.__app_data_path, file_name)
         
         with open(file_path, 'w') as json_file:
@@ -63,7 +63,7 @@ class DataAccess(IDataAccess):
         Raises:
         FileNotFoundError: If the configuration file is not found.
         """
-        file_name = f"{runnable}.json" 
+        file_name = f"{runnable.replace('/','_').replace('\'','_')}.json" 
         file_path = os.path.join(self.__app_data_path, file_name)
 
         if not os.path.exists(file_path):
@@ -80,14 +80,13 @@ class DataAccess(IDataAccess):
         Args:
         data (dict): The main runnables data.
         """
-        main_runnables = {key: value for key, value in data.items() if value} 
         if not os.path.exists(self.__app_data_path):
             os.makedirs(self.__app_data_path, exist_ok=True)
 
         file_path = os.path.join(self.__app_data_path, "main_runnables.json")
 
         with open(file_path, 'w') as json_file:
-            json.dump(main_runnables, json_file, indent=4, default=lambda o: o.__dict__)
+            json.dump(data)
 
     def load_main_runnables(self) -> dict:
         """
@@ -116,6 +115,5 @@ class DataAccess(IDataAccess):
             try:
                 if os.path.isfile(file_path):
                     os.remove(file_path)
-                    print(f"Deleted file: {file_path}")
             except Exception as e:
                 print(f"Failed to delete {file_path}. Reason: {e}")
