@@ -1,16 +1,4 @@
-"""Calculator runnable
-This is a calculator program, that can add, subtract, multiply and divide two numbers. Numbers and operators given from the user as the command line arguments.
-The result is printed to the console.
-
-Args:
-    number1: First number to do operation with
-    number2: Second number to do operation with
-    operation: Operation, which can be: +, -, *, /
-
-"""
 import argparse
-from os import name
-
 
 def pars_arguments():
     """
@@ -26,22 +14,34 @@ def pars_arguments():
 
     return parser.parse_args()
 
-def get_operation_string():
+def get_operation_string(args):
     """
-    Get the parsed parameters using pars_arguments() function and create the string format of the operation to be performed
+    Create the string format of the operation to be performed if the operation is mathematically possible
+
+    Args:
+        args:       The populated namespace from the arguments
     Returns:
         The string format of the operation to be performed
     """
-    args = pars_arguments()
     if args.operation == "/" and args.number2 == 0:
         raise ZeroDivisionError()
 
     return str(args.number1) + " " + args.operation + " " + str(args.number2)
 
+def calculate(args):
+    """
+    This function can add, subtract, multiply and divide two numbers. Numbers and operators given from the user as the command line arguments.
+    The result is printed to the console.
 
-operation_string = get_operation_string()
-result = eval(operation_string)
-print("Result:", operation_string, "=", result)
+    Args:
+        args:       The populated namespace from the arguments
+    """
+    operation_string = get_operation_string(args)
+    result = eval(operation_string)
+    print("Result:", operation_string, "=", result)
 
-if name == 'main':
+
+if __name__ == "__main__":
     """call the parser and the evaluator method"""
+    parsed_args = pars_arguments()
+    calculate(parsed_args)
