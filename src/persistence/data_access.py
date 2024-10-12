@@ -1,58 +1,73 @@
 from idata_access import IDataAccess
 import os, json
 
+"""
+This module provides a class DataAccess that handles data persistence for the application.
+It inherits from IDataAccess and implements the abstract methods for saving and loading configurations.
+"""
+
+from idata_access import IDataAccess
+import os, json
 
 class DataAccess(IDataAccess):
     """
-    Implements IDataAccess interface, provides methods for saving and loading configurations of runnables, and saving and loading the main runnables' configuration.
+    A class that handles data persistence for the application.
 
     Attributes:
-        __app_data_path (str): The path to the directory where the configuration files are stored.
+    __app_data_path (str): The path to the application data directory.
 
     Methods:
-        __init__(data_path: str): Initializes the DataAccess object with the given data path.
-        save_config(runnable: str, data: dict): Saves the given data as a json file in the SZOFTECH directory under the given runnable's name.
-        load_config(runnable: str) -> dict: Loads the configuration for the given runnable from a json file in the SZOFTECH directory under the given runnable's name.
-        save_main_runnables(data: dict): Saves the given data as a json file in the SZOFTECH directory under the name 'main_runnables.json'.
-        load_main_runnables() -> dict: Loads the main runnables' configuration from a json file in the SZOFTECH directory under the name 'main_runnables.json'.
-        clear_history(): Clears the history of the main runnables by deleting all the files in the SZOFTECH directory.
+    __init__(data_path: str): Initializes the DataAccess object with the application data path.
+    save_config(runnable: str, data: dict): Saves the configuration for a runnable.
+    load_config(runnable: str) -> dict: Loads the configuration for a runnable.
+    save_main_runnables(data: dict): Saves the main runnables.
+    load_main_runnables() -> dict: Loads the main runnables.
+    clear_history(): Clears the configuration history.
     """
-    def __init__(self,data_path: str):
-        self.__app_data_path = data_path
 
-    def save_config(self,runnable: str, data: dict):
+    def __init__(self, data_path: str):
         """
-        Saves the given data as a json file in the SZOFTECH directory under the given runnable's name.
+        Initializes the DataAccess object with the application data path.
 
-        :param runnable: The name of the runnable
-        :param data: The data to be saved
-        :return: None
+        Args:
+        data_path (str): The path to the application data directory.
         """
-        config_dir = os.path.join(self.__app_data_path, "SZOFTECH")
-        if not os.path.exists(config_dir):
-            os.makedirs(config_dir,exist_ok=True)
-        file_name = f"{runnable}.json"
-        file_path = os.path.join(config_dir, file_name)
+        self.__app_data_path = os.path.join(data_path, "SZOFTECH")
+
+    def save_config(self, runnable: str, data: dict):
+        """
+        Saves the configuration for a runnable.
+
+        Args:
+        runnable (str): The name of the runnable.
+        data (dict): The configuration data.
+        """
+        if not os.path.exists(self.__app_data_path):
+            os.makedirs(self.__app_data_path, exist_ok=True)
+        file_name = f"{runnable}.json" 
+        file_path = os.path.join(self.__app_data_path, file_name)
         
         with open(file_path, 'w') as json_file:
             json.dump(data, json_file, indent=4)
         
     def load_config(self, runnable: str) -> dict:
         """
-        Loads the configuration for the given runnable from a json file in the SZOFTECH directory under the given runnable's name.
+        Loads the configuration for a runnable.
 
-        :Args:
-            runnable: The name of the runnable
-        :Returns
-            The loaded data as a dictionary
-        :Raises
-            FileNotFoundError: If no configuration file is found for the given runnable
+        Args:
+        runnable (str): The name of the runnable.
+
+        Returns:
+        dict: The configuration data.
+
+        Raises:
+        FileNotFoundError: If the configuration file is not found.
         """
         file_name = f"{runnable}.json" 
-        file_path = os.path.join(self.__app_data_path, "SZOFTECH", file_name)
+        file_path = os.path.join(self.__app_data_path, file_name)
 
         if not os.path.exists(file_path):
-            raise FileNotFoundError(f"No configuration file found for {runnable}")
+            raise FileNotFoundError(f"No configuration file found for {runnable}") 
         with open(file_path, 'r') as json_file:
             data = json.load(json_file)
         
@@ -60,35 +75,31 @@ class DataAccess(IDataAccess):
     
     def save_main_runnables(self, data: dict):
         """
-        Saves the given data as a json file in the SZOFTECH directory under the name 'main_runnables.json'.
-        The data is filtered to include only the main runnables.
+        Saves the main runnables.
 
-        :Args:
-            data: The data to be saved
-        :Returns
-            None
+        Args:
+        data (dict): The main runnables data.
         """
-        main_runnables = {key: value for key, value in data.items() if value}
-        config_dir = os.path.join(self.__app_data_path, "SZOFTECH")
-        if not os.path.exists(config_dir):
-            os.makedirs(config_dir, exist_ok=True)
+        main_runnables = {key: value for key, value in data.items() if value} 
+        if not os.path.exists(self.__app_data_path):
+            os.makedirs(self.__app_data_path, exist_ok=True)
 
-        file_path = os.path.join(config_dir, "main_runnables.json")
+        file_path = os.path.join(self.__app_data_path, "main_runnables.json")
 
         with open(file_path, 'w') as json_file:
             json.dump(main_runnables, json_file, indent=4, default=lambda o: o.__dict__)
 
     def load_main_runnables(self) -> dict:
         """
-        Loads the main runnables' configuration from a json file in the SZOFTECH directory under the name 'main_runnables.json'.
-        The configuration is a dictionary where the keys are the names of the runnables and the values are the runnables' data.
+        Loads the main runnables.
 
-        :Returns
-            The loaded main runnables configuration as a dictionary
-        :Raises
-            FileNotFoundError: If no main runnables configuration file is found
+        Returns:
+        dict: The main runnables data.
+
+        Raises:
+        FileNotFoundError: If the main runnables file is not found.
         """
-        file_path = os.path.join(self.__app_data_path, "SZOFTECH", "main_runnables.json")
+        file_path = os.path.join(self.__app_data_path, "main_runnables.json")
         if not os.path.exists(file_path):
             raise FileNotFoundError("No main runnables configuration file found")
         with open(file_path, 'r') as json_file:
@@ -98,11 +109,10 @@ class DataAccess(IDataAccess):
 
     def clear_history(self):
         """
-        Clears the history of the main runnables by deleting all the files in the SZOFTECH directory.
+        Clears the configuration history.
         """
-        config_dir = os.path.join(self.__app_data_path, "SZOFTECH")
-        for filename in os.listdir(config_dir):
-            file_path = os.path.join(config_dir, filename)
+        for filename in os.listdir(self.__app_data_path):
+            file_path = os.path.join(self.__app_data_path, filename)
             try:
                 if os.path.isfile(file_path):
                     os.remove(file_path)
