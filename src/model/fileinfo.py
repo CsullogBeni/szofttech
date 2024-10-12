@@ -19,6 +19,7 @@ class FileInfo:
         self.__args = args
         self.__is_main_runnable = is_main_runnable
 
+    @property
     def get_prog_path(self):
         """
         Getter for the file path of the runnable.
@@ -28,6 +29,7 @@ class FileInfo:
         """
         return self.__prog_path
 
+    @property
     def get_prog_name(self):
         """
         Getter for the name of the runnable.
@@ -37,6 +39,7 @@ class FileInfo:
         """
         return self.__prog_name
 
+    @property
     def get_prog_description(self):
         """
         Getter for the description of the runnable.
@@ -46,6 +49,7 @@ class FileInfo:
         """
         return self.__prog_description
 
+    @property
     def get_args(self):
         """
         Getter for the argument list of the runnable.
@@ -55,6 +59,7 @@ class FileInfo:
         """
         return self.__args
 
+    @property
     def is_main_runnable(self):
         """
         Getter for the main runnable flag of the runnable.
