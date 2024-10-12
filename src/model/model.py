@@ -17,7 +17,7 @@ from persistence.data_access import DataAccess
 from model.argument import Argument
 from queue import Queue
 from os import path, listdir
-import model.argument_visitor
+from model.argument_visitor import extract_arguments
 
 class Model:
     """
