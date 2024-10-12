@@ -1,4 +1,4 @@
-from idata_access import IDataAccess
+from persistence.idata_access import IDataAccess
 import os, json
 
 """

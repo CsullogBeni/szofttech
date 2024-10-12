@@ -12,12 +12,12 @@
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
 from typing import List
-from fileinfo import FileInfo
+from model.fileinfo import FileInfo
 from persistence.data_access import DataAccess
-from argument import Argument
+from model.argument import Argument
 from queue import Queue
 from os import path, listdir
-import argument_visitor
+import model.argument_visitor
 
 class Model:
     """
