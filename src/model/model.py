@@ -14,6 +14,10 @@
 from typing import List
 from fileinfo import FileInfo
 from persistence.data_access import DataAccess
+from argument import Argument
+from queue import Queue
+from os import path, listdir
+import argument_visitor
 
 class Model:
     """
@@ -56,3 +60,18 @@ class Model:
             str: the data accessor.
         """
         return self.__data_acces
+
+    def add_working_directory_path(self, workdir: str):
+        self.__working_directory_path = workdir
+        self.__runnables = []
+        queue = Queue()
+        queue.put(self.__working_directory_path)
+        while not (queue.empty()):
+            elem = queue.get()
+            if path.isdir(elem):
+                for l in listdir(elem):
+                    queue.put(path.join(elem, l))
+            if path.isfile(elem):
+                [nam, desc, args] = argument_visitor.extract_arguments(elem)
+                if nam == None or desc == None: continue
+                self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args]))
