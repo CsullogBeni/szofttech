@@ -1,5 +1,3 @@
-# TODO: Create add_working_directory_path() method that adds the given path to current working directory and runs through the directory recursively, searching for runnables, consider using argument_visitor.
-# TODO: Create add_default_path() method that ads the current working directory to default paths.
 # TODO: Create run_program(command: str) method that executes the given command.
 # TODO: Creat clear_history() method that clears the history.
 
@@ -18,6 +16,8 @@ from model.argument import Argument
 from queue import Queue
 from os import path, listdir
 from model.argument_visitor import extract_arguments
+
+import sys
 
 class Model:
     """
@@ -61,7 +61,19 @@ class Model:
         """
         return self.__data_acces
 
+    def add_default_path(self):
+        """
+        Appends the current working directory using sys.path.
+        """
+        sys.path.append(self.__working_directory_path)
+
     def add_working_directory_path(self, workdir: str):
+        """
+        Sets the working directory to the given path and recomputes the list of executables. Searches recursively.
+
+        Attributes:
+        - workdir: The new working directory.
+        """
         self.__working_directory_path = workdir
         self.__runnables = []
         queue = Queue()
@@ -69,10 +81,9 @@ class Model:
         while not (queue.empty()):
             elem = queue.get()
             if path.isdir(elem):
-                for l in listdir(elem):
-                    queue.put(path.join(elem, l))
+                [queue.put(path.join(elem, l)) for l in listdir(elem)]
             if path.isfile(elem):
                 [nam, desc, args] = extract_arguments(elem)
                 if nam == None or desc == None: continue
-                # TODO: Figure out what actually "is main runnable" means
+                # TODO: Figure out what "is main runnable" actually means
                 self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args], True))
