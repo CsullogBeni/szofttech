@@ -1,5 +1,5 @@
 from typing import List # for the argument list
-from argument import Argument  # to have access to argument class
+from model.argument import Argument  # to have access to argument class
 
 class FileInfo:    
     """
