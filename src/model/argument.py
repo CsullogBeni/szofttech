@@ -6,14 +6,14 @@ class Argument:
     Represents a command-line argument of a runnable.
 
     Attributes:
-    - __id:              the identifier of the argument
-    - __second_id:       the second identifier of the argument
-    - __help:            a short description of what the argument does
-    - __default:         the value produced if the argument was not specified from the command lin
-    - __required:        whether the argument is mandatory
-    - __type:            the type to which the argument should be converted
-    - __action:          the basic type of action to be taken when this argument is encountered at the command line
-    - __choices:         a list of the allowable values for the argument
+        __id:              the identifier of the argument
+        __second_id:       the second identifier of the argument
+        __help:            a short description of what the argument does
+        __default:         the value produced if the argument was not specified from the command lin
+        __required:        whether the argument is mandatory
+        __type:            the type to which the argument should be converted
+        __action:          the basic type of action to be taken when this argument is encountered at the command line
+        __choices:         a list of the allowable values for the argument
     """
 
     def __init__(self, id: str, second_id: str, help: str, default: str, required: bool,
