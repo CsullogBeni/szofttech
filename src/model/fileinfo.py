@@ -1,18 +1,21 @@
-from typing import List # for the argument list
-from model.argument import Argument  # to have access to argument class
+from typing import List  # for the argument list
+from src.model.argument import Argument  # to have access to argument class
 
-class FileInfo:    
+
+class FileInfo:
     """
     Contains all the data about a runnable.
     
     Attributes:
-    - __prog_path:           the path to the runnable
-    - __prog_name:           the name of the runnable
-    - __prog_description:    the description of a runnable
-    - __args:                the argument list of the runnable
-    - __is_main_runnable:    indicates if it is a main runnable
+        __prog_path:           the path to the runnable
+        __prog_name:           the name of the runnable
+        __prog_description:    the description of a runnable
+        __args:                the argument list of the runnable
+        __is_main_runnable:    indicates if it is a main runnable
     """
-    def __init__(self, prog_path: str, prog_name: str, prog_description: str, args: List[Argument], is_main_runnable: bool):
+
+    def __init__(self, prog_path: str, prog_name: str, prog_description: str, args: List[Argument],
+                 is_main_runnable: bool):
         self.__prog_path = prog_path
         self.__prog_name = prog_name
         self.__prog_description = prog_description
@@ -68,7 +71,7 @@ class FileInfo:
             bool: the main runnable flag of the runnable
         """
         return self.__is_main_runnable
-    
+
     def add_argument(self, arg: Argument):
         """
         Adds an argument to the argument list if it's not already added.
@@ -76,10 +79,10 @@ class FileInfo:
         Args:
             arg (Argument): the argument to be added to the argument list
         """
-        contains = false
-        for _arg in __args:
+        contains = False
+        for _arg in self.__args:
             if _arg == arg:
-                contains = true
+                contains = True
         if not contains:
             self.__args.append(arg)
 
