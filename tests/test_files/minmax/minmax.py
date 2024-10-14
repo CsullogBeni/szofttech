@@ -1,7 +1,7 @@
 import argparse
 
 
-def pars_arguments():
+def parse_arguments():
     """
     Parse the arguments with argparse
 
@@ -13,7 +13,7 @@ def pars_arguments():
     parser.description = ("This program can select the maximum or the minimum from the given numbers."
                           "Numbers given from the user as the command line arguments. The program select maximum by "
                           "default, but user can ask minimum by --min flag. The result is printed to the console.")
-    parser.add_argument("--min", action="store_true", help="Whether user wants minimum selection")
+    parser.add_argument("--min", "-m", action="store_true", help="Whether user wants minimum selection")
     parser.add_argument("numbers", type=float, nargs="+", help="Numbers to select maximum or minimum from")
 
     return parser.parse_args()
@@ -36,5 +36,5 @@ def minmax_selection(args):
 
 if __name__ == "__main__":
     """call the parser and the minmax_selection method"""
-    parsed_args = pars_arguments()
+    parsed_args = parse_arguments()
     minmax_selection(parsed_args)
