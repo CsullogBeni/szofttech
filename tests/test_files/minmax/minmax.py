@@ -10,7 +10,7 @@ def parse_arguments():
     """
     parser = argparse.ArgumentParser()
     parser.prog = "Minmax"
-    parser.description = ("This program can select the maximum or the minimum from the given numbers."
+    parser.description = ("This program can select the maximum or the minimum from the given numbers. "
                           "Numbers given from the user as the command line arguments. The program select maximum by "
                           "default, but user can ask minimum by --min flag. The result is printed to the console.")
     parser.add_argument("--min", "-m", action="store_true", help="Whether user wants minimum selection")
