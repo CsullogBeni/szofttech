@@ -1,4 +1,3 @@
-# TODO: Create run_program(command: str) method that executes the given command.
 # TODO: Creat clear_history() method that clears the history.
 
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
@@ -11,11 +10,22 @@ import sys
 from typing import List, Tuple, Optional
 from queue import Queue
 from os import path, listdir
+import subprocess
 
 from src.persistence.data_access import DataAccess
 from src.model.argument import Argument
 from src.model.fileinfo import FileInfo
 from src.model.argument_visitor import extract_arguments
+
+
+def run_program(command: str):
+    """
+    This method executes the given command.
+
+    Args:
+        command: contains the full path of the executable and after it, its arguments
+    """
+    subprocess.run(f"python {command}")
 
 
 class Model:
