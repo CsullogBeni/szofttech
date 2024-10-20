@@ -35,7 +35,14 @@ class TestDataAccess(unittest.TestCase):
         self.assertEqual(actual_data, data)
 
     def test_load_config(self):
-        # Test the load_config method
+        """
+        Test the load_config method by loading data for a specific runnable.
+
+        Checks if the data is successfully loaded from a JSON file.
+
+        Args:
+            self: The test case instance.
+        """
         runnable = "test_runnable"
         data = {"key": "value"}
         self.data_access.save_config(runnable, data)
