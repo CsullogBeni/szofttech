@@ -91,6 +91,13 @@ class Model:
     # TODO: Add some concrete type for list
     # Educated guess: a parameter with a potential value
     def save_config(self, prog: FileInfo, args: List[Tuple[str, Option[str]]]):
+        """
+        Saves a given program and its argument to JSON.
+
+        Args:
+            prog: The program.
+            args: The arguments.
+        """
         actual_args = prog.get_args
         args_to_keep = dict()
         for [a, v] in args:
