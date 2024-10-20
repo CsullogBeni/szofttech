@@ -50,7 +50,14 @@ class TestDataAccess(unittest.TestCase):
         self.assertEqual(actual_data, data)
 
     def test_save_main_runnables(self):
-        # Test the save_main_runnables method
+        """
+        Test the save_main_runnables method by storing data to a JSON file.
+
+        Checks if the data is successfully saved to the correct location.
+
+        Args:
+            self: The test case instance.
+        """
         data = {"key": "value"}
         self.data_access.save_main_runnables(data)
         expected_file_path = self.data_path / "SZOFTECH" / "main_runnables.json"
