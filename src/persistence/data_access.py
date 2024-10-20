@@ -79,7 +79,7 @@ class DataAccess(IDataAccess):
         file_path = os.path.join(self.__app_data_path, "main_runnables.json")
 
         with open(file_path, 'w') as json_file:
-            json.dump(data)
+            json.dump(data, json_file)
 
     def load_main_runnables(self) -> dict:
         """
