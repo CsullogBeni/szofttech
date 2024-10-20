@@ -8,7 +8,7 @@
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
 import sys
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 from queue import Queue
 from os import path, listdir
 
@@ -90,7 +90,7 @@ class Model:
 
     # TODO: Add some concrete type for list
     # Educated guess: a parameter with a potential value
-    def save_config(self, prog: FileInfo, args: List[Tuple[str, Option[str]]]):
+    def save_config(self, prog: FileInfo, args: List[Tuple[str, Optional[str]]]):
         """
         Saves a given program and its argument to JSON.
 
@@ -108,7 +108,13 @@ class Model:
         self.__data_access.save_config(prog.get_prog_path, args_to_keep)
 
     # Will return list above for idempotency
-    def load_config(self, prog: FileInfo) -> List[Tuple[str, Option[str]]]:
+    def load_config(self, prog: FileInfo) -> List[Tuple[str, Optional[str]]]:
+        """
+        Loads a given program's arguments from JSON.
+
+        Args:
+            prog: The program.
+        """
         res_dict = self.__data_access.load_config(prog.get_prog_path)
         return [[k,v] for k,v in res_dict.items()]
 
