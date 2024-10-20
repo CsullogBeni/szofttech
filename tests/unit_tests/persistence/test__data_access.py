@@ -67,7 +67,14 @@ class TestDataAccess(unittest.TestCase):
         self.assertEqual(actual_data, data)
 
     def test_load_main_runnables(self):
-        # Test the load_main_runnables method
+        """
+        Test the load_main_runnables method by loading data from a JSON file.
+
+        Checks if the data is successfully loaded from the correct location.
+
+        Args:
+            self: The test case instance.
+        """
         data = {"key": "value"}
         self.data_access.save_main_runnables(data)
         actual_data = self.data_access.load_main_runnables()
