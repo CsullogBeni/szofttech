@@ -120,6 +120,9 @@ class Model:
 
 
     def save_main(self):
+        """
+        Dumps the list of main programs to JSON.
+        """
         res = dict()
         # Bit confused why we're using json to store a list
         res['main'] = [p.get_prog_path for p in self.__runnables if p.get_is_main_runnable]
