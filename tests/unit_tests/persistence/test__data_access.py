@@ -81,7 +81,13 @@ class TestDataAccess(unittest.TestCase):
         self.assertEqual(actual_data, data)
 
     def test_clear_history(self):
-        # Test the clear_history method
+        """
+        Test the clear_history method by clearing the history and checking that the
+        configuration file is deleted.
+
+        Args:
+            self: The test case instance.
+        """
         data = {"key": "value"}
         self.data_access.save_main_runnables(data)
         self.data_access.clear_history()
