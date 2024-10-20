@@ -101,7 +101,7 @@ class Model:
         self.__data_access.save_config(prog.get_prog_path, args_to_keep)
 
     # Will return list above for idempotency
-    def load_config(self, prog: FileInfo):
+    def load_config(self, prog: FileInfo) -> List[Tuple[str, Option[str]]]:
         res_dict = self.__data_access.load_config(prog.get_prog_path)
         return [[k,v] for k,v in res_dict.items()]
 
@@ -111,3 +111,9 @@ class Model:
         # Bit confused why we're using json to store a list
         res['main'] = [p.get_prog_path for p in self.__runnables if p.get_is_main_runnable]
         self.__data_access.save_main_runnables(res)
+
+    def load_main(self):
+        mains = self.__data_access.load_main_runnables()['main']
+        for idx, r in enumerate(self.__runnables):
+            if r.get_prog_path in mains:
+                self.__runnables[idx].set_main_runnable(True)
