@@ -34,3 +34,13 @@ class TestDataAccess(unittest.TestCase):
         self.data_access.save_config(runnable, data)
         actual_data = self.data_access.load_config(runnable)
         self.assertEqual(actual_data, data)
+
+    def test_save_main_runnables(self):
+        # Test the save_main_runnables method
+        data = {"key": "value"}
+        self.data_access.save_main_runnables(data)
+        expected_file_path = self.data_path / "SZOFTECH" / "main_runnables.json"
+        self.assertTrue(os.path.exists(expected_file_path))
+        with open(expected_file_path, 'r') as json_file:
+            actual_data = json.load(json_file)
+        self.assertEqual(actual_data, data)
