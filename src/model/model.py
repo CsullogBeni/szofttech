@@ -93,10 +93,15 @@ class Model:
     # Educated guess: a parameter with a potential value
     def save_config(self, prog: FileInfo, args: List[Tuple[str, Option[str]]]):
         actual_args = prog.get_args
-        args_to_keep = {}
+        args_to_keep = dict()
         for [a, v] in args:
             if any([a == p.get_id or a == p.get_second_id for p in actual_args]):
                 args_to_keep[a] = v
             else:
                 print(f"Model.save_config: Argument {a} couldn't be found in program {prog.get_prog_name}, skipping")
         self.__data_access.save_config(prog.get_prog_path, args_to_keep)
+
+    # Will return list above for idempotency
+    def load_config(self, prog: FileInfo):
+        res_dict = self.__data_access.load_config(prog.get_prog_path)
+        return [[k,v] for k,v in res_dict.items()]
