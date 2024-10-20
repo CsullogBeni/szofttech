@@ -1,7 +1,6 @@
 # TODO: Create run_program(command: str) method that executes the given command.
 # TODO: Creat clear_history() method that clears the history.
 
-# TODO: Create save_config(runnable: FileInfo, args: List) method that saves the given runnable and its arguments.
 # TODO: Create load_config(runnable: FileInfo) method that loads the given runnable.
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
 # TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
@@ -10,7 +9,7 @@
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
 import sys
-from typing import List
+from typing import List, Tuple
 from queue import Queue
 from os import path, listdir
 
@@ -89,3 +88,15 @@ class Model:
             if path.isfile(elem):
                 [nam, desc, args] = extract_arguments(elem)
                 self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args], False))
+
+    # TODO: Add some concrete type for list
+    # Educated guess: a parameter with a potential value
+    def save_config(self, prog: FileInfo, args: List[Tuple[str, Option[str]]]):
+        actual_args = prog.get_args
+        args_to_keep = {}
+        for [a, v] in args:
+            if any([a == p.get_id or a == p.get_second_id for p in actual_args]):
+                args_to_keep[a] = v
+            else:
+                print(f"Model.save_config: Argument {a} couldn't be found in program {prog.get_prog_name}, skipping")
+        self.__data_access.save_config(prog.get_prog_path, args_to_keep)
