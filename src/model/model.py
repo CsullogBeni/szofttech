@@ -129,6 +129,9 @@ class Model:
         self.__data_access.save_main_runnables(res)
 
     def load_main(self):
+        """
+        Loads the list of main programs from JSON.
+        """
         mains = self.__data_access.load_main_runnables()['main']
         for idx, r in enumerate(self.__runnables):
             if r.get_prog_path in mains:
