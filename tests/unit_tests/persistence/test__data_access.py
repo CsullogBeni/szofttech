@@ -44,3 +44,10 @@ class TestDataAccess(unittest.TestCase):
         with open(expected_file_path, 'r') as json_file:
             actual_data = json.load(json_file)
         self.assertEqual(actual_data, data)
+
+    def test_load_main_runnables(self):
+        # Test the load_main_runnables method
+        data = {"key": "value"}
+        self.data_access.save_main_runnables(data)
+        actual_data = self.data_access.load_main_runnables()
+        self.assertEqual(actual_data, data)
