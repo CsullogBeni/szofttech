@@ -1,7 +1,6 @@
 # TODO: Create run_program(command: str) method that executes the given command.
 # TODO: Creat clear_history() method that clears the history.
 
-# TODO: Create load_config(runnable: FileInfo) method that loads the given runnable.
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
 # TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
 
@@ -105,3 +104,10 @@ class Model:
     def load_config(self, prog: FileInfo):
         res_dict = self.__data_access.load_config(prog.get_prog_path)
         return [[k,v] for k,v in res_dict.items()]
+
+
+    def save_main(self):
+        res = dict()
+        # Bit confused why we're using json to store a list
+        res['main'] = [p.get_prog_path for p in self.__runnables if p.get_is_main_runnable]
+        self.__data_access.save_main_runnables(res)
