@@ -59,3 +59,6 @@ class TestDataAccess(unittest.TestCase):
         self.data_access.clear_history()
         expected_file_path = self.data_path / "SZOFTECH" / "main_runnables.json"
         self.assertFalse(os.path.exists(expected_file_path))
+
+if __name__ == '__main__':
+    unittest.main()
