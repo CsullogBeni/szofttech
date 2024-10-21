@@ -30,13 +30,13 @@ class Model:
         __data_access:             The data access object, handles IO operations
     """
 
-    def __init__(self, working_directory_path: str, runnables: List[FileInfo], data_access: DataAccess):
+    def __init__(self, working_directory_path: str, runnables: List[FileInfo], data_access: DataAccess) -> None:
         self.__working_directory_path = working_directory_path
         self.__runnables = runnables
         self.__data_access = data_access
 
     @property
-    def get_working_directory_path(self):
+    def get_working_directory_path(self) -> str:
         """
         Getter for the working directory path.
 
@@ -46,7 +46,7 @@ class Model:
         return self.__working_directory_path
 
     @property
-    def get_runnables(self):
+    def get_runnables(self) -> List[FileInfo]:
         """
         Getter the list of runnables.
 
@@ -56,7 +56,7 @@ class Model:
         return self.__runnables
 
     @property
-    def get_data_access(self):
+    def get_data_access(self) -> DataAccess:
         """
         Getter the data accessor.
 
@@ -65,13 +65,13 @@ class Model:
         """
         return self.__data_access
 
-    def add_default_path(self):
+    def add_default_path(self) -> None:
         """
         Appends the current working directory using sys.path.
         """
         sys.path.append(self.__working_directory_path)
 
-    def add_working_directory_path(self, workdir: str):
+    def add_working_directory_path(self, workdir: str) -> None:
         """
         Sets the working directory to the given path and recomputes the list of executables. Searches recursively.
 
