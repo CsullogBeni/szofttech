@@ -1,5 +1,6 @@
 from src.persistence.idata_access import IDataAccess
-import os, json
+import os
+import json
 
 
 class DataAccess(IDataAccess):
@@ -18,10 +19,10 @@ class DataAccess(IDataAccess):
         clear_history(): Clears the configuration history.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.__app_data_path = os.path.join(os.environ['LOCALAPPDATA'], "SZOFTECH")
 
-    def save_config(self, runnable: str, data: dict):
+    def save_config(self, runnable: str, data: dict) -> None:
         """
         Saves the configuration for a runnable.
 
@@ -60,7 +61,7 @@ class DataAccess(IDataAccess):
 
         return data
 
-    def save_main_runnables(self, data: dict):
+    def save_main_runnables(self, data: dict) -> None:
         """
         Saves the main runnables.
 
@@ -93,7 +94,7 @@ class DataAccess(IDataAccess):
 
         return main_runnables
 
-    def clear_history(self):
+    def clear_history(self) -> None:
         """
         Clears the configuration history.
         """
