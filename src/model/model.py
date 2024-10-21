@@ -1,8 +1,6 @@
 # TODO: Create run_program(command: str) method that executes the given command.
 # TODO: Creat clear_history() method that clears the history.
 
-# TODO: Create save_config(runnable: FileInfo, args: List) method that saves the given runnable and its arguments.
-# TODO: Create load_config(runnable: FileInfo) method that loads the given runnable.
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
 # TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
 
@@ -10,7 +8,7 @@
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
 import sys
-from typing import List
+from typing import List, Tuple, Optional
 from queue import Queue
 from os import path, listdir
 
@@ -89,3 +87,52 @@ class Model:
             if path.isfile(elem):
                 [nam, desc, args] = extract_arguments(elem)
                 self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args], False))
+
+    # TODO: Add some concrete type for list
+    # Educated guess: a parameter with a potential value
+    def save_config(self, prog: FileInfo, args: List[Tuple[str, Optional[str]]]):
+        """
+        Saves a given program and its argument to JSON.
+
+        Args:
+            prog: The program.
+            args: The arguments.
+        """
+        actual_args = prog.get_args
+        args_to_keep = dict()
+        for [a, v] in args:
+            if any([a == p.get_id or a == p.get_second_id for p in actual_args]):
+                args_to_keep[a] = v
+            else:
+                print(f"Model.save_config: Argument {a} couldn't be found in program {prog.get_prog_name}, skipping")
+        self.__data_access.save_config(prog.get_prog_path, args_to_keep)
+
+    # Will return list above for idempotency
+    def load_config(self, prog: FileInfo) -> List[Tuple[str, Optional[str]]]:
+        """
+        Loads a given program's arguments from JSON.
+
+        Args:
+            prog: The program.
+        """
+        res_dict = self.__data_access.load_config(prog.get_prog_path)
+        return [[k,v] for k,v in res_dict.items()]
+
+
+    def save_main(self):
+        """
+        Dumps the list of main programs to JSON.
+        """
+        res = dict()
+        # Bit confused why we're using json to store a list
+        res['main'] = [p.get_prog_path for p in self.__runnables if p.get_is_main_runnable]
+        self.__data_access.save_main_runnables(res)
+
+    def load_main(self):
+        """
+        Loads the list of main programs from JSON.
+        """
+        mains = self.__data_access.load_main_runnables()['main']
+        for idx, r in enumerate(self.__runnables):
+            if r.get_prog_path in mains:
+                self.__runnables[idx].set_main_runnable(True)
