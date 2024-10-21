@@ -15,7 +15,7 @@ class FileInfo:
     """
 
     def __init__(self, prog_path: str, prog_name: str, prog_description: str, args: List[Argument],
-                 is_main_runnable: bool):
+                 is_main_runnable: bool) -> None:
         self.__prog_path = prog_path
         self.__prog_name = prog_name
         self.__prog_description = prog_description
@@ -23,7 +23,7 @@ class FileInfo:
         self.__is_main_runnable = is_main_runnable
 
     @property
-    def get_prog_path(self):
+    def get_prog_path(self) -> str:
         """
         Getter for the file path of the runnable.
 
@@ -33,7 +33,7 @@ class FileInfo:
         return self.__prog_path
 
     @property
-    def get_prog_name(self):
+    def get_prog_name(self) -> str:
         """
         Getter for the name of the runnable.
 
@@ -43,7 +43,7 @@ class FileInfo:
         return self.__prog_name
 
     @property
-    def get_prog_description(self):
+    def get_prog_description(self) -> str:
         """
         Getter for the description of the runnable.
 
@@ -53,7 +53,7 @@ class FileInfo:
         return self.__prog_description
 
     @property
-    def get_args(self):
+    def get_args(self) -> List[Argument]:
         """
         Getter for the argument list of the runnable.
 
@@ -63,7 +63,7 @@ class FileInfo:
         return self.__args
 
     @property
-    def is_main_runnable(self):
+    def is_main_runnable(self) -> bool:
         """
         Getter for the main runnable flag of the runnable.
 
@@ -72,7 +72,7 @@ class FileInfo:
         """
         return self.__is_main_runnable
 
-    def add_argument(self, arg: Argument):
+    def add_argument(self, arg: Argument) -> None:
         """
         Adds an argument to the argument list if it's not already added.
 
@@ -86,7 +86,7 @@ class FileInfo:
         if not contains:
             self.__args.append(arg)
 
-    def set_main_runnable(self, is_main_runnable: bool):
+    def set_main_runnable(self, is_main_runnable: bool) -> None:
         """
         Setter for the main runnable flag
 
