@@ -7,8 +7,8 @@ from src.persistence.data_access import DataAccess
 
 class TestDataAccess(unittest.TestCase):
     def setUp(self):
-        self.data_path = pathlib.Path(pathlib.Path(__file__).parent.parent.parent.resolve() / 'src' / 'persistence')
-        self.data_access = DataAccess(str(self.data_path))
+        self.data_path = os.path.join(os.environ['LOCALAPPDATA'], "SZOFTECH")
+        self.data_access = DataAccess()
 
     def test_save_config(self):
         """
@@ -22,7 +22,7 @@ class TestDataAccess(unittest.TestCase):
         runnable = "test_runnable"
         data = {"key": "value"}
         self.data_access.save_config(runnable, data)
-        expected_file_path = self.data_path / "SZOFTECH" / (runnable.replace('/', '').replace(",", '_') + ".json")
+        expected_file_path = os.path.join(self.data_path, (runnable.replace('/', '').replace(",", '_') + ".json"))
         self.assertTrue(os.path.exists(expected_file_path))
         with open(expected_file_path, 'r') as json_file:
             actual_data = json.load(json_file)
@@ -54,7 +54,7 @@ class TestDataAccess(unittest.TestCase):
         """
         data = {"key": "value"}
         self.data_access.save_main_runnables(data)
-        expected_file_path = self.data_path / "SZOFTECH" / "main_runnables.json"
+        expected_file_path = os.path.join(self.data_path, "main_runnables.json")
         self.assertTrue(os.path.exists(expected_file_path))
         with open(expected_file_path, 'r') as json_file:
             actual_data = json.load(json_file)
@@ -85,7 +85,7 @@ class TestDataAccess(unittest.TestCase):
         data = {"key": "value"}
         self.data_access.save_main_runnables(data)
         self.data_access.clear_history()
-        expected_file_path = self.data_path / "SZOFTECH" / "main_runnables.json"
+        expected_file_path = os.path.join(self.data_path, "main_runnables.json")
         self.assertFalse(os.path.exists(expected_file_path))
 
 
