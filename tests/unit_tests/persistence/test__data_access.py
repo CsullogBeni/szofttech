@@ -1,16 +1,15 @@
 import unittest
 import os
-import pathlib
 import json
 from src.persistence.data_access import DataAccess
 
 
 class TestDataAccess(unittest.TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.data_path = os.path.join(os.environ['LOCALAPPDATA'], "SZOFTECH")
         self.data_access = DataAccess()
 
-    def test_save_config(self):
+    def test_save_config(self) -> None:
         """
         Test the save_config method by storing data for a specific runnable.
 
@@ -28,7 +27,7 @@ class TestDataAccess(unittest.TestCase):
             actual_data = json.load(json_file)
         self.assertEqual(actual_data, data)
 
-    def test_load_config(self):
+    def test_load_config(self) -> None:
         """
         Test the load_config method by loading data for a specific runnable.
 
@@ -43,7 +42,7 @@ class TestDataAccess(unittest.TestCase):
         actual_data = self.data_access.load_config(runnable)
         self.assertEqual(actual_data, data)
 
-    def test_save_main_runnables(self):
+    def test_save_main_runnables(self) -> None:
         """
         Test the save_main_runnables method by storing data to a JSON file.
 
@@ -60,7 +59,7 @@ class TestDataAccess(unittest.TestCase):
             actual_data = json.load(json_file)
         self.assertEqual(actual_data, data)
 
-    def test_load_main_runnables(self):
+    def test_load_main_runnables(self) -> None:
         """
         Test the load_main_runnables method by loading data from a JSON file.
 
@@ -74,7 +73,7 @@ class TestDataAccess(unittest.TestCase):
         actual_data = self.data_access.load_main_runnables()
         self.assertEqual(actual_data, data)
 
-    def test_clear_history(self):
+    def test_clear_history(self) -> None:
         """
         Test the clear_history method by clearing the history and checking that the
         configuration file is deleted.
