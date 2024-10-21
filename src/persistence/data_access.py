@@ -7,7 +7,7 @@ class DataAccess(IDataAccess):
     A class that handles data persistence for the application.
 
     Attributes:
-        __app_data_path (str): The path to the application data directory.
+        __app_data_path (str): The path to users AppData local directory.
 
     Methods:
         __init__(data_path: str): Initializes the DataAccess object with the application data path.
@@ -18,14 +18,8 @@ class DataAccess(IDataAccess):
         clear_history(): Clears the configuration history.
     """
 
-    def __init__(self, data_path: str):
-        """
-        Initializes the DataAccess object with the application data path.
-
-        Args:
-            data_path (str): The path to the application data directory.
-        """
-        self.__app_data_path = os.path.join(data_path, "SZOFTECH")
+    def __init__(self):
+        self.__app_data_path = os.path.join(os.environ['LOCALAPPDATA'], "SZOFTECH")
 
     def save_config(self, runnable: str, data: dict):
         """
@@ -36,12 +30,12 @@ class DataAccess(IDataAccess):
             data (dict): The configuration data.
         """
         if not os.path.exists(self.__app_data_path):
-            os.makedirs(self.__app_data_path, exist_ok=True)
-        file_name = runnable.replace('/', '_').replace('\'', '_') + ".json"
+            os.makedirs(self.__app_data_path)
+        file_name = runnable.replace('/', '_').replace('\\', '_') + ".json"
         file_path = os.path.join(self.__app_data_path, file_name)
 
         with open(file_path, 'w') as json_file:
-            json.dump(data, json_file, indent=4)
+            json.dump(data, json_file)
 
     def load_config(self, runnable: str) -> dict:
         """
@@ -56,7 +50,7 @@ class DataAccess(IDataAccess):
         Raises:
             FileNotFoundError: If the configuration file is not found.
         """
-        file_name = runnable.replace('/', '_').replace('\'', '_') + ".json"
+        file_name = runnable.replace('/', '_').replace('\\', '_') + ".json"
         file_path = os.path.join(self.__app_data_path, file_name)
 
         if not os.path.exists(file_path):
