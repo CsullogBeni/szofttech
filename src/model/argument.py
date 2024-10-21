@@ -17,7 +17,7 @@ class Argument:
     """
 
     def __init__(self, id: str, second_id: str, help: str, default: str, required: bool,
-                 type: str, action: str, choices: List[str]):
+                 type: str, action: str, choices: List[str]) -> None:
         self.__id = id
         self.__second_id = second_id
         self.__help = help
@@ -28,7 +28,7 @@ class Argument:
         self.__choices = choices
 
     @property
-    def get_id(self):
+    def get_id(self) -> str:
         """
         Getter for the id of the argument.
 
@@ -38,7 +38,7 @@ class Argument:
         return self.__id
 
     @property
-    def get_second_id(self):
+    def get_second_id(self) -> str:
         """
         Getter for the second_id of the argument.
 
@@ -48,7 +48,7 @@ class Argument:
         return self.__second_id
 
     @property
-    def get_help(self):
+    def get_help(self) -> str:
         """
         Getter for the help string of the argument.
 
@@ -58,7 +58,7 @@ class Argument:
         return self.__help
 
     @property
-    def get_default(self):
+    def get_default(self) -> str:
         """
         Getter for the default value of the argument.
 
@@ -68,7 +68,7 @@ class Argument:
         return self.__default
 
     @property
-    def get_required(self):
+    def get_required(self) -> bool:
         """
         Getter whether the argument is required.
 
@@ -78,7 +78,7 @@ class Argument:
         return self.__required
 
     @property
-    def get_type(self):
+    def get_type(self) -> str:
         """
         Getter for the type of the argument.
 
@@ -88,7 +88,7 @@ class Argument:
         return self.__type
 
     @property
-    def get_action(self):
+    def get_action(self) -> str:
         """
         Getter for the action of the argument.
 
@@ -98,7 +98,7 @@ class Argument:
         return self.__action
 
     @property
-    def get_choices(self):
+    def get_choices(self) -> List[str]:
         """
         Getter for the list of the choices of the argument.
 
