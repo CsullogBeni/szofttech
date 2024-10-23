@@ -1,6 +1,6 @@
 # TODO: Create run_program(command: str) method that executes the given command.
 # TODO: Creat clear_history() method that clears the history.
-
+import json
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
 # TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
 
@@ -154,3 +154,12 @@ class Model:
             os.makedirs(app_data_dir)
 
         return app_data_dir
+
+    def save_working_directory_path(self, full_path: str) -> None:
+        data_to_save = dict()
+        data_to_save['working_directory_path'] = full_path
+
+        file_path = self.get_app_data_dir()
+
+        with open(file_path, 'w') as json_file:
+            json.dump(data_to_save, json_file)
