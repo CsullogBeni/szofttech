@@ -20,19 +20,6 @@ from src.model.fileinfo import FileInfo
 from src.model.argument_visitor import extract_arguments
 
 
-def run_program(command: str) -> CompletedProcess:
-    """
-    This method executes the given command.
-
-    Args:
-        command: contains the full path of the executable and after it, its arguments
-
-    Returns:
-        CompletedProcess: the result of the executed command
-    """
-    return subprocess.run(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-
-
 class Model:
     """
     Contains all the data about a runnable.
@@ -150,3 +137,15 @@ class Model:
         for idx, r in enumerate(self.__runnables):
             if r.get_prog_path in mains:
                 self.__runnables[idx].set_main_runnable(True)
+
+    def run_program(self, command: str) -> CompletedProcess:
+        """
+        This method executes the given command.
+
+        Args:
+            command: contains the full path of the executable and after it, its arguments
+
+        Returns:
+            CompletedProcess: the result of the executed command
+        """
+        return subprocess.run(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
