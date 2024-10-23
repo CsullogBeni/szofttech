@@ -158,7 +158,7 @@ class Model:
 
     def save_working_directory_path(self, full_path: str) -> None:
         """
-        This function saves the given path as the Model's working directory path into a json file in app data dir
+        This function saves the given path as the Model's working directory path into a json file in App Data Directory
 
         Args:
             full_path: the path to save as the Model's working directory path
@@ -173,6 +173,12 @@ class Model:
             json.dump(data_to_save, json_file)
 
     def load_working_directory_path(self) -> str | None:
+        """
+        This function loads the Model's working directory path from working_dir_path.json file in App Data Directory
+
+        Returns:
+            str | None: the loaded path, if it has been saved previously, or None if it hasn't
+        """
         file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
 
         if not os.path.exists(file_path):
