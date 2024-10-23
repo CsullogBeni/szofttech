@@ -25,7 +25,7 @@ def run_program(command: str):
     Args:
         command: contains the full path of the executable and after it, its arguments
     """
-    subprocess.run(f"python {command}")
+    return subprocess.run(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
 
 class Model:
