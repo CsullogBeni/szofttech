@@ -8,6 +8,8 @@
 
 import sys
 from typing import List, Tuple, Optional
+from subprocess import CompletedProcess
+from typing import List
 from queue import Queue
 from os import path, listdir
 import subprocess
@@ -18,7 +20,7 @@ from src.model.fileinfo import FileInfo
 from src.model.argument_visitor import extract_arguments
 
 
-def run_program(command: str):
+def run_program(command: str) -> CompletedProcess:
     """
     This method executes the given command.
 
