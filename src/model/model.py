@@ -156,6 +156,13 @@ class Model:
         return app_data_dir
 
     def save_working_directory_path(self, full_path: str) -> None:
+        """
+        This function saves the given path as the Model's working directory path into a json file in app data dir
+
+        Args:
+            full_path: the path to save as the Model's working directory path
+
+        """
         data_to_save = dict()
         data_to_save['working_directory_path'] = full_path
 
