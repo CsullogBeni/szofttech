@@ -146,7 +146,8 @@ class Model:
             command: contains the full path of the executable and after it, its arguments
 
         Returns:
-            CompletedProcess: the result of the executed command
+            tuple[str, str] | tuple[None, str]: the result of the executed command,
+                first element of the tuple is from the stdout (it is None if there was an error), second is from stderr
         """
         try:
             result = subprocess.Popen(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
