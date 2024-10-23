@@ -138,7 +138,7 @@ class Model:
             if r.get_prog_path in mains:
                 self.__runnables[idx].set_main_runnable(True)
 
-    def run_program(self, command: str) -> CompletedProcess:
+    def run_program(self, command: str) -> tuple[str, str] | tuple[None, str]:
         """
         This method executes the given command.
 
@@ -148,4 +148,9 @@ class Model:
         Returns:
             CompletedProcess: the result of the executed command
         """
-        return subprocess.run(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        try:
+            result = subprocess.Popen(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout, stderr = result.communicate()
+            return stdout.decode(), stderr.decode()
+        except Exception as e:
+            return None, str(e)
