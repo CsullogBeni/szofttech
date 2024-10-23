@@ -9,7 +9,8 @@ import json
 
 import os
 import sys
-from typing import List, Tuple, Optional
+from idlelib.outwin import file_line_pats
+from typing import List, Tuple, Optional, Any
 from queue import Queue
 from os import path, listdir
 
@@ -166,7 +167,18 @@ class Model:
         data_to_save = dict()
         data_to_save['working_directory_path'] = full_path
 
-        file_path = self.get_app_data_dir()
+        file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
 
         with open(file_path, 'w') as json_file:
             json.dump(data_to_save, json_file)
+
+    def load_working_directory_path(self) -> str | None:
+        file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
+
+        if not os.path.exists(file_path):
+            return None
+
+        with open(file_path, 'r') as json_file:
+            file_data = json.load(json_file)
+
+            return file_data['working_directory_path']
