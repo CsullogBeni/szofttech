@@ -7,6 +7,7 @@
 # TODO: Create search_runnables(given_string: str) method that searches the given_string in __runnables and __main_runnables.
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
+import os
 import sys
 from typing import List, Tuple, Optional
 from queue import Queue
@@ -116,8 +117,7 @@ class Model:
             prog: The program.
         """
         res_dict = self.__data_access.load_config(prog.get_prog_path)
-        return [[k,v] for k,v in res_dict.items()]
-
+        return [[k, v] for k, v in res_dict.items()]
 
     def save_main(self):
         """
@@ -136,3 +136,15 @@ class Model:
         for idx, r in enumerate(self.__runnables):
             if r.get_prog_path in mains:
                 self.__runnables[idx].set_main_runnable(True)
+
+    def get_app_data_dir(self):
+        app_name = "SZOFTECH"  # I am not sure about it, but in DataAccess we used this
+        if os.name == 'nt':
+            app_data_dir = os.path.join(os.environ['LOCALAPPDATA'], app_name)
+        else:
+            app_data_dir = os.path.join(os.path.expanduser('~'), '.local', 'share', app_name)
+
+        if not os.path.exists(app_data_dir):
+            os.makedirs(app_data_dir)
+
+        return app_data_dir
