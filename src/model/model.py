@@ -131,8 +131,7 @@ class Model:
             prog: The program.
         """
         res_dict = self.__data_access.load_config(prog.get_prog_path)
-        return [[k,v] for k,v in res_dict.items()]
-
+        return [[k, v] for k, v in res_dict.items()]
 
     def save_main(self):
         """
