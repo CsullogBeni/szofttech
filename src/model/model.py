@@ -32,6 +32,10 @@ class Model:
 
     def __init__(self, working_directory_path: str, runnables: List[FileInfo], data_access: DataAccess) -> None:
         self.__working_directory_path = working_directory_path
+        loaded_working_directory_path = self.load_working_directory_path()
+        if loaded_working_directory_path is not None:
+            self.__working_directory_path = loaded_working_directory_path
+
         self.__runnables = runnables
         self.__data_access = data_access
 
