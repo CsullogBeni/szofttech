@@ -92,6 +92,8 @@ class Model:
                 [nam, desc, args] = extract_arguments(elem)
                 self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args], False))
 
+        self.__data_access.save_working_directory_path(self.__working_directory_path)
+
     # TODO: Add some concrete type for list
     # Educated guess: a parameter with a potential value
     def save_config(self, prog: FileInfo, args: List[Tuple[str, Optional[str]]]):
