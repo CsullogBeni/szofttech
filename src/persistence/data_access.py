@@ -30,7 +30,7 @@ class DataAccess(IDataAccess):
             runnable (str): The name of the runnable.
             data (dict): The configuration data.
         """
-        self.check_or_create_app_data_dir()
+        self.__check_or_create_app_data_dir()
 
         file_name = runnable.replace('/', '_').replace('\\', '_') + ".json"
         file_path = os.path.join(self.__app_data_path, file_name)
@@ -68,7 +68,7 @@ class DataAccess(IDataAccess):
         Args:
             data (dict): The main runnables data.
         """
-        self.check_or_create_app_data_dir()
+        self.__check_or_create_app_data_dir()
 
         file_path = os.path.join(self.__app_data_path, "main_runnables.json")
 
@@ -105,7 +105,7 @@ class DataAccess(IDataAccess):
             except Exception as e:
                 print(f"Failed to delete {file_path}. Reason: {e}")
 
-    def check_or_create_app_data_dir(self) -> None:
+    def __check_or_create_app_data_dir(self) -> None:
         """
         This function check whether AppData local directory exists at __app_data_path,
         and if it doesn't, it will be created.
@@ -124,7 +124,7 @@ class DataAccess(IDataAccess):
         data_to_save = dict()
         data_to_save['working_directory_path'] = full_path
 
-        self.check_or_create_app_data_dir()
+        self.__check_or_create_app_data_dir()
 
         file_path = os.path.join(self.__app_data_path, 'working_dir_path.json')
 
