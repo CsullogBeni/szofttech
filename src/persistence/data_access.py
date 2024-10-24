@@ -126,7 +126,7 @@ class DataAccess(IDataAccess):
 
         self.check_or_create_app_data_dir()
 
-        file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
+        file_path = os.path.join(self.__app_data_path, 'working_dir_path.json')
 
         with open(file_path, 'w') as json_file:
             json.dump(data_to_save, json_file)
@@ -138,7 +138,7 @@ class DataAccess(IDataAccess):
         Returns:
             str | None: the loaded path, if it has been saved previously, or None if it hasn't
         """
-        file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
+        file_path = os.path.join(self.__app_data_path, 'working_dir_path.json')
 
         if not os.path.exists(file_path):
             return None
