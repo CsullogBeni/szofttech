@@ -30,8 +30,8 @@ class DataAccess(IDataAccess):
             runnable (str): The name of the runnable.
             data (dict): The configuration data.
         """
-        if not os.path.exists(self.__app_data_path):
-            os.makedirs(self.__app_data_path)
+        self.check_or_create_app_data_dir()
+
         file_name = runnable.replace('/', '_').replace('\\', '_') + ".json"
         file_path = os.path.join(self.__app_data_path, file_name)
 
@@ -68,8 +68,7 @@ class DataAccess(IDataAccess):
         Args:
             data (dict): The main runnables data.
         """
-        if not os.path.exists(self.__app_data_path):
-            os.makedirs(self.__app_data_path, exist_ok=True)
+        self.check_or_create_app_data_dir()
 
         file_path = os.path.join(self.__app_data_path, "main_runnables.json")
 
@@ -124,6 +123,8 @@ class DataAccess(IDataAccess):
         """
         data_to_save = dict()
         data_to_save['working_directory_path'] = full_path
+
+        self.check_or_create_app_data_dir()
 
         file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
 
