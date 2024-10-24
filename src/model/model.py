@@ -142,7 +142,8 @@ class Model:
             if r.get_prog_path in mains:
                 self.__runnables[idx].set_main_runnable(True)
 
-    def get_app_data_dir(self) -> str:
+    @staticmethod
+    def get_app_data_dir() -> str:
         """
         This function get the path of the App Data Directory on the current system. If it doesn't exist, it creates it.
 
