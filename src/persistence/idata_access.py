@@ -29,11 +29,6 @@ class IDataAccess(ABC):
     def clear_history(self):
         pass
 
-    @staticmethod
-    @abstractmethod
-    def get_app_data_dir() -> str:
-        pass
-
     @abstractmethod
     def save_working_directory_path(self, full_path: str) -> None:
         pass

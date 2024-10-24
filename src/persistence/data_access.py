@@ -106,25 +106,6 @@ class DataAccess(IDataAccess):
             except Exception as e:
                 print(f"Failed to delete {file_path}. Reason: {e}")
 
-    @staticmethod
-    def get_app_data_dir() -> str:
-        """
-        This function get the path of the App Data Directory on the current system. If it doesn't exist, it creates it.
-
-        Returns:
-            str: the full path of the App Data Directory
-        """
-        app_name = "SZOFTECH"  # I am not sure about it, but in DataAccess we used this
-        if os.name == 'nt':
-            app_data_dir = os.path.join(os.environ['LOCALAPPDATA'], app_name)
-        else:
-            app_data_dir = os.path.join(os.path.expanduser('~'), '.local', 'share', app_name)
-
-        if not os.path.exists(app_data_dir):
-            os.makedirs(app_data_dir)
-
-        return app_data_dir
-
     def save_working_directory_path(self, full_path: str) -> None:
         """
         This function saves the given path as the Model's working directory path into a json file in App Data Directory
