@@ -149,6 +149,7 @@ class Model:
             tuple[str, str] | tuple[None, str]: the result of the executed command,
                 first element of the tuple is from the stdout (it is None if there was an error), second is from stderr
         """
+        self.add_default_path()
         try:
             result = subprocess.Popen(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             stdout, stderr = result.communicate()
