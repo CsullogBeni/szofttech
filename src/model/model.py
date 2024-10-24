@@ -29,10 +29,14 @@ class Model:
         __data_access:             The data access object, handles IO operations
     """
 
-    def __init__(self, working_directory_path: str, runnables: List[FileInfo], data_access: DataAccess) -> None:
-        self.__working_directory_path = working_directory_path
-        self.__runnables = runnables
-        self.__data_access = data_access
+    def __init__(self, working_directory_path: str = None) -> None:
+        self.__data_access = DataAccess()
+        self.__runnables = []
+        loaded_working_directory_path = self.__data_access.load_working_directory_path()
+        if loaded_working_directory_path is not None:
+            self.__working_directory_path = loaded_working_directory_path
+        else:
+            self.__working_directory_path = working_directory_path
 
     @property
     def get_working_directory_path(self) -> str:
@@ -88,6 +92,8 @@ class Model:
             if path.isfile(elem):
                 [nam, desc, args] = extract_arguments(elem)
                 self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args], False))
+
+        self.__data_access.save_working_directory_path(self.__working_directory_path)
 
     # TODO: Add some concrete type for list
     # Educated guess: a parameter with a potential value

@@ -30,8 +30,8 @@ class DataAccess(IDataAccess):
             runnable (str): The name of the runnable.
             data (dict): The configuration data.
         """
-        if not os.path.exists(self.__app_data_path):
-            os.makedirs(self.__app_data_path)
+        self.__check_or_create_app_data_dir()
+
         file_name = runnable.replace('/', '_').replace('\\', '_') + ".json"
         file_path = os.path.join(self.__app_data_path, file_name)
 
@@ -68,8 +68,7 @@ class DataAccess(IDataAccess):
         Args:
             data (dict): The main runnables data.
         """
-        if not os.path.exists(self.__app_data_path):
-            os.makedirs(self.__app_data_path, exist_ok=True)
+        self.__check_or_create_app_data_dir()
 
         file_path = os.path.join(self.__app_data_path, "main_runnables.json")
 
@@ -105,3 +104,46 @@ class DataAccess(IDataAccess):
                     os.remove(file_path)
             except Exception as e:
                 print(f"Failed to delete {file_path}. Reason: {e}")
+
+    def __check_or_create_app_data_dir(self) -> None:
+        """
+        This function check whether AppData local directory exists at __app_data_path,
+        and if it doesn't, it will be created.
+        """
+        if not os.path.exists(self.__app_data_path):
+            os.makedirs(self.__app_data_path, exist_ok=True)
+
+    def save_working_directory_path(self, full_path: str) -> None:
+        """
+        This function saves the given path as the Model's working directory path into a json file in App Data Directory
+
+        Args:
+            full_path: the path to save as the Model's working directory path
+
+        """
+        data_to_save = dict()
+        data_to_save['working_directory_path'] = full_path
+
+        self.__check_or_create_app_data_dir()
+
+        file_path = os.path.join(self.__app_data_path, 'working_dir_path.json')
+
+        with open(file_path, 'w') as json_file:
+            json.dump(data_to_save, json_file)
+
+    def load_working_directory_path(self) -> str | None:
+        """
+        This function loads the Model's working directory path from working_dir_path.json file in App Data Directory
+
+        Returns:
+            str | None: the loaded path, if it has been saved previously, or None if it hasn't
+        """
+        file_path = os.path.join(self.__app_data_path, 'working_dir_path.json')
+
+        if not os.path.exists(file_path):
+            return None
+
+        with open(file_path, 'r') as json_file:
+            file_data = json.load(json_file)
+
+            return file_data['working_directory_path']
