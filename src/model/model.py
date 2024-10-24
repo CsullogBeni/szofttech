@@ -1,4 +1,3 @@
-# TODO: Create run_program(command: str) method that executes the given command.
 # TODO: Creat clear_history() method that clears the history.
 
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
@@ -7,15 +6,17 @@
 # TODO: Create search_runnables(given_string: str) method that searches the given_string in __runnables and __main_runnables.
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
+import subprocess
 import sys
-from typing import List, Tuple, Optional
-from queue import Queue
 from os import path, listdir
+from queue import Queue
+from typing import List
+from typing import Tuple, Optional
 
-from src.persistence.data_access import DataAccess
 from src.model.argument import Argument
-from src.model.fileinfo import FileInfo
 from src.model.argument_visitor import extract_arguments
+from src.model.fileinfo import FileInfo
+from src.persistence.data_access import DataAccess
 
 
 class Model:
@@ -116,8 +117,7 @@ class Model:
             prog: The program.
         """
         res_dict = self.__data_access.load_config(prog.get_prog_path)
-        return [[k,v] for k,v in res_dict.items()]
-
+        return [[k, v] for k, v in res_dict.items()]
 
     def save_main(self):
         """
@@ -136,3 +136,22 @@ class Model:
         for idx, r in enumerate(self.__runnables):
             if r.get_prog_path in mains:
                 self.__runnables[idx].set_main_runnable(True)
+
+    def run_program(self, command: str) -> tuple[str, str] | tuple[None, str]:
+        """
+        This method executes the given command.
+
+        Args:
+            command: contains the full path of the executable and after it, its arguments
+
+        Returns:
+            tuple[str, str] | tuple[None, str]: the result of the executed command,
+                first element of the tuple is from the stdout (it is None if there was an error), second is from stderr
+        """
+        self.add_default_path()
+        try:
+            result = subprocess.Popen(f"python {command}", stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout, stderr = result.communicate()
+            return stdout.decode(), stderr.decode()
+        except Exception as e:
+            return None, str(e)
