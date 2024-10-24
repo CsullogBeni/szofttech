@@ -9,8 +9,7 @@ import json
 
 import os
 import sys
-from idlelib.outwin import file_line_pats
-from typing import List, Tuple, Optional, Any
+from typing import List, Tuple, Optional
 from queue import Queue
 from os import path, listdir
 
