@@ -8,7 +8,6 @@
 
 import sys
 from typing import List, Tuple, Optional
-from subprocess import CompletedProcess
 from typing import List
 from queue import Queue
 from os import path, listdir
