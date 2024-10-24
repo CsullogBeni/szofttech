@@ -105,3 +105,55 @@ class DataAccess(IDataAccess):
                     os.remove(file_path)
             except Exception as e:
                 print(f"Failed to delete {file_path}. Reason: {e}")
+
+    @staticmethod
+    def get_app_data_dir() -> str:
+        """
+        This function get the path of the App Data Directory on the current system. If it doesn't exist, it creates it.
+
+        Returns:
+            str: the full path of the App Data Directory
+        """
+        app_name = "SZOFTECH"  # I am not sure about it, but in DataAccess we used this
+        if os.name == 'nt':
+            app_data_dir = os.path.join(os.environ['LOCALAPPDATA'], app_name)
+        else:
+            app_data_dir = os.path.join(os.path.expanduser('~'), '.local', 'share', app_name)
+
+        if not os.path.exists(app_data_dir):
+            os.makedirs(app_data_dir)
+
+        return app_data_dir
+
+    def save_working_directory_path(self, full_path: str) -> None:
+        """
+        This function saves the given path as the Model's working directory path into a json file in App Data Directory
+
+        Args:
+            full_path: the path to save as the Model's working directory path
+
+        """
+        data_to_save = dict()
+        data_to_save['working_directory_path'] = full_path
+
+        file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
+
+        with open(file_path, 'w') as json_file:
+            json.dump(data_to_save, json_file)
+
+    def load_working_directory_path(self) -> str | None:
+        """
+        This function loads the Model's working directory path from working_dir_path.json file in App Data Directory
+
+        Returns:
+            str | None: the loaded path, if it has been saved previously, or None if it hasn't
+        """
+        file_path = os.path.join(self.get_app_data_dir(), 'working_dir_path.json')
+
+        if not os.path.exists(file_path):
+            return None
+
+        with open(file_path, 'r') as json_file:
+            file_data = json.load(json_file)
+
+            return file_data['working_directory_path']
