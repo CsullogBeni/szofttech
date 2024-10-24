@@ -106,6 +106,10 @@ class DataAccess(IDataAccess):
             except Exception as e:
                 print(f"Failed to delete {file_path}. Reason: {e}")
 
+    def check_or_create_app_data_dir(self) -> None:
+        if not os.path.exists(self.__app_data_path):
+            os.makedirs(self.__app_data_path, exist_ok=True)
+
     def save_working_directory_path(self, full_path: str) -> None:
         """
         This function saves the given path as the Model's working directory path into a json file in App Data Directory
