@@ -107,6 +107,10 @@ class DataAccess(IDataAccess):
                 print(f"Failed to delete {file_path}. Reason: {e}")
 
     def check_or_create_app_data_dir(self) -> None:
+        """
+        This function check whether AppData local directory exists at __app_data_path,
+        and if it doesn't, it will be created.
+        """
         if not os.path.exists(self.__app_data_path):
             os.makedirs(self.__app_data_path, exist_ok=True)
 
