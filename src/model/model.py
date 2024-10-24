@@ -6,17 +6,17 @@
 # TODO: Create search_runnables(given_string: str) method that searches the given_string in __runnables and __main_runnables.
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
-import sys
-from typing import List, Tuple, Optional
-from typing import List
-from queue import Queue
-from os import path, listdir
 import subprocess
+import sys
+from os import path, listdir
+from queue import Queue
+from typing import List
+from typing import Tuple, Optional
 
-from src.persistence.data_access import DataAccess
 from src.model.argument import Argument
-from src.model.fileinfo import FileInfo
 from src.model.argument_visitor import extract_arguments
+from src.model.fileinfo import FileInfo
+from src.persistence.data_access import DataAccess
 
 
 class Model:
