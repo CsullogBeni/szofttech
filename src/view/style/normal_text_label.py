@@ -10,4 +10,4 @@ class NormalTextLabel(QLabel):
     def __init__(self, text: str = '', font_size: int = 12):
         super(NormalTextLabel, self).__init__()
         self.setText(text)
-        self.setFont(QFont('TBD', font_size))
+        self.setFont(QFont('MS shell Dlg 2', font_size))
