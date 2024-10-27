@@ -43,3 +43,12 @@ class TestArgument(unittest.TestCase):
 
         self.assertEqual(argument.get_id, id)
 
+    def test__get_second_id(self):
+        """
+        Testing Argument.get_second_id method.
+        """
+        second_id = 'description1'
+        argument = Argument('', second_id, '', '', False, '', '', [])
+
+        self.assertEqual(argument.get_second_id, second_id)
+
