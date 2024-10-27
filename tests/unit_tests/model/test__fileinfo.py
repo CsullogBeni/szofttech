@@ -70,3 +70,12 @@ class TestFileInfo(unittest.TestCase):
 
         self.assertEqual(file_info.get_args, args)
 
+    def test__is_main_runnable(self):
+        """
+        Testing FileInfo.is_main_runnable method.
+        """
+        is_main_runnable = True
+        file_info = FileInfo('/path/to/program', 'Program Name', 'This is a program', [], is_main_runnable)
+
+        self.assertEqual(file_info.is_main_runnable, is_main_runnable)
+
