@@ -33,3 +33,13 @@ class TestArgument(unittest.TestCase):
         self.assertEqual(argument.get_type, type)
         self.assertEqual(argument.get_action, action)
         self.assertEqual(argument.get_choices, choices)
+
+    def test__get_id(self):
+        """
+        Testing Argument.get_id method.
+        """
+        id = 'arg1'
+        argument = Argument(id, '', '', '', False, '', '', [])
+
+        self.assertEqual(argument.get_id, id)
+
