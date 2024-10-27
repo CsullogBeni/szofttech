@@ -124,6 +124,22 @@ class ShowRunnablesScreen(QDialog):
         )
 
     def __fulfill_vbox(self, runnable: FileInfo, is_main: bool = False):
+        """
+        Adds a runnable to the vertical box layout.
+
+        Adds a horizontal box layout to the vertical box layout with a
+        button for the given runnable. The button is connected to the
+        __try_load_runnable method with the given runnable as the argument.
+        If the runnable is a favourite, the button is on the left side,
+        otherwise it is on the right side.
+
+        Parameters
+        ----------
+        runnable : FileInfo
+            The runnable to add to the vertical box layout.
+        is_main : bool, optional
+            If the runnable is a favourite, by default False
+        """
         horizontal_box = QtWidgets.QHBoxLayout()
         button = NormalTextButton(text=runnable.get_prog_path)
         button.clicked.connect(
