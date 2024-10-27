@@ -4,7 +4,7 @@
 \usepackage{tabularx}
 \usepackage{ltablex}
 \usepackage{placeins}
-\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage[a4paper, total={6in, 10in}]{geometry}
 
 \title{Plan}
 \author{Automatic Project Detection And Tooling For Devs}
@@ -88,7 +88,7 @@ Tasks are structured to reflect dependencies and flow between components:
 \section{Task assignment}
 \label{taskassignment}
 
-The following table shows task assignments for each developer to ensure accountability.
+The following tables shows task assignments for each milestone to ensure accountability. Each task is assigned to at least one of the group members and all the tasks have a due date to ensure the comletion of the milestone.
 
 \subsection{Milestone 1}
 
@@ -166,8 +166,6 @@ The following table shows task assignments for each developer to ensure accounta
     \hline
 \end{tabularx}
 
-\newpage
-
 \subsection{Milestone 3}
 
 \begin{tabularx}{\textwidth} { 
@@ -189,6 +187,8 @@ The following table shows task assignments for each developer to ensure accounta
     \hline
     Develop test runner & TBD & 2024-12-14 \\
     \hline
+    Implement Windows icon setting & TBD & 2024-12-14 \\
+    \hline
     Implement some test runnables & Benedek Csüllög, Márton Petes, Zsófia Laczkó, Dániel Gergely, Borbála Merth & 2024-12-14 \\
     \hline
 \end{tabularx}
@@ -204,47 +204,52 @@ The timeline aligns with each milestone's due date, ensuring the project is comp
     \item Sufficient time is allocated for testing and integration after each milestone.
 \end{itemize}
 
-\newpage
 \section{Architecture}
 
 \subsection{Software components}
 
-The program is built on three main layers, each representing a namespace. These are:
+The program is built on 3 main layers, each representing a namespace. These are:
 
 \begin{itemize}
-    \item Model: handles the business logic. Finds runnables, and collects its details. Executes the runnables.
+    \item Model: handles the business logic. Finds runnables, and collects their details. Executes the runnables with given configurations.
     \item Persistence: handles the IO operations. Saves and loads user preferences and other information that is needed for better usability.
-    \item View: stands for the user interface.
+    \item View: stands for the user interface and user experience.
 \end{itemize}
 
-The following image shows the structure of the 3 layer, and all files in the layers. 
+The \ref{fig:umlpackage}. image shows the structure of the 3 layers, and all the files that are included. 
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{img/package_diagram.drawio.png}
     \caption{UML package diagram}
-    \label{fig:enter-label}
+    \label{fig:umlpackage}
 \end{figure}
 
-The UML class diagram of Model and Persistence layers shows the structure of each object and the relations between them.
+\FloatBarrier
+
+The UML class diagram of Model and Persistence layers (\ref{fig:umlmodel}. image) shows the structure of each object within these namespaces and the relations between them.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{img/class_diagram_model_persistence.drawio.png}
     \caption{UML class diagram of Model and Persistence layers}
-    \label{fig:enter-label}
+    \label{fig:umlmodel}
 \end{figure}
 
-The UML class diagram of View layer shows the structure of each object and the relations between them.
+\FloatBarrier
+
+The UML class diagram of View layer (\ref{fig:umlview}. image) shows the structure of each object within this namespace and the relations between them.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=1\linewidth]{img/class_diagram_view.drawio.png}
     \caption{UML class diagram of View layer}
-    \label{fig:enter-label}
+    \label{fig:umlview}
 \end{figure}
 
-The View has 3 screens.
+\FloatBarrier
+
+The View has 3 screens:
 
 \begin{itemize}
     \item The first one shows all the executables. An executable can be reached with a button. Every executable can be pinned as favourite. The screen also contains a search bar and a clear history button.
@@ -252,16 +257,16 @@ The View has 3 screens.
     \item The third and last screen shows the output messages, logs or errors for the user, after a program execution.
 \end{itemize}
 
-The screens' wire frame plan can be seen below.
+The screen's wireframe plan can be seen on the \ref{fig:viewwireframe}. image.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=1\linewidth]{img/wire_frame_plan.drawio.png}
+    \includegraphics[width=0.9\linewidth]{img/wire_frame_plan.drawio.png}
     \caption{Screens' wire frame plan}
-    \label{fig:enter-label}
+    \label{fig:viewwireframe}
 \end{figure}
 
-\newpage
+\FloatBarrier
 
 \subsection{Software installation}
 
