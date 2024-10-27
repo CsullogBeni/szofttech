@@ -59,3 +59,14 @@ class TestFileInfo(unittest.TestCase):
 
         self.assertEqual(file_info.get_prog_description, prog_description)
 
+    def test__get_args(self):
+        """
+        Testing FileInfo.get_args method.
+        """
+        arg1 = Argument('arg1', 'description1', '', '', False, '', '', [])
+        arg2 = Argument('arg1', 'description1', '', '', False, '', '', [])
+        args = [arg1, arg2]
+        file_info = FileInfo('/path/to/program', 'Program Name', 'This is a program', args, False)
+
+        self.assertEqual(file_info.get_args, args)
+
