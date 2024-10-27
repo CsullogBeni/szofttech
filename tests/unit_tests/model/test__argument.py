@@ -61,3 +61,12 @@ class TestArgument(unittest.TestCase):
 
         self.assertEqual(argument.get_help, help)
 
+    def test__get_default(self):
+        """
+        Testing Argument.get_default method.
+        """
+        default = 'default_value'
+        argument = Argument('', '', '', default, False, '', '', [])
+
+        self.assertEqual(argument.get_default, default)
+
