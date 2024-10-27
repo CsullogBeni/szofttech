@@ -183,3 +183,28 @@ fabric.properties
 
 # idea folder, uncomment if you don't need it
 .idea
+
+## Core latex/pdflatex auxiliary files:
+**/*.aux
+**/*.lof
+**/*.log
+**/*.lot
+**/*.fls
+**/*.out
+**/*.toc
+**/*.fmt
+**/*.fot
+**/*.cb
+**/*.cb2
+**/*.lb
+**/*.bbl
+**/*.blg
+**/*.gz
+**/*.cut
+**/*.fdb_latexmk
+**/*.bcf
+**/*.run.xml
+**/Algorithms/*/.stack-work/*
+**/*.nav
+**/*.snm
+**/*.bcf-SAVE-ERROR
