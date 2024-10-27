@@ -88,3 +88,12 @@ class TestArgument(unittest.TestCase):
 
         self.assertEqual(argument.get_type, type)
 
+    def test__get_action(self):
+        """
+        Testing Argument.get_action method.
+        """
+        action = 'store'
+        argument = Argument('', '', '', '', False, '', action, [])
+
+        self.assertEqual(argument.get_action, action)
+
