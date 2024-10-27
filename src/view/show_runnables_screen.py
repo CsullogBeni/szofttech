@@ -38,6 +38,15 @@ from src.view.style.normal_text_button import NormalTextButton
 class ShowRunnablesScreen(QDialog):
     def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, working_dir_path: str = '',
                  searched_runnables: List = None) -> None:
+        """
+        Constructor for ShowRunnablesScreen class.
+
+        Args:
+            model (Model): The model that contains all the data.
+            widget (QtWidgets.QStackedWidget): The stacked widget that this screen should be added to.
+            working_dir_path (str, optional): The path to the working directory. Defaults to ''.
+            searched_runnables (List, optional): The list of searched runnables. Defaults to None.
+        """
         super(ShowRunnablesScreen, self).__init__()
         if working_dir_path:
             self.__model = Model(working_dir_path)
