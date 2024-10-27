@@ -60,6 +60,12 @@ class ShowRunnablesScreen(QDialog):
         self.___init_ui()
 
     def ___init_ui(self) -> None:
+        """
+        Initializes the user interface for the ShowRunnablesScreen. Sets up the scroll area,
+        button widget, and vertical box layout. Adds input for the working directory, a
+        search bar, and fields for favorite and normal runnables. Configures the layout
+        and scrollbar policies for the scroll area.
+        """
         self.__scroll_area = QtWidgets.QScrollArea()
         self.__button_widget = QtWidgets.QWidget()
         self.__vbox = QtWidgets.QVBoxLayout()
