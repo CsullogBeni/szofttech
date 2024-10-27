@@ -79,3 +79,12 @@ class TestArgument(unittest.TestCase):
 
         self.assertEqual(argument.get_required, required)
 
+    def test__get_type(self):
+        """
+        Testing Argument.get_type method.
+        """
+        type = 'string'
+        argument = Argument('', '', '', '', False, type, '', [])
+
+        self.assertEqual(argument.get_type, type)
+
