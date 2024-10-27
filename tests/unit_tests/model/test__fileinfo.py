@@ -50,3 +50,12 @@ class TestFileInfo(unittest.TestCase):
 
         self.assertEqual(file_info.get_prog_name, prog_name)
 
+    def test__get_prog_description(self):
+        """
+        Testing FileInfo.get_prog_description method.
+        """
+        prog_description = 'This is a program'
+        file_info = FileInfo('/path/to/program', 'Program Name', prog_description, [], False)
+
+        self.assertEqual(file_info.get_prog_description, prog_description)
+
