@@ -89,3 +89,21 @@ class TestFileInfo(unittest.TestCase):
         file_info.set_main_runnable(is_main_runnable)
         self.assertEqual(file_info.is_main_runnable, is_main_runnable)
 
+    def test__add_argument(self):
+        """
+        Testing FileInfo.add_argument method.
+        """
+        arg = Argument('arg1', 'description1', '', '', False, '', '', [])
+        file_info = FileInfo('/path/to/program', 'Program Name', 'This is a program', [], False)
+
+        file_info.add_argument(arg)
+        self.assertEqual(file_info.get_args, [arg])
+
+        arg = Argument('arg1', 'description1', '', '', False, '', '', [])
+        file_info = FileInfo('/path/to/program', 'Program Name', 'This is a program', [arg], False)
+
+        file_info.add_argument(arg)
+        self.assertEqual(file_info.get_args, [arg])
+
+if __name__ == '__main__':
+    unittest.main()
