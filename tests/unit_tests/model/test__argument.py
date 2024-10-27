@@ -52,3 +52,12 @@ class TestArgument(unittest.TestCase):
 
         self.assertEqual(argument.get_second_id, second_id)
 
+    def test__get_help(self):
+        """
+        Testing Argument.get_help method.
+        """
+        help = 'This is a help string'
+        argument = Argument('', '', help, '', False, '', '', [])
+
+        self.assertEqual(argument.get_help, help)
+
