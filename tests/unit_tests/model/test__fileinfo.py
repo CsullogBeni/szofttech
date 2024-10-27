@@ -32,3 +32,12 @@ class TestFileInfo(unittest.TestCase):
         self.assertEqual(file_info.get_args, args)
         self.assertEqual(file_info.is_main_runnable, is_main_runnable)
 
+    def test__get_prog_path(self):
+        """
+        Testing FileInfo.get_prog_path method.
+        """
+        prog_path = '/path/to/program'
+        file_info = FileInfo(prog_path, 'Program Name', 'This is a program', [], False)
+
+        self.assertEqual(file_info.get_prog_path, prog_path)
+
