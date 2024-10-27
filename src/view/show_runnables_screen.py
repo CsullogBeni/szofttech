@@ -178,6 +178,28 @@ class ShowRunnablesScreen(QDialog):
         self.__vbox.addSpacing(space_gap)
 
     def __try_load_show_runnables_screen(self, working_dir_path: str = '', searched_runnables: List = None) -> None:
+        """
+        Attempts to load and display the ShowRunnablesScreen.
+
+        This method initializes a ShowRunnablesScreen with the given working directory path
+        and the list of searched runnables. The screen is added to the widget stack and
+        displayed. If an error occurs during the process, it is silently ignored.
+
+        Parameters
+        ----------
+        working_dir_path : str, optional
+            The path to the working directory, by default an empty string.
+        searched_runnables : List, optional
+            The list of runnables to be searched and displayed, by default None.
+        """
+        try:
+            show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
+                                                        self.__vbox.itemAt(0).itemAt(0).widget().text(),
+                                                        searched_runnables)
+            self.__widget.addWidget(show_runnables_screen)
+            self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+        except:
+            pass
         try:
             show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
                                                         self.__vbox.itemAt(0).itemAt(0).widget().text(),
