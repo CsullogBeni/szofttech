@@ -89,4 +89,16 @@ class ShowRunnablesScreen(QDialog):
         main_layout.addWidget(self.__scroll_area)
         self.setLayout(main_layout)
 
+    def __add_working_dir_input(self):
+        input_horizontal_box = QtWidgets.QHBoxLayout()
+        input_line_edit = QtWidgets.QLineEdit(self.__model.get_working_directory_path)
+        button = NormalTextButton('Change working directory')
+        button.setMaximumWidth(400)
+        input_horizontal_box.addWidget(input_line_edit)
+        input_horizontal_box.addWidget(button)
+        self.__vbox.addLayout(input_horizontal_box)
+        button.clicked.connect(
+            lambda _, path=self.__vbox.itemAt(0).itemAt(0).widget().text(): self.__try_load_show_runnables_screen(path)
+        )
+
 
