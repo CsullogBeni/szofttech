@@ -1,13 +1,5 @@
-# TODO: Create unit tests for Argument class. Name the test class as TestArgument.
-#  - Consider using builtin unittest library.
-#  - Inherit the new class from unittest.TestCase.
-#  - Create white box tests for all the getters and setters and functions.
-#  - Indicate, that the file is runnable(, aka at the end of the code:
-#                                         if __name__ == '__main__':
-#                                            unittest.main()
 import unittest
 from src.model.argument import Argument
-
 
 class TestArgument(unittest.TestCase):
     def test__init(self):
@@ -97,3 +89,15 @@ class TestArgument(unittest.TestCase):
 
         self.assertEqual(argument.get_action, action)
 
+    def test__get_choices(self):
+        """
+        Testing Argument.get_choices method.
+        """
+        choices = ['choice1', 'choice2']
+        argument = Argument('', '', '', '', False, '', '', choices)
+
+        self.assertEqual(argument.get_choices, choices)
+
+        
+if __name__ == '__main__':
+    unittest.main()
