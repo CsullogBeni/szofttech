@@ -70,3 +70,12 @@ class TestArgument(unittest.TestCase):
 
         self.assertEqual(argument.get_default, default)
 
+    def test__get_required(self):
+        """
+        Testing Argument.get_required method.
+        """
+        required = True
+        argument = Argument('', '', '', '', required, '', '', [])
+
+        self.assertEqual(argument.get_required, required)
+
