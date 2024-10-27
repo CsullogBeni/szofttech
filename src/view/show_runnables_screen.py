@@ -145,4 +145,8 @@ class ShowRunnablesScreen(QDialog):
         except:
             pass
 
-
+    @staticmethod
+    def __show_message(message: str) -> None:
+        msg = QtWidgets.QMessageBox()
+        msg.setText(message)
+        msg.exec_()
