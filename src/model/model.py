@@ -1,13 +1,15 @@
 # TODO: Creat clear_history() method that clears the history.
+
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
 # TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
 
 # TODO: Create search_runnables(given_string: str) method that searches the given_string in __runnables and __main_runnables.
 # TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
-import os
 import subprocess
 import sys
+from os import path, listdir
+from queue import Queue
 from typing import List
 from typing import Tuple, Optional
 
@@ -30,11 +32,11 @@ class Model:
     def __init__(self, working_directory_path: str = None) -> None:
         self.__data_access = DataAccess()
         self.__runnables = []
-        if working_directory_path is not None:
-            if os.path.isdir(working_directory_path):
-                self.__working_directory_path = working_directory_path
+        loaded_working_directory_path = self.__data_access.load_working_directory_path()
+        if loaded_working_directory_path is not None:
+            self.__working_directory_path = loaded_working_directory_path
         else:
-            self.__working_directory_path = self.__data_access.load_working_directory_path()
+            self.__working_directory_path = working_directory_path
 
     @property
     def get_working_directory_path(self) -> str:
@@ -79,22 +81,17 @@ class Model:
         Args:
             workdir: The new working directory.
         """
-        if not os.path.isdir(workdir):
-            raise AttributeError
         self.__working_directory_path = workdir
         self.__runnables = []
-        for dirpath, dirnames, filenames in os.walk(self.__working_directory_path):
-            for filename in filenames:
-                try:
-                    if filename.endswith(".py"):
-                        prog, desc, args = extract_arguments(os.path.join(dirpath, filename))
-                        current_file = FileInfo(os.path.join(dirpath, filename), prog, desc, [], False)
-                        for arg_name, arg_name_2, default, help_text, arg_type, required, action, choices in args:
-                            current_file.add_argument(
-                                Argument(arg_name, arg_name_2, default, help_text, arg_type, required, action, choices))
-                        self.__runnables.append(current_file)
-                except:
-                    continue
+        queue = Queue()
+        queue.put(self.__working_directory_path)
+        while not (queue.empty()):
+            elem = queue.get()
+            if path.isdir(elem):
+                [queue.put(path.join(elem, l)) for l in listdir(elem)]
+            if path.isfile(elem):
+                [nam, desc, args] = extract_arguments(elem)
+                self.__runnables.append(FileInfo(elem, nam, desc, [Argument(*arg) for arg in args], False))
 
         self.__data_access.save_working_directory_path(self.__working_directory_path)
 
@@ -126,7 +123,7 @@ class Model:
             prog: The program.
         """
         res_dict = self.__data_access.load_config(prog.get_prog_path)
-        return list(res_dict.items())
+        return [[k, v] for k, v in res_dict.items()]
 
     def save_main(self):
         """
@@ -134,7 +131,7 @@ class Model:
         """
         res = dict()
         # Bit confused why we're using json to store a list
-        res['main'] = [p.get_prog_path for p in self.__runnables if p.is_main_runnable]
+        res['main'] = [p.get_prog_path for p in self.__runnables if p.get_is_main_runnable]
         self.__data_access.save_main_runnables(res)
 
     def load_main(self):
