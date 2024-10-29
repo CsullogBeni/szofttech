@@ -119,5 +119,19 @@ class TestModel(unittest.TestCase):
 
         self.assertTrue(prog.is_main_runnable)
 
+    def test__run_program(self):
+
+        model = Model(test_path)
+        model.add_working_directory_path(test_path)
+        calculator_path = os.path.join(test_path, 'calculator', 'calculator.py')
+        command = calculator_path + ' --number1 1 --number2 2 --operation +'
+        std_out, std_err = model.run_program(command)
+        self.assertEqual(std_out, 'Result: 1.0 + 2.0 = 3.0\r\n')
+        self.assertEqual(std_err, '')
+        std_out, std_err = model.run_program(calculator_path)
+        self.assertEqual(std_out, '')
+        self.assertIn('-h] --number1 NUMBER1 [--number2 NUMBER2]', std_err)
+
+
 if __name__ == '__main__':
     unittest.main()
