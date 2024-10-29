@@ -105,7 +105,9 @@ class TestModel(unittest.TestCase):
         self.assertEqual(loaded_args, [('arg1', 'value1'), ('arg2', 'value2')])
 
     def test__load_main(self):
-
+        """
+        Testing Model.load_main method.
+        """
         model = Model()
         prog = FileInfo('/path/to/program', 'Program Name', 'This is a program', [], True)
         model.get_runnables.append(prog)
