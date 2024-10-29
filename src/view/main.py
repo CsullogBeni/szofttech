@@ -7,7 +7,9 @@ from src.model.model import Model
 from src.view.show_runnables_screen import ShowRunnablesScreen
 
 def main():
-
+    """
+    Main function of the program. Initialize the User interface.
+    """
     app = QApplication(sys.argv)
     app.setApplicationName('PyRun')
     widget = QtWidgets.QStackedWidget()
