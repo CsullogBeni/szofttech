@@ -29,7 +29,9 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.get_working_directory_path, test_path)
 
     def test__get_runnables(self):
-
+        """
+        Testing Model.get_runnables method.
+        """
         model = Model()
         prog = FileInfo('/path/to/program', 'Program Name', 'This is a program', [], False)
         model.get_runnables.append(prog)
