@@ -73,5 +73,19 @@ class TestModel(unittest.TestCase):
         self.assertIn('This program can select', model.get_runnables[1].get_prog_description)
         self.assertEqual(model.get_runnables[1].get_prog_name, 'Minmax')
 
+    def test__save_config(self):
+
+        model = Model()
+        arg1 = Argument('arg1', 'description1', '', '', False, '', '', [])
+        arg2 = Argument('arg2', 'description2', '', '', False, '', '', [])
+        prog = FileInfo('/path/to/program', 'Program Name', 'This is a program', [arg1, arg2], False)
+        args = [('arg1', 'value1'), ('arg2', 'value2')]
+
+        model.save_config(prog, args)
+
+        res_dict = model.get_data_access.load_config(prog.get_prog_path)
+        self.assertEqual(res_dict, {'arg1': 'value1', 'arg2': 'value2'})
+
+
 if __name__ == '__main__':
     unittest.main()
