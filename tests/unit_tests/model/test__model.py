@@ -89,7 +89,9 @@ class TestModel(unittest.TestCase):
         self.assertEqual(res_dict, {'arg1': 'value1', 'arg2': 'value2'})
 
     def test__load_config(self):
-
+        """
+        Testing Model.load_config method.
+        """
         model = Model()
         arg1 = Argument('arg1', 'description1', '', '', False, '', '', [])
         arg2 = Argument('arg2', 'description2', '', '', False, '', '', [])
