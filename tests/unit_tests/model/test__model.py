@@ -39,6 +39,8 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.get_runnables, [prog])
 
     def test__get_data_access(self):
-
+        """
+        Testing Model.get_data_access method.
+        """
         model = Model()
         self.assertIsNotNone(model.get_data_access)
