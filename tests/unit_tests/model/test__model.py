@@ -22,6 +22,8 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.get_runnables, [])
 
     def test__get_working_directory_path(self):
-
+        """
+        Testing Model.get_working_directory_path method.
+        """
         model = Model(test_path)
         self.assertEqual(model.get_working_directory_path, test_path)
