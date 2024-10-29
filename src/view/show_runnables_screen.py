@@ -105,6 +105,12 @@ class ShowRunnablesScreen(QDialog):
         self.setLayout(main_layout)
 
     def __add_working_dir_input(self):
+        """
+        Adds the working directory input to the screen.
+        This adds a horizontal box layout with a text edit and a button.
+        The button is connected to the __try_load_show_runnables_screen method
+        with the text of the text edit as the argument.
+        """
         input_horizontal_box = QtWidgets.QHBoxLayout()
         input_line_edit = QtWidgets.QLineEdit(self.__model.get_working_directory_path)
         button = NormalTextButton('Change working directory')
