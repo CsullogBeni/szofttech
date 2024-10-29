@@ -104,6 +104,18 @@ class TestModel(unittest.TestCase):
 
         self.assertEqual(loaded_args, [('arg1', 'value1'), ('arg2', 'value2')])
 
+    def test__load_main(self):
+
+        model = Model()
+        prog = FileInfo('/path/to/program', 'Program Name', 'This is a program', [], True)
+        model.get_runnables.append(prog)
+
+        model.save_main()
+        prog.set_main_runnable(False)
+        model.load_main()
+        prog = model.get_runnables[0]
+
+        self.assertTrue(prog.is_main_runnable)
 
 if __name__ == '__main__':
     unittest.main()
