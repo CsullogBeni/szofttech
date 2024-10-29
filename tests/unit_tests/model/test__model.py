@@ -74,7 +74,9 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.get_runnables[1].get_prog_name, 'Minmax')
 
     def test__save_config(self):
-
+        """
+        Testing Model.save_config method.
+        """
         model = Model()
         arg1 = Argument('arg1', 'description1', '', '', False, '', '', [])
         arg2 = Argument('arg2', 'description2', '', '', False, '', '', [])
