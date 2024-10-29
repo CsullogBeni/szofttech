@@ -145,3 +145,9 @@ class ShowRunnablesScreen(QDialog):
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except:
             pass
+
+    @staticmethod
+    def __show_message(message: str) -> None:
+        msg = QtWidgets.QMessageBox()
+        msg.setText(message)
+        msg.exec_()
