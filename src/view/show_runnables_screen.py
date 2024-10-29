@@ -136,3 +136,12 @@ class ShowRunnablesScreen(QDialog):
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except:
             pass
+
+    def __try_load_runnable(self, runnable: FileInfo) -> None:
+        try:
+            return
+            runnable_config_screen = RunnableConfigScreen(self.__model, self.__widget, runnable)
+            self.__widget.addWidget(runnable_config_screen)
+            self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+        except:
+            pass
