@@ -20,3 +20,8 @@ class TestModel(unittest.TestCase):
 
         self.assertIsNotNone(model.get_data_access)
         self.assertEqual(model.get_runnables, [])
+
+    def test__get_working_directory_path(self):
+
+        model = Model(test_path)
+        self.assertEqual(model.get_working_directory_path, test_path)
