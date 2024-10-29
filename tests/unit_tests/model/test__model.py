@@ -120,7 +120,9 @@ class TestModel(unittest.TestCase):
         self.assertTrue(prog.is_main_runnable)
 
     def test__run_program(self):
-
+        """
+        Testing Model.run_program method.
+        """
         model = Model(test_path)
         model.add_working_directory_path(test_path)
         calculator_path = os.path.join(test_path, 'calculator', 'calculator.py')
