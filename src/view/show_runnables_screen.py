@@ -25,3 +25,29 @@
 # TODO: Implement the __show_message(message: str) static method. This should show the given message to the user.
 
 
+from PyQt5.QtCore import Qt
+from PyQt5 import QtWidgets
+from typing import List
+from PyQt5.QtWidgets import QDialog
+
+from src.model.fileinfo import FileInfo
+from src.model.model import Model
+# from src.view.runnable_config_screen import RunnableConfigScreen
+# from src.view.style.normal_text_label import NormalTextLabel
+from src.view.style.normal_text_button import NormalTextButton
+
+
+class ShowRunnablesScreen(QDialog):
+    def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, working_dir_path: str = '',
+                 searched_runnables: List = None) -> None:
+        super(ShowRunnablesScreen, self).__init__()
+        if working_dir_path:
+            self.__model = Model(working_dir_path)
+        else:
+            self.__model = model
+        self.__model.add_working_directory_path(self.__model.get_working_directory_path)
+        self.__widget = widget
+        self.__scroll_area = None
+        self.__vbox = None
+        self.__button_widget = None
+        self.___init_ui()
