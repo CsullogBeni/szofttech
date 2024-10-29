@@ -46,6 +46,8 @@ class TestModel(unittest.TestCase):
         self.assertIsNotNone(model.get_data_access)
 
     def test__add_default_path(self):
-
+        """
+        Testing Model.add_default_path method.
+        """
         model = Model(test_path)
         model.add_default_path()
