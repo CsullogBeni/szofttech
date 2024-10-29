@@ -38,15 +38,25 @@ from src.view.style.normal_text_button import NormalTextButton
 
 
 class ShowRunnablesScreen(QDialog):
+    """
+    A class that handles the UI for showing runnables.
+    Attributes:
+        __model (Model): The model that contains the data.
+        __widget (QtWidgets.QStackedWidget): The widget that contains the screen.
+        __scroll_area (QtWidgets.QScrollArea): The scroll area that contains the runnables.
+        __vbox (QtWidgets.QVBoxLayout): The vertical layout that contains the runnables.
+    Methods:
+        __init__(model: Model, widget: QtWidgets.QStackedWidget): Initializes the ShowRunnablesScreen object with the model and widget.
+        __init_ui(searched_runnables: list): Initializes the UI with the searched runnables.
+        add_found_runnables(searched_runnables: list): Adds the found runnables to the UI.
+    """
     def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, working_dir_path: str = '',
                  searched_runnables: List = None) -> None:
         """
-        Constructor for ShowRunnablesScreen class.
+        Initializes the ShowRunnablesScreen object with the model and widget.
         Args:
-            model (Model): The model that contains all the data.
-            widget (QtWidgets.QStackedWidget): The stacked widget that this screen should be added to.
-            working_dir_path (str, optional): The path to the working directory. Defaults to ''.
-            searched_runnables (List, optional): The list of searched runnables. Defaults to None.
+            model (Model): The model that contains the data.
+            widget (QtWidgets.QStackedWidget): The widget that contains the screen.
         """
         super(ShowRunnablesScreen, self).__init__()
         if working_dir_path:
@@ -62,10 +72,9 @@ class ShowRunnablesScreen(QDialog):
 
     def ___init_ui(self) -> None:
         """
-        Initializes the user interface for the ShowRunnablesScreen. Sets up the scroll area,
-        button widget, and vertical box layout. Adds input for the working directory, a
-        search bar, and fields for favorite and normal runnables. Configures the layout
-        and scrollbar policies for the scroll area.
+        Initializes the UI with the searched runnables.
+        Args:
+            searched_runnables (list): The list of searched runnables.
         """
         self.__scroll_area = QtWidgets.QScrollArea()
         self.__button_widget = QtWidgets.QWidget()
@@ -127,15 +136,12 @@ class ShowRunnablesScreen(QDialog):
         Adds a runnable to the vertical box layout.
         Adds a horizontal box layout to the vertical box layout with a
         button for the given runnable. The button is connected to the
-        __try_load_runnable method with the given runnable as the argument.
+        `__try_load_runnable` method with the given runnable as the argument.
         If the runnable is a favourite, the button is on the left side,
         otherwise it is on the right side.
-        Parameters
-        ----------
-        runnable : FileInfo
-            The runnable to add to the vertical box layout.
-        is_main : bool, optional
-            If the runnable is a favourite, by default False
+        Args:
+            runnable (FileInfo): The runnable to add to the vertical box layout.
+            is_main (bool, optional): If the runnable is a favourite, by default False
         """
         horizontal_box = QtWidgets.QHBoxLayout()
         button = NormalTextButton(text=runnable.get_prog_path)
@@ -164,10 +170,8 @@ class ShowRunnablesScreen(QDialog):
         This method inserts a vertical space of the given gap size
         into the vertical box layout, creating a separation between
         elements in the UI.
-        Parameters
-        ----------
-        space_gap : int
-            The size of the space to be added, in pixels.
+        Args:
+            space_gap (int): The size of the space to be added, in pixels.
         """
         self.__vbox.addSpacing(space_gap)
 
@@ -177,12 +181,9 @@ class ShowRunnablesScreen(QDialog):
         This method initializes a ShowRunnablesScreen with the given working directory path
         and the list of searched runnables. The screen is added to the widget stack and
         displayed. If an error occurs during the process, it is silently ignored.
-        Parameters
-        ----------
-        working_dir_path : str, optional
-            The path to the working directory, by default an empty string.
-        searched_runnables : List, optional
-            The list of runnables to be searched and displayed, by default None.
+        Args:
+            working_dir_path (str, optional): The path to the working directory, by default an empty string.
+            searched_runnables (List, optional): The list of runnables to be searched and displayed, by default None.
         """
         try:
             show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
@@ -199,13 +200,10 @@ class ShowRunnablesScreen(QDialog):
         This method initializes a RunnableConfigScreen with the given runnable and
         adds it to the widget stack. The screen is displayed. If an error occurs
         during the process, it is silently ignored.
-        Parameters
-        ----------
-        runnable : FileInfo
-            The runnable to be displayed.
-        Returns
-        -------
-        None
+        Args:
+            runnable (FileInfo): The runnable to be displayed.
+        Returns:
+            None
         """
         try:
             return
@@ -223,13 +221,10 @@ class ShowRunnablesScreen(QDialog):
         with the provided message text. The message box is
         executed modally, blocking the rest of the application
         until it is closed.
-        Parameters
-        ----------
-        message : str
-            The message to be displayed in the message box.
-        Returns
-        -------
-        None
+        Args:
+            message (str): The message to be displayed in the message box.
+        Returns:
+            None
         """
         msg = QtWidgets.QMessageBox()
         msg.setText(message)
