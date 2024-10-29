@@ -72,3 +72,6 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.get_runnables[1].get_args[1].get_id, 'numbers')
         self.assertIn('This program can select', model.get_runnables[1].get_prog_description)
         self.assertEqual(model.get_runnables[1].get_prog_name, 'Minmax')
+
+if __name__ == '__main__':
+    unittest.main()
