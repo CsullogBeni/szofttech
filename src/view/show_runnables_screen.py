@@ -159,6 +159,16 @@ class ShowRunnablesScreen(QDialog):
         self.__vbox.addLayout(horizontal_box)
 
     def __add_vertical_spacing(self, space_gap: int) -> None:
+        """
+        Adds vertical spacing to the layout.
+        This method inserts a vertical space of the given gap size
+        into the vertical box layout, creating a separation between
+        elements in the UI.
+        Parameters
+        ----------
+        space_gap : int
+            The size of the space to be added, in pixels.
+        """
         self.__vbox.addSpacing(space_gap)
 
     def __try_load_show_runnables_screen(self, working_dir_path: str = '', searched_runnables: List = None) -> None:
