@@ -37,3 +37,8 @@ class TestModel(unittest.TestCase):
         model.get_runnables.append(prog)
 
         self.assertEqual(model.get_runnables, [prog])
+
+    def test__get_data_access(self):
+
+        model = Model()
+        self.assertIsNotNone(model.get_data_access)
