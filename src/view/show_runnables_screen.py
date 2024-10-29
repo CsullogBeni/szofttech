@@ -123,3 +123,6 @@ class ShowRunnablesScreen(QDialog):
         horizontal_box.addWidget(button)
         button.setMaximumWidth(400)'''
         self.__vbox.addLayout(horizontal_box)
+
+    def __add_vertical_spacing(self, space_gap: int) -> None:
+        self.__vbox.addSpacing(space_gap)
