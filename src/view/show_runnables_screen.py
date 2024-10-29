@@ -51,3 +51,41 @@ class ShowRunnablesScreen(QDialog):
         self.__vbox = None
         self.__button_widget = None
         self.___init_ui()
+
+    def ___init_ui(self) -> None:
+        self.__scroll_area = QtWidgets.QScrollArea()
+        self.__button_widget = QtWidgets.QWidget()
+        self.__vbox = QtWidgets.QVBoxLayout()
+
+        self.__add_working_dir_input()
+        self.__add_vertical_spacing(20)
+
+        """
+        search bar field
+        """
+
+        """
+        favourite runnables field
+        """
+
+        '''main_counter = 0
+        for runnable in self.__model.get_runnables:
+            if runnable.is_main_runnable:
+                self.__fulfill_vbox(runnable, True)
+                main_counter += 1
+        if main_counter > 0:
+            self.__add_vertical_spacing(20)'''
+
+        for runnable in self.__model.get_runnables:
+            if not runnable.is_main_runnable:
+                self.__fulfill_vbox(runnable, False)
+
+        self.__button_widget.setLayout(self.__vbox)
+        self.__scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.__scroll_area.setWidgetResizable(True)
+        self.__scroll_area.setWidget(self.__button_widget)
+
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.addWidget(self.__scroll_area)
+        self.setLayout(main_layout)
