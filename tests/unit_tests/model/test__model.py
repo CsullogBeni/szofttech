@@ -53,7 +53,9 @@ class TestModel(unittest.TestCase):
         model.add_default_path()
 
     def test__add_working_directory_path(self):
-
+        """
+        Testing Model.add_working_directory_path method.
+        """
         model = Model(test_path)
         model.add_working_directory_path(test_path)
         self.assertEqual(model.get_working_directory_path, test_path)
