@@ -44,3 +44,8 @@ class TestModel(unittest.TestCase):
         """
         model = Model()
         self.assertIsNotNone(model.get_data_access)
+
+    def test__add_default_path(self):
+
+        model = Model(test_path)
+        model.add_default_path()
