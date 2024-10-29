@@ -11,3 +11,8 @@ test_path = os.path.join(pathlib.Path(__file__).resolve().parent.parent.parent, 
 
 
 class TestModel(unittest.TestCase):
+    def test__init(self):
+        model = Model()
+
+        self.assertIsNotNone(model.get_data_access)
+        self.assertEqual(model.get_runnables, [])
