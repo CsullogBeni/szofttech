@@ -101,3 +101,25 @@ class ShowRunnablesScreen(QDialog):
         button.clicked.connect(
             lambda _, path=self.__vbox.itemAt(0).itemAt(0).widget().text(): self.__try_load_show_runnables_screen(path)
         )
+
+    def __fulfill_vbox(self, runnable: FileInfo, is_main: bool = False):
+        horizontal_box = QtWidgets.QHBoxLayout()
+        button = NormalTextButton(text=runnable.get_prog_path)
+        button.clicked.connect(
+            lambda _, current_runnable=runnable: self.__try_load_runnable(current_runnable)
+        )
+        horizontal_box.addWidget(button)
+        '''button = NormalTextButton()
+        if is_main:
+            button.setText('Undo pin')
+            button.clicked.connect(
+                lambda _, current_runnable=runnable: self.__unset_main(current_runnable)
+            )
+        else:
+            button.setText('Pin as favourite')
+            button.clicked.connect(
+                lambda _, current_runnable=runnable: self.__set_main(current_runnable)
+            )
+        horizontal_box.addWidget(button)
+        button.setMaximumWidth(400)'''
+        self.__vbox.addLayout(horizontal_box)
