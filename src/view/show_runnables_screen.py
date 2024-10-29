@@ -194,6 +194,19 @@ class ShowRunnablesScreen(QDialog):
             pass
 
     def __try_load_runnable(self, runnable: FileInfo) -> None:
+        """
+        Attempts to load and display a RunnableConfigScreen for the given runnable.
+        This method initializes a RunnableConfigScreen with the given runnable and
+        adds it to the widget stack. The screen is displayed. If an error occurs
+        during the process, it is silently ignored.
+        Parameters
+        ----------
+        runnable : FileInfo
+            The runnable to be displayed.
+        Returns
+        -------
+        None
+        """
         try:
             return
             runnable_config_screen = RunnableConfigScreen(self.__model, self.__widget, runnable)
