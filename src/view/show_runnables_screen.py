@@ -217,6 +217,20 @@ class ShowRunnablesScreen(QDialog):
 
     @staticmethod
     def __show_message(message: str) -> None:
+        """
+        Displays a message box with the given message.
+        This static method creates and displays a QMessageBox
+        with the provided message text. The message box is
+        executed modally, blocking the rest of the application
+        until it is closed.
+        Parameters
+        ----------
+        message : str
+            The message to be displayed in the message box.
+        Returns
+        -------
+        None
+        """
         msg = QtWidgets.QMessageBox()
         msg.setText(message)
         msg.exec_()
