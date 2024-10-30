@@ -232,3 +232,17 @@ class RunnableConfigScreen(QDialog):
         self.__widget.addWidget(show_runnables_screen)
         self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         self.__save_config()
+
+    @staticmethod
+    def __show_message_box(text: str, window_title: str = None):
+        """
+        Shows a message box.
+        Args:
+            text: message box text
+            window_title: message box title
+        """
+        msg_box = QtWidgets.QMessageBox()
+        msg_box.setText(text)
+        if window_title is not None:
+            msg_box.setWindowTitle(window_title)
+        msg_box.exec()
