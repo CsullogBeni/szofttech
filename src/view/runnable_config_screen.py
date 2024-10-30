@@ -16,8 +16,6 @@ from src.view.style.title_text_label import TitleTextLabel
 # TODO: Implement the __add_arg_desc_style() method that ads style to the string (similar like html)
 # TODO: Implement the __add_input_field(arg: Argument) method. This should add a input field to the screen.
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
-# TODO: Implement the __add_vertical_spacing(space_gap: Int) method. The vertical spacing should be added to the screen
-#  between arguments.
 # TODO: Implement the __run_configuration() method. This should initialize a new RunnerScreen.
 
 # TODO: Implement the extract_argument(text: String) static method, that filters the the argument name from the
@@ -165,5 +163,13 @@ class RunnableConfigScreen(QDialog):
         self.__button_widget.setLayout(self.__vbox)
 
     def __add_vertical_spacing(self, space_gap: int = 33) -> None:
+        """
+        This method adds vertical spacing to the layout.
+        Args:
+            space_gap: The size of the space to be added, in pixels.
+
+        Returns:
+            None
+        """
         spacer = QtWidgets.QSpacerItem(0, space_gap, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.__vbox.addItem(spacer)
