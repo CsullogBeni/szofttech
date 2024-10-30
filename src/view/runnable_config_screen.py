@@ -258,6 +258,14 @@ class RunnableConfigScreen(QDialog):
 
     @staticmethod
     def extract_argument(text: str) -> None or str:
+        """
+        This method filters the argument name from the argument's detail.
+        Args:
+            text: the argument's detail
+
+        Returns:
+            None or str: the filtered argument, or None if it doesn't exist
+        """
         try:
             start = text.find('Argument: ') + len('Argument: ')
             end = text.find(' /', start)
