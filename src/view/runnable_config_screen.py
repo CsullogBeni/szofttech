@@ -67,17 +67,8 @@ class RunnableConfigScreen(QDialog):
         """
         self.__scroll_area.setMaximumWidth(1200)
         self.__show_prog_details(clear)
-        button = NormalTextButton('Clear history')
-        button.clicked.connect(self.__clear_args())
-        self.__vbox.addWidget(button)
-        button = NormalTextButton('Run')
-        button.clicked.connect(self.__run_configuration())
-        self.__vbox.addWidget(button)
-        button = NormalTextButton('Back')
-        button.clicked.connect(self.__go_to_show_runnables_screen())
-        self.__vbox.addWidget(button)
+        self.__show_main_buttons()
 
-        self.__button_widget.setLayout(self.__vbox)
         self.__scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.__scroll_area.setWidgetResizable(True)
@@ -121,3 +112,16 @@ class RunnableConfigScreen(QDialog):
         self.__vbox.addWidget(runnable_desc)
         self.__add_vertical_spacing()
         self.__show_prog_args(clear)
+
+    def __show_main_buttons(self) -> None:
+        button = NormalTextButton('Clear history')
+        button.clicked.connect(self.__clear_args())
+        self.__vbox.addWidget(button)
+        button = NormalTextButton('Run')
+        button.clicked.connect(self.__run_configuration())
+        self.__vbox.addWidget(button)
+        button = NormalTextButton('Back')
+        button.clicked.connect(self.__go_to_show_runnables_screen())
+        self.__vbox.addWidget(button)
+
+        self.__button_widget.setLayout(self.__vbox)
