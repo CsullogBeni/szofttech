@@ -89,4 +89,12 @@ class RunnableConfigScreen(QDialog):
 
     @staticmethod
     def __get_dark_blue_label_text(text: str) -> str:
+        """
+        This method wrap the text into a dark blue span.
+        Args:
+            text: The text which has to be displayed dark blue
+
+        Returns:
+            str: The wrapped text
+        """
         return "<b><span style='color: darkblue'>" + text + "</span></b>"
