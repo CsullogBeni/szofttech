@@ -146,7 +146,8 @@ class ShowRunnablesScreen(QDialog):
             lambda _, current_runnable=runnable: self.__try_load_runnable(current_runnable)
         )
         horizontal_box.addWidget(button)
-        '''button = NormalTextButton()
+
+        button = NormalTextButton()
         if is_main:
             button.setText('Undo pin')
             button.clicked.connect(
@@ -158,7 +159,7 @@ class ShowRunnablesScreen(QDialog):
                 lambda _, current_runnable=runnable: self.__set_main(current_runnable)
             )
         horizontal_box.addWidget(button)
-        button.setMaximumWidth(400)'''
+        button.setMaximumWidth(400)
         self.__vbox.addLayout(horizontal_box)
 
     def __add_vertical_spacing(self, space_gap: int) -> None:
