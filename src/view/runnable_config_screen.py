@@ -13,7 +13,6 @@ from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox
 
 
-# TODO: Implement the __go_to_show_runnables_screen() method. This should initialize a new ShowRunnablesScreen.
 # TODO: Implement the __split_argument_label_info(arg_description: String) method. This should split description to fit
 #   on the screen
 
@@ -222,7 +221,12 @@ class RunnableConfigScreen(QDialog):
             msg_box.exec_()
         self.__save_config()
 
-    def __go_to_show_runnables_screen(self):
+    def __go_to_show_runnables_screen(self) -> None:
+        """
+        This method initialize a new ShowRunnablesScreen and tries to go to it. Moreover, it saves the configuration.
+        Returns:
+            None
+        """
         show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
                                                     self.__model.get_working_directory_path)
         self.__widget.addWidget(show_runnables_screen)
