@@ -10,7 +10,6 @@ from src.view.style.title_text_label import TitleTextLabel
 
 
 # TODO: Implement the __go_to_show_runnables_screen() method. This should initialize a new ShowRunnablesScreen.
-# TODO: Implement the __show_prog_args(clear: Bool) method, that shows the arguments of the given runnable.
 # TODO: Implement the __split_argument_label_info(arg_description: String) method. This should split description to fit
 #   on the screen
 
@@ -113,7 +112,15 @@ class RunnableConfigScreen(QDialog):
         self.__add_vertical_spacing()
         self.__show_prog_args(clear)
 
-    def __show_prog_args(self, clear: bool):
+    def __show_prog_args(self, clear: bool) -> None:
+        """
+        This method shows the arguments of the runnable which has to be executed.
+        Args:
+            clear: This parameter decides whether the configuration of the given runnable has to be loaded.
+
+        Returns:
+            None
+        """
         for arg in self.__runnable.get_args:
             arg_description = f"Argument: {arg.get_id}"
             if arg.get_second_id:
