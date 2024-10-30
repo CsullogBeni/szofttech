@@ -98,3 +98,17 @@ class RunnableConfigScreen(QDialog):
             str: The wrapped text
         """
         return "<b><span style='color: darkblue'>" + text + "</span></b>"
+
+    def __show_prog_details(self, clear: bool):
+        runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        runnable_path.setMaximumWidth(1100)
+        runnable_prog = NormalTextLabel(self.__get_dark_blue_label_text("Program: ") + self.__runnable.get_prog_name)
+        runnable_prog.setMaximumWidth(1100)
+        description = self.split_argument_label_info(self.__runnable.get_prog_description)
+        runnable_desc = NormalTextLabel(self.__get_dark_blue_label_text("Program's description: ") + description)
+        runnable_desc.setMaximumWidth(1100)
+        self.__vbox.addWidget(runnable_path)
+        self.__vbox.addWidget(runnable_prog)
+        self.__vbox.addWidget(runnable_desc)
+        self.__add_vertical_spacing()
+        self.__show_prog_args(clear)
