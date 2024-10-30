@@ -76,8 +76,7 @@ class RunnerScreen(QDialog):
         This method tries to go to a new RunnableConfigScreen with the runnable. If it fails, it shows an error message.
         """
         try:
-            runnable_config_screen = RunnableConfigScreen(self.__model, self.__widget,
-                                                          self.__runnable)  # TODO other params
+            runnable_config_screen = RunnableConfigScreen(self.__model, self.__runnable, self.__widget)
             self.__widget.addWidget(runnable_config_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except Exception as e:
