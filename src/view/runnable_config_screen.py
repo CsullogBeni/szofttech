@@ -5,9 +5,10 @@ from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
 from src.view.style.normal_text_button import NormalTextButton
+from src.view.style.normal_text_label import NormalTextLabel
+from src.view.style.title_text_label import TitleTextLabel
 
 
-# TODO: Create __init_ui(clear: Bool) method, that initializes the UI.
 # TODO: Implement the __go_to_show_runnables_screen() method. This should initialize a new ShowRunnablesScreen.
 # TODO: Implement the __show_prog_args(clear: Bool) method, that shows the arguments of the given runnable.
 # TODO: Implement the __split_argument_label_info(arg_description: String) method. This should split description to fit
@@ -85,3 +86,7 @@ class RunnableConfigScreen(QDialog):
         main_layout = QtWidgets.QVBoxLayout(self)
         main_layout.addWidget(self.__scroll_area)
         self.setLayout(main_layout)
+
+    @staticmethod
+    def __get_dark_blue_label_text(text: str) -> str:
+        return "<b><span style='color: darkblue'>" + text + "</span></b>"
