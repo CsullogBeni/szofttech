@@ -29,6 +29,18 @@ from src.model.model import Model
 # TODO: Implement the list_reducer(arg_list: List) static method, deletes the first item of the list.
 
 class RunnableConfigScreen(QDialog):
+    """
+    This screen will show the configuration of a runnable. All the arguments, and its details.
+
+    Attributes:
+        __model:       The model of the program.
+        __widget:      The widget that contains the screen
+        __scroll_area: The QScrollArea widget of the screen
+        __vbox:        The QScrollArea widget of the screen
+        __runnable:    The runnable whose configuration has to be shown
+        __button_widget: The widget that contains button
+    """
+
     def __init__(self, model: Model, runnable: FileInfo, widget: QtWidgets.QStackedWidget, clear: bool = False):
         super(RunnableConfigScreen, self).__init__()
 
