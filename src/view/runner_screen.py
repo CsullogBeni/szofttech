@@ -56,7 +56,11 @@ class RunnerScreen(QDialog):
                 if widget.text().startswith('Command'):
                     widget.setText(widget.text() + command)
                 else:
-                    widget.setText(widget.text() + result[0] + result[1])
+                    if result[0] is not None:
+                        result_string = result[0] + result[1]
+                    else:
+                        result_string = result[1]
+                    widget.setText(widget.text() + result_string)
 
     def __add_back_button(self):
         """
