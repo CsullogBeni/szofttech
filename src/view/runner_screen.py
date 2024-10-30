@@ -1,20 +1,6 @@
-# TODO: Create RunnerScreen class. It should contain the following private variables:
-#  - __model :       Model
-#  - __widget:      QtWidgets.QStackedWidget
-#  - __scroll_area: QtWidgets.QScrollArea
-#  - __vbox:        QtWidgets.QVBoxLayout
-#  - __runnable:    FileInfo
-#  - __button_widget: QtWidgets.QWidget
 from typing import List
-
-# Inherit the current class from QtWidgets.QDialog.
-# Create constructor for RunnerScreen class, that sets all variables above.
-# Create __init_ui(searched_runnables: List) method, that initializes the UI.
-# Implement the __run_program() method. This should execute the program.
-# Implement the __back() method, that initialize a new RunnableConfigScreen with the same runnable.
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog
-
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
 
