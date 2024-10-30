@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog
 
+from src.model.argument import Argument
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
 from src.view.runner_screen import RunnerScreen
@@ -307,3 +308,15 @@ class RunnableConfigScreen(QDialog):
         for word in keywords:
             arg_description = arg_description.replace(word, RunnableConfigScreen.__get_dark_blue_label_text(word))
         return arg_description
+
+    def __add_input_field(self, arg: Argument) -> None:
+        hbox = QtWidgets.QHBoxLayout()
+        arg_flag = NormalTextLabel(arg.get_id + ': ')
+        if len(arg_flag.text()) < 100:
+            arg_flag.setMaximumWidth(150)
+        hbox.addWidget(arg_flag)
+        hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+        self.__vbox.addLayout(hbox)
+        self.__add_vertical_spacing()
+
+        self.__add_vertical_spacing()
