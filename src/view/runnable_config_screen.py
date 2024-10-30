@@ -255,3 +255,17 @@ class RunnableConfigScreen(QDialog):
                 arg_description = arg_description + '<br>' + arg_member
                 chars_in_one_line = len(arg_member)
         return arg_description.strip()
+
+    @staticmethod
+    def extract_argument(text: str) -> None or str:
+        try:
+            start = text.find('Argument: ') + len('Argument: ')
+            end = text.find(' /', start)
+            if end == -1:
+                end = text.find(',', start)
+            if start == -1 or end == -1:
+                return None
+            return text[start:end]
+        except:
+            return None
+
