@@ -288,3 +288,15 @@ class RunnableConfigScreen(QDialog):
         """
         pattern = r"<.*?>"
         return re.sub(pattern, "", text)
+
+    @staticmethod
+    def __add_arg_desc_style(arg_description: str) -> str:
+        if arg_description.endswith(', '):
+            arg_description = arg_description[:-2]
+        if arg_description.endswith(','):
+            arg_description = arg_description[:-1]
+        arg_description = "<p style=\"font-size:16px;\">" + arg_description + "</p>"
+        keywords = ['Argument:', 'Default:', 'Help:', 'Type:', 'Required:', 'Action:']
+        for word in keywords:
+            arg_description = arg_description.replace(word, RunnableConfigScreen.__get_dark_blue_label_text(word))
+        return arg_description
