@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
+from src.view.runnable_config_screen import RunnableConfigScreen
 
 
 class RunnerScreen(QDialog):
@@ -40,7 +41,7 @@ class RunnerScreen(QDialog):
         # TODO add command block
         # TODO add logs and error block
         # TODO what to do with searched_runnables
-        self.setLayout(self.__outer_vbox)
+        self.setLayout(self.__vbox)
 
     def __run_program(self):
         """
