@@ -43,6 +43,7 @@ class Model:
 
         if self.__working_directory_path is None:
             self.__working_directory_path = pathlib.Path(__file__).resolve().parent.parent
+        self.load_main()
 
     @property
     def get_working_directory_path(self) -> str:
@@ -191,6 +192,7 @@ class Model:
             if runnable.get_prog_path == current_runnable.get_prog_path:
                 self.__runnables[idx].set_main_runnable(currently_mian)
                 self.save_main()
+                self.load_main()
                 return
 
     def get_main_runnables(self) -> List[FileInfo]:
