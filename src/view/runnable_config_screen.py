@@ -189,27 +189,17 @@ class RunnableConfigScreen(QDialog):
             layout = self.__vbox.itemAt(widget_idx).layout()
             if isinstance(widget, NormalTextLabel):
                 current_arg = self.extract_argument(self.remove_text_in_angle_brackets(widget.text()))
-            elif isinstance(layout, QtWidgets.QHBoxLayout):
-                if isinstance(layout.itemAt(1).widget(), NormalTextLineEdit):
-                    input_from_widget = layout.itemAt(1).widget().text().strip()
-                    if not current_arg:
-                        return
-                    elif not input_from_widget or current_arg == input_from_widget:
-                        continue
-                    elif current_arg in input_from_widget:
-                        command = command + ' ' + input_from_widget
-                    else:
-                        command = command + ' ' + current_arg + ' ' + input_from_widget
-                elif isinstance(layout.itemAt(1).widget(), NormalTextComboBox):
-                    if not current_arg:
-                        return
-                    elif not layout.itemAt(1).widget().currentText().strip():
-                        continue
-                    else:
-                        command = command + ' ' + current_arg + ' ' + layout.itemAt(1).widget().currentText().strip()
-            elif isinstance(widget, NormalTextButton):
-                if widget.text() == 'Equipped':
-                    command = command + ' ' + current_arg
+            elif (isinstance(layout, QtWidgets.QHBoxLayout)
+                  and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
+                input_from_widget = layout.itemAt(1).widget().text().strip()
+                if not current_arg:
+                    return
+                elif not input_from_widget or current_arg == input_from_widget:
+                    continue
+                elif current_arg in input_from_widget:
+                    command = command + ' ' + input_from_widget
+                else:
+                    command = command + ' ' + current_arg + ' ' + input_from_widget
         try:
             runner_screen = RunnerScreen(self.__model, self.__runnable, self.__widget, command)
             self.__widget.addWidget(runner_screen)
