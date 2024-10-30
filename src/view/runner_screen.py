@@ -39,8 +39,8 @@ class RunnerScreen(QDialog):
             searched_runnables: # TODO
         """
         self.__add_back_button()
-        # TODO add command block
-        # TODO add logs and error block
+        self.__add_label('Command:\n')
+        self.__add_label('Output:\n')
         # TODO what to do with searched_runnables
         self.setLayout(self.__vbox)
 
