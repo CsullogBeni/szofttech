@@ -1,14 +1,10 @@
-# TODO: Create the RunnableConfigScreen class. This scrren will show a runnable's configuration. All the arguements,
-#  and its details. It should contain the following private variables:
-#  - __model:       Model
-#  - __widget:      QtWidgets.QStackedWidget
-#  - __scroll_area: QtWidgets.QScrollArea
-#  - __vbox:        QtWidgets.QVBoxLayout
-#  - __runnable:    FileInfo
-#  - __button_widget: QtWidgets.QWidget
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QDialog
 
-# TODO: Inherit the current class from QtWidgets.QDialog.
-# TODO: Create constructor for RunnableConfigScreen class, that sets all variables above.
+from src.model.fileinfo import FileInfo
+from src.model.model import Model
+
+
 # TODO: Create __init_ui(clear: Bool) method, that initializes the UI.
 # TODO: Implement the __go_to_show_runnables_screen() method. This should initialize a new ShowRunnablesScreen.
 # TODO: Implement the __show_prog_args(clear: Bool) method, that shows the arguments of the given runnable.
@@ -32,3 +28,15 @@
 # TODO: Implement the __load_config() method. This should load the given runnable's configuration.
 # TODO: Implement the list_reducer(arg_list: List) static method, deletes the first item of the list.
 
+class RunnableConfigScreen(QDialog):
+    def __init__(self, model: Model, runnable: FileInfo, widget: QtWidgets.QStackedWidget, clear: bool = False):
+        super(RunnableConfigScreen, self).__init__()
+
+        self.__model = model
+        self.__runnable = runnable
+        self.__widget = widget
+        self.__scroll_area = QtWidgets.QScrollArea(self)
+        self.__vbox = QtWidgets.QVBoxLayout(self)
+        self.__button_widget = QtWidgets.QWidget(self)
+
+        self.__init_ui(clear)
