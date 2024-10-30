@@ -3,7 +3,6 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
-from src.view.runnable_config_screen import RunnableConfigScreen
 from src.view.style.normal_text_label import NormalTextLabel
 
 
@@ -74,6 +73,7 @@ class RunnerScreen(QDialog):
         """
         This method tries to go to a new RunnableConfigScreen with the runnable. If it fails, it shows an error message.
         """
+        from src.view.runnable_config_screen import RunnableConfigScreen
         try:
             runnable_config_screen = RunnableConfigScreen(self.__model, self.__runnable, self.__widget)
             self.__widget.addWidget(runnable_config_screen)
