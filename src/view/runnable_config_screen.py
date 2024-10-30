@@ -18,10 +18,6 @@ from src.view.style.normal_text_combobox import NormalTextComboBox
 # TODO: Implement the __add_input_field(arg: Argument) method. This should add a input field to the screen.
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
 
-# TODO: Implement the extract_argument(text: String) static method, that filters the the argument name from the
-#  argument's detail.
-# TODO: Implement the remove_text_in_angle_brackets(text: String) static method, that removes the angle brackets.
-#  Usually xml/html codes are located between angle brackets.
 # TODO: Implement the __clear_args() method that clears all the input fields and initialize a new RunnableConfigScreen
 #  with the same runnable.
 # TODO: Implement the __save_config() method. This should save the given runnable's configuration.
@@ -281,5 +277,14 @@ class RunnableConfigScreen(QDialog):
 
     @staticmethod
     def remove_text_in_angle_brackets(text: str) -> str:
+        """
+        This method removes the angle brackets from the given text.
+        Usually xml/html codes are located between angle brackets.
+        Args:
+            text: the text from which square brackets are removed
+
+        Returns:
+            str: the modified text
+        """
         pattern = r"<.*?>"
         return re.sub(pattern, "", text)
