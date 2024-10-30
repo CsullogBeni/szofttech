@@ -56,6 +56,14 @@ class RunnableConfigScreen(QDialog):
         self.__init_ui(clear)
 
     def __init_ui(self, clear: bool) -> None:
+        """
+        This method initializes the UI.
+        Args:
+            clear: This parameter decides whether the configuration of the given runnable has to be loaded.
+                    It will be passed to __show_prog_details method.
+        Returns:
+            None
+        """
         self.__scroll_area.setMaximumWidth(1200)
         self.__show_prog_details(clear)
         button = NormalTextButton('Clear history')
