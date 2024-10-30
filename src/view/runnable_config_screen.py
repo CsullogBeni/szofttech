@@ -4,9 +4,12 @@ from PyQt5.QtWidgets import QDialog
 
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
+from src.view.runner_screen import RunnerScreen
 from src.view.style.normal_text_button import NormalTextButton
 from src.view.style.normal_text_label import NormalTextLabel
 from src.view.style.title_text_label import TitleTextLabel
+from src.view.style.normal_text_line_edit import NormalTextLineEdit
+from src.view.style.normal_text_combobox import NormalTextComboBox
 
 
 # TODO: Implement the __go_to_show_runnables_screen() method. This should initialize a new ShowRunnablesScreen.
@@ -173,3 +176,43 @@ class RunnableConfigScreen(QDialog):
         """
         spacer = QtWidgets.QSpacerItem(0, space_gap, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.__vbox.addItem(spacer)
+
+    def __run_configuration(self) -> None:
+        command = self.__runnable.get_prog_path
+        current_arg = None
+        for widget_idx in range(self.__vbox.count()):
+            widget = self.__vbox.itemAt(widget_idx).widget()
+            layout = self.__vbox.itemAt(widget_idx).layout()
+            if isinstance(widget, NormalTextLabel):
+                current_arg = self.extract_argument(self.remove_text_in_angle_brackets(widget.text()))
+            elif isinstance(layout, QtWidgets.QHBoxLayout):
+                if isinstance(layout.itemAt(1).widget(), NormalTextLineEdit):
+                    input_from_widget = layout.itemAt(1).widget().text().strip()
+                    if not current_arg:
+                        return
+                    elif not input_from_widget or current_arg == input_from_widget:
+                        continue
+                    elif current_arg in input_from_widget:
+                        command = command + ' ' + input_from_widget
+                    else:
+                        command = command + ' ' + current_arg + ' ' + input_from_widget
+                elif isinstance(layout.itemAt(1).widget(), NormalTextComboBox):
+                    if not current_arg:
+                        return
+                    elif not layout.itemAt(1).widget().currentText().strip():
+                        continue
+                    else:
+                        command = command + ' ' + current_arg + ' ' + layout.itemAt(1).widget().currentText().strip()
+            elif isinstance(widget, NormalTextButton):
+                if widget.text() == 'Equipped':
+                    command = command + ' ' + current_arg
+        try:
+            runner_screen = RunnerScreen(self.__model, self.__runnable, self.__widget, command)
+            self.__widget.addWidget(runner_screen)
+            self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+        except:
+            msg_box = QtWidgets.QMessageBox()
+            msg_box.setText('Error while running runnable')
+            msg_box.setWindowTitle('Error')
+            msg_box.exec_()
+        self.__save_config()
