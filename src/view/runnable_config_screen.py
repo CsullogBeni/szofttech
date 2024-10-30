@@ -1,3 +1,5 @@
+import re
+
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog
@@ -277,3 +279,7 @@ class RunnableConfigScreen(QDialog):
         except:
             return None
 
+    @staticmethod
+    def remove_text_in_angle_brackets(text: str) -> str:
+        pattern = r"<.*?>"
+        return re.sub(pattern, "", text)
