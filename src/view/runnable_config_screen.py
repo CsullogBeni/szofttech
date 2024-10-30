@@ -19,7 +19,6 @@ from src.view.style.normal_text_combobox import NormalTextComboBox
 # TODO: Implement the __add_arg_desc_style() method that ads style to the string (similar like html)
 # TODO: Implement the __add_input_field(arg: Argument) method. This should add a input field to the screen.
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
-# TODO: Implement the __run_configuration() method. This should initialize a new RunnerScreen.
 
 # TODO: Implement the extract_argument(text: String) static method, that filters the the argument name from the
 #  argument's detail.
@@ -178,6 +177,11 @@ class RunnableConfigScreen(QDialog):
         self.__vbox.addItem(spacer)
 
     def __run_configuration(self) -> None:
+        """
+        This method creates the command string from the input fields and initialize a new RunnerScreen.
+        Returns:
+            None
+        """
         command = self.__runnable.get_prog_path
         current_arg = None
         for widget_idx in range(self.__vbox.count()):
