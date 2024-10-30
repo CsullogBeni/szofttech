@@ -1,8 +1,10 @@
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog
 
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
+from src.view.style.normal_text_button import NormalTextButton
 
 
 # TODO: Create __init_ui(clear: Bool) method, that initializes the UI.
@@ -52,3 +54,26 @@ class RunnableConfigScreen(QDialog):
         self.__button_widget = QtWidgets.QWidget(self)
 
         self.__init_ui(clear)
+
+    def __init_ui(self, clear: bool) -> None:
+        self.__scroll_area.setMaximumWidth(1200)
+        self.__show_prog_details(clear)
+        button = NormalTextButton('Clear history')
+        button.clicked.connect(self.__clear_args())
+        self.__vbox.addWidget(button)
+        button = NormalTextButton('Run')
+        button.clicked.connect(self.__run_configuration())
+        self.__vbox.addWidget(button)
+        button = NormalTextButton('Back')
+        button.clicked.connect(self.__go_to_show_runnables_screen())
+        self.__vbox.addWidget(button)
+
+        self.__button_widget.setLayout(self.__vbox)
+        self.__scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.__scroll_area.setWidgetResizable(True)
+        self.__scroll_area.setWidget(self.__button_widget)
+
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.addWidget(self.__scroll_area)
+        self.setLayout(main_layout)
