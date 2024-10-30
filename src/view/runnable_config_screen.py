@@ -227,10 +227,13 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
-                                                    self.__model.get_working_directory_path)
-        self.__widget.addWidget(show_runnables_screen)
-        self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+        try:
+            show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
+                                                        self.__model.get_working_directory_path)
+            self.__widget.addWidget(show_runnables_screen)
+            self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+        except Exception as e:
+            self.__show_message_box(f'Failed to go to the screen os runnables. Reason: {e}', 'Error')
         self.__save_config()
 
     @staticmethod
