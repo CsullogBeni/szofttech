@@ -195,7 +195,7 @@ class Model:
 
     def get_main_runnables(self) -> List[FileInfo]:
         """
-        Returns the list of main runnables.
+        Collects the list of main runnables.
 
         Returns:
             List[FileInfo]: the list of main runnables
