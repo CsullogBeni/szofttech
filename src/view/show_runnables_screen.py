@@ -91,13 +91,10 @@ class ShowRunnablesScreen(QDialog):
         favourite runnables field
         """
 
-        '''main_counter = 0
-        for runnable in self.__model.get_runnables:
-            if runnable.is_main_runnable:
+        if len(self.__model.get_main_runnables()) > 0:
+            for runnable in self.__model.get_main_runnables():
                 self.__fulfill_vbox(runnable, True)
-                main_counter += 1
-        if main_counter > 0:
-            self.__add_vertical_spacing(20)'''
+            self.__add_vertical_spacing(20)
 
         for runnable in self.__model.get_runnables:
             if not runnable.is_main_runnable:
