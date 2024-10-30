@@ -12,9 +12,6 @@ from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox
 
 
-# TODO: Implement the __split_argument_label_info(arg_description: String) method. This should split description to fit
-#   on the screen
-
 # TODO: Implement the __add_arg_desc_style() method that ads style to the string (similar like html)
 # TODO: Implement the __add_input_field(arg: Argument) method. This should add a input field to the screen.
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
@@ -239,6 +236,14 @@ class RunnableConfigScreen(QDialog):
 
     @staticmethod
     def __split_argument_label_info(arg_description: str) -> str:
+        """
+        This method splits the description to fit on the screen.
+        Args:
+            arg_description: Description to display
+
+        Returns:
+            str: The modified description
+        """
         arg_info = arg_description.split(' ')
         arg_description = ''
         chars_in_one_line = 0
