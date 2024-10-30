@@ -70,6 +70,11 @@ class RunnerScreen(QDialog):
         except Exception as e:
             self.__show_message_box(f'Failed to go to another helper screen. Reason: {e}')
 
-    def __add_label(self, text: str):
+    def __add_label(self, text: str) -> None:
+        """
+        This method adds a label to the UI.
+        Args:
+            text: label text
+        """
         label = NormalTextLabel(text)
         self.__vbox.addWidget(label)
