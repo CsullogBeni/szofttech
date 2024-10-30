@@ -172,3 +172,11 @@ class Model:
             return stdout.decode(), stderr.decode()
         except Exception as e:
             return None, str(e)
+
+    def clear_history(self) -> None:
+        """
+        Clears the configuration history.
+        """
+        self.__data_access.clear_history()
+
+
