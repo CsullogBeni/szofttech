@@ -192,4 +192,9 @@ class Model:
                 self.__runnables[idx].set_main_runnable(currently_mian)
                 self.save_main()
                 return
-    
+
+    def get_main_runnables(self) -> List[FileInfo]:
+        """
+        Returns the list of main runnables.
+        """
+        return [r for r in self.__runnables if r.is_main_runnable]
