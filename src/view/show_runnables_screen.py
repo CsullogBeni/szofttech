@@ -222,7 +222,7 @@ class ShowRunnablesScreen(QDialog):
             None
         """
         self.__model.set_runnable_main_property(runnable, True)
-        
+
     def __unset_main(self, runnable: FileInfo) -> None:
         """
         Unsets the given runnable as the main runnable.
@@ -233,17 +233,6 @@ class ShowRunnablesScreen(QDialog):
             None
         """
         self.__model.set_runnable_main_property(runnable, False)
-
-    def __unset_main(self, runnable: FileInfo) -> None:
-        """
-        Unsets the main runnable.
-        This method unsets the main runnable in the model.
-        Args:
-            runnable (FileInfo): The runnable to be unset as the main runnable.
-        Returns:
-            None
-        """
-        self.__model.set_main_runnable(runnable, False)
 
     @staticmethod
     def __show_message(message: str) -> None:
