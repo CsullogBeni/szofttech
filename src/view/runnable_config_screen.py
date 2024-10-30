@@ -99,7 +99,16 @@ class RunnableConfigScreen(QDialog):
         """
         return "<b><span style='color: darkblue'>" + text + "</span></b>"
 
-    def __show_prog_details(self, clear: bool):
+    def __show_prog_details(self, clear: bool) -> None:
+        """
+        This method add the details of the runnable which has to be executed to the UI.
+        Args:
+            clear: This parameter decides whether the configuration of the given runnable has to be loaded.
+                    It will be passed to __show_prog_args method.
+
+        Returns:
+            None
+        """
         runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
         runnable_path.setMaximumWidth(1100)
         runnable_prog = NormalTextLabel(self.__get_dark_blue_label_text("Program: ") + self.__runnable.get_prog_name)
