@@ -91,7 +91,7 @@ class ShowRunnablesScreen(QDialog):
         """
         favourite runnables field
         """
-
+        self.__model.load_main()
         if len(self.__model.get_main_runnables()) > 0:
             for runnable in self.__model.get_main_runnables():
                 self.__fulfill_vbox(runnable, True)
@@ -191,7 +191,7 @@ class ShowRunnablesScreen(QDialog):
             self.__widget.addWidget(show_runnables_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except:
-            pass
+            self.__show_message('An error occurred. Please try again.')
 
     def __try_load_runnable(self, runnable: FileInfo) -> None:
         """
@@ -222,6 +222,7 @@ class ShowRunnablesScreen(QDialog):
             None
         """
         self.__model.set_runnable_main_property(runnable, True)
+        self.__try_load_show_runnables_screen()
 
     def __unset_main(self, runnable: FileInfo) -> None:
         """
@@ -233,6 +234,7 @@ class ShowRunnablesScreen(QDialog):
             None
         """
         self.__model.set_runnable_main_property(runnable, False)
+        self.__try_load_show_runnables_screen()
 
     @staticmethod
     def __show_message(message: str) -> None:
