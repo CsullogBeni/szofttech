@@ -32,7 +32,7 @@ class RunnableConfigScreen(QDialog):
         __model:       The model of the program.
         __widget:      The widget that contains the screen
         __scroll_area: The QScrollArea widget of the screen
-        __vbox:        The QScrollArea widget of the screen
+        __vbox:        The QVBoxLayout widget of the screen
         __runnable:    The runnable whose configuration has to be shown
         __button_widget: The widget that contains button
     """
