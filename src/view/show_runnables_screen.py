@@ -24,3 +24,208 @@
 #  the user, searched runnables and main runnables should be prioritized.
 # TODO: Implement the __show_message(message: str) static method. This should show the given message to the user.
 
+
+from PyQt5.QtCore import Qt
+from PyQt5 import QtWidgets
+from typing import List
+from PyQt5.QtWidgets import QDialog
+
+from src.model.fileinfo import FileInfo
+from src.model.model import Model
+# from src.view.runnable_config_screen import RunnableConfigScreen
+# from src.view.style.normal_text_label import NormalTextLabel
+from src.view.style.normal_text_button import NormalTextButton
+
+
+class ShowRunnablesScreen(QDialog):
+    """
+    A class that handles the UI for showing runnables.
+    Attributes:
+        __model (Model): The model that contains the data.
+        __widget (QtWidgets.QStackedWidget): The widget that contains the screen.
+        __scroll_area (QtWidgets.QScrollArea): The scroll area that contains the runnables.
+        __vbox (QtWidgets.QVBoxLayout): The vertical layout that contains the runnables.
+    Methods:
+        __init__(model: Model, widget: QtWidgets.QStackedWidget): Initializes the ShowRunnablesScreen object with the model and widget.
+        __init_ui(searched_runnables: list): Initializes the UI with the searched runnables.
+        add_found_runnables(searched_runnables: list): Adds the found runnables to the UI.
+    """
+    def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, working_dir_path: str = '',
+                 searched_runnables: List = None) -> None:
+        """
+        Initializes the ShowRunnablesScreen object with the model and widget.
+        Args:
+            model (Model): The model that contains the data.
+            widget (QtWidgets.QStackedWidget): The widget that contains the screen.
+        """
+        super(ShowRunnablesScreen, self).__init__()
+        if working_dir_path:
+            self.__model = Model(working_dir_path)
+        else:
+            self.__model = model
+        self.__model.add_working_directory_path(self.__model.get_working_directory_path)
+        self.__widget = widget
+        self.__scroll_area = None
+        self.__vbox = None
+        self.__button_widget = None
+        self.___init_ui()
+
+    def ___init_ui(self) -> None:
+        """
+        Initializes the UI with the searched runnables.
+        Args:
+            searched_runnables (list): The list of searched runnables.
+        """
+        self.__scroll_area = QtWidgets.QScrollArea()
+        self.__button_widget = QtWidgets.QWidget()
+        self.__vbox = QtWidgets.QVBoxLayout()
+
+        self.__add_working_dir_input()
+        self.__add_vertical_spacing(20)
+
+        """
+        search bar field
+        """
+
+        """
+        favourite runnables field
+        """
+
+        '''main_counter = 0
+        for runnable in self.__model.get_runnables:
+            if runnable.is_main_runnable:
+                self.__fulfill_vbox(runnable, True)
+                main_counter += 1
+        if main_counter > 0:
+            self.__add_vertical_spacing(20)'''
+
+        for runnable in self.__model.get_runnables:
+            if not runnable.is_main_runnable:
+                self.__fulfill_vbox(runnable, False)
+
+        self.__button_widget.setLayout(self.__vbox)
+        self.__scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.__scroll_area.setWidgetResizable(True)
+        self.__scroll_area.setWidget(self.__button_widget)
+
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.addWidget(self.__scroll_area)
+        self.setLayout(main_layout)
+
+    def __add_working_dir_input(self):
+        """
+        Adds the working directory input to the screen.
+        This adds a horizontal box layout with a text edit and a button.
+        The button is connected to the __try_load_show_runnables_screen method
+        with the text of the text edit as the argument.
+        """
+        input_horizontal_box = QtWidgets.QHBoxLayout()
+        input_line_edit = QtWidgets.QLineEdit(self.__model.get_working_directory_path)
+        button = NormalTextButton('Change working directory')
+        button.setMaximumWidth(400)
+        input_horizontal_box.addWidget(input_line_edit)
+        input_horizontal_box.addWidget(button)
+        self.__vbox.addLayout(input_horizontal_box)
+        button.clicked.connect(
+            lambda _, path=self.__vbox.itemAt(0).itemAt(0).widget().text(): self.__try_load_show_runnables_screen(path)
+        )
+
+    def __fulfill_vbox(self, runnable: FileInfo, is_main: bool = False):
+        """
+        Adds a runnable to the vertical box layout.
+        Adds a horizontal box layout to the vertical box layout with a
+        button for the given runnable. The button is connected to the
+        `__try_load_runnable` method with the given runnable as the argument.
+        If the runnable is a favourite, the button is on the left side,
+        otherwise it is on the right side.
+        Args:
+            runnable (FileInfo): The runnable to add to the vertical box layout.
+            is_main (bool, optional): If the runnable is a favourite, by default False
+        """
+        horizontal_box = QtWidgets.QHBoxLayout()
+        button = NormalTextButton(text=runnable.get_prog_path)
+        button.clicked.connect(
+            lambda _, current_runnable=runnable: self.__try_load_runnable(current_runnable)
+        )
+        horizontal_box.addWidget(button)
+        '''button = NormalTextButton()
+        if is_main:
+            button.setText('Undo pin')
+            button.clicked.connect(
+                lambda _, current_runnable=runnable: self.__unset_main(current_runnable)
+            )
+        else:
+            button.setText('Pin as favourite')
+            button.clicked.connect(
+                lambda _, current_runnable=runnable: self.__set_main(current_runnable)
+            )
+        horizontal_box.addWidget(button)
+        button.setMaximumWidth(400)'''
+        self.__vbox.addLayout(horizontal_box)
+
+    def __add_vertical_spacing(self, space_gap: int) -> None:
+        """
+        Adds vertical spacing to the layout.
+        This method inserts a vertical space of the given gap size
+        into the vertical box layout, creating a separation between
+        elements in the UI.
+        Args:
+            space_gap (int): The size of the space to be added, in pixels.
+        """
+        self.__vbox.addSpacing(space_gap)
+
+    def __try_load_show_runnables_screen(self, working_dir_path: str = '', searched_runnables: List = None) -> None:
+        """
+        Attempts to load and display the ShowRunnablesScreen.
+        This method initializes a ShowRunnablesScreen with the given working directory path
+        and the list of searched runnables. The screen is added to the widget stack and
+        displayed. If an error occurs during the process, it is silently ignored.
+        Args:
+            working_dir_path (str, optional): The path to the working directory, by default an empty string.
+            searched_runnables (List, optional): The list of runnables to be searched and displayed, by default None.
+        """
+        try:
+            show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
+                                                        self.__vbox.itemAt(0).itemAt(0).widget().text(),
+                                                        searched_runnables)
+            self.__widget.addWidget(show_runnables_screen)
+            self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+        except:
+            pass
+
+    def __try_load_runnable(self, runnable: FileInfo) -> None:
+        """
+        Attempts to load and display a RunnableConfigScreen for the given runnable.
+        This method initializes a RunnableConfigScreen with the given runnable and
+        adds it to the widget stack. The screen is displayed. If an error occurs
+        during the process, it is silently ignored.
+        Args:
+            runnable (FileInfo): The runnable to be displayed.
+        Returns:
+            None
+        """
+        try:
+            return
+            runnable_config_screen = RunnableConfigScreen(self.__model, self.__widget, runnable)
+            self.__widget.addWidget(runnable_config_screen)
+            self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+        except:
+            pass
+
+    @staticmethod
+    def __show_message(message: str) -> None:
+        """
+        Displays a message box with the given message.
+        This static method creates and displays a QMessageBox
+        with the provided message text. The message box is
+        executed modally, blocking the rest of the application
+        until it is closed.
+        Args:
+            message (str): The message to be displayed in the message box.
+        Returns:
+            None
+        """
+        msg = QtWidgets.QMessageBox()
+        msg.setText(message)
+        msg.exec_()
