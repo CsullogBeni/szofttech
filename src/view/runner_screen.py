@@ -26,11 +26,11 @@ class RunnerScreen(QDialog):
 
     Attributes:
         __model :      The model part of the program
-        __widget:      # TODO
+        __widget:      The widget that contains the screen.
         __scroll_area: The QScrollArea widget of the screen
         __vbox:        The QVBoxLayout widget of the screen
         __runnable:    The runnable which has to be run
-        __button_widget: # TODO ??
+        __button_widget: The widget that contains the button.
     """
 
     def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, runnable: FileInfo):
@@ -41,7 +41,7 @@ class RunnerScreen(QDialog):
         self.__vbox = QtWidgets.QVBoxLayout()
         self.__runnable = runnable
         self.__button_widget = QtWidgets.QWidget(widget)
-        self.__init_ui(model.get_runnables)  # TODO runnables should be a list
+        self.__init_ui(model.get_runnables)
 
     def __init_ui(self, searched_runnables: List):
         """
