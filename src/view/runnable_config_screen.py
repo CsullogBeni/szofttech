@@ -236,3 +236,17 @@ class RunnableConfigScreen(QDialog):
         if window_title is not None:
             msg_box.setWindowTitle(window_title)
         msg_box.exec()
+
+    @staticmethod
+    def __split_argument_label_info(arg_description: str) -> str:
+        arg_info = arg_description.split(' ')
+        arg_description = ''
+        chars_in_one_line = 0
+        for arg_member in arg_info:
+            if chars_in_one_line + len(arg_member) < 110:
+                arg_description = arg_description + ' ' + arg_member
+                chars_in_one_line = chars_in_one_line + len(arg_member)
+            else:
+                arg_description = arg_description + '<br>' + arg_member
+                chars_in_one_line = len(arg_member)
+        return arg_description.strip()
