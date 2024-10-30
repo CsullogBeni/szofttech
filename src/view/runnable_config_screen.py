@@ -114,6 +114,11 @@ class RunnableConfigScreen(QDialog):
         self.__show_prog_args(clear)
 
     def __show_main_buttons(self) -> None:
+        """
+        This method initialize the main buttons of the screen.
+        Returns:
+            None
+        """
         button = NormalTextButton('Clear history')
         button.clicked.connect(self.__clear_args())
         self.__vbox.addWidget(button)
