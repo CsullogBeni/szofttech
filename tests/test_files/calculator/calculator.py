@@ -13,7 +13,7 @@ def pars_arguments():
     parser.description = ("This program can add, subtract, multiply and divide two numbers. Numbers and operators "
                           "given from the user as the command line arguments. The result is printed to the console.")
     parser.add_argument("--number1", type=float, help="First number to do operation with", required=True)
-    parser.add_argument("number2", type=float, help="Second number to do operation with")
+    parser.add_argument("--number2", type=float, help="Second number to do operation with")
     parser.add_argument("--operation", choices=["+", "-", "*", "/"], help="Operation, which can be: +, -, *, /",
                         default="+")
 
