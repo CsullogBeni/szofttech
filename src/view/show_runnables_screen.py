@@ -50,6 +50,7 @@ class ShowRunnablesScreen(QDialog):
         __init_ui(searched_runnables: list): Initializes the UI with the searched runnables.
         add_found_runnables(searched_runnables: list): Adds the found runnables to the UI.
     """
+
     def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, working_dir_path: str = '',
                  searched_runnables: List = None) -> None:
         """
@@ -210,6 +211,39 @@ class ShowRunnablesScreen(QDialog):
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except:
             pass
+
+    def __set_main(self, runnable: FileInfo) -> None:
+        """
+        Sets the given runnable as the main runnable.
+        This method sets the given runnable as the main runnable in the model.
+        Args:
+            runnable (FileInfo): The runnable to be set as the main runnable.
+        Returns:
+            None
+        """
+        self.__model.set_runnable_main_property(runnable, True)
+        
+    def __unset_main(self, runnable: FileInfo) -> None:
+        """
+        Unsets the given runnable as the main runnable.
+        This method unsets the given runnable as the main runnable in the model.
+        Args:
+            runnable (FileInfo): The runnable to be unset as the main runnable.
+        Returns:
+            None
+        """
+        self.__model.set_runnable_main_property(runnable, False)
+
+    def __unset_main(self, runnable: FileInfo) -> None:
+        """
+        Unsets the main runnable.
+        This method unsets the main runnable in the model.
+        Args:
+            runnable (FileInfo): The runnable to be unset as the main runnable.
+        Returns:
+            None
+        """
+        self.__model.set_main_runnable(runnable, False)
 
     @staticmethod
     def __show_message(message: str) -> None:
