@@ -310,6 +310,14 @@ class RunnableConfigScreen(QDialog):
         return arg_description
 
     def __add_input_field(self, arg: Argument) -> None:
+        """
+        This method adds an input field to the screen for the given argument.
+        Args:
+            arg: argument to which the input field will be given
+
+        Returns:
+            None
+        """
         hbox = QtWidgets.QHBoxLayout()
         arg_flag = NormalTextLabel(arg.get_id + ': ')
         if len(arg_flag.text()) < 100:
