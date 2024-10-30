@@ -14,7 +14,6 @@ from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox
 
 
-# TODO: Implement the __add_arg_desc_style() method that ads style to the string (similar like html)
 # TODO: Implement the __add_input_field(arg: Argument) method. This should add a input field to the screen.
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
 
@@ -291,6 +290,14 @@ class RunnableConfigScreen(QDialog):
 
     @staticmethod
     def __add_arg_desc_style(arg_description: str) -> str:
+        """
+        This method adds style to the string (similar like html).
+        Args:
+            arg_description: the text to format
+
+        Returns:
+            str: the styled text
+        """
         if arg_description.endswith(', '):
             arg_description = arg_description[:-2]
         if arg_description.endswith(','):
