@@ -113,6 +113,32 @@ class RunnableConfigScreen(QDialog):
         self.__add_vertical_spacing()
         self.__show_prog_args(clear)
 
+    def __show_prog_args(self, clear: bool):
+        for arg in self.__runnable.get_args:
+            arg_description = f"Argument: {arg.get_id}"
+            if arg.get_second_id:
+                arg_description += f" / {arg.get_second_id}, "
+            else:
+                arg_description += ", "
+            if arg.get_default is not None:
+                arg_description += f"Default: {arg.get_default}, "
+            if arg.get_help:
+                arg_description += f"Help: {arg.get_help}, "
+            if arg.get_type:
+                arg_description += f"Type: {arg.get_type}, "
+            if arg.get_required:
+                arg_description += f"Required: {arg.get_required}, "
+            if arg.get_action:
+                arg_description += f"Action: {arg.get_action}, "
+            arg_description = self.__split_argument_label_info(arg_description)
+            arg_description = self.__add_arg_desc_style(arg_description)
+            widget = NormalTextLabel(arg_description)
+            widget.setMaximumWidth(1100)
+            self.__vbox.addWidget(widget)
+            self.__add_input_field(arg)
+        if not clear:
+            self.__load_config()
+
     def __show_main_buttons(self) -> None:
         """
         This method initialize the main buttons of the screen.
