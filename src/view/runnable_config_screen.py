@@ -163,3 +163,7 @@ class RunnableConfigScreen(QDialog):
         self.__vbox.addWidget(button)
 
         self.__button_widget.setLayout(self.__vbox)
+
+    def __add_vertical_spacing(self, space_gap: int = 33) -> None:
+        spacer = QtWidgets.QSpacerItem(0, space_gap, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.__vbox.addItem(spacer)
