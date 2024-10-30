@@ -172,29 +172,3 @@ class Model:
             return stdout.decode(), stderr.decode()
         except Exception as e:
             return None, str(e)
-
-    def clear_history(self) -> None:
-        """
-        Clears the configuration history.
-        """
-        self.__data_access.clear_history()
-
-    def set_runnable_main_property(self, runnable: FileInfo, currently_mian: bool = False) -> None:
-        """
-        Sets the main property of the given runnable and saves it.
-
-        Args:
-            runnable:           The runnable.
-            currently_mian:     The main property.
-        """
-        for idx, current_runnable in enumerate(self.__runnables):
-            if runnable.get_prog_path == current_runnable.get_prog_path:
-                self.__runnables[idx].set_main_runnable(currently_mian)
-                self.save_main()
-                return
-
-    def get_main_runnables(self) -> List[FileInfo]:
-        """
-        Returns the list of main runnables.
-        """
-        return [r for r in self.__runnables if r.is_main_runnable]
