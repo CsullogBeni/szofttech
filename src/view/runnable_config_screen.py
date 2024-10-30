@@ -5,7 +5,6 @@ from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
 from src.view.runner_screen import RunnerScreen
-from src.view.show_runnables_screen import ShowRunnablesScreen
 from src.view.style.normal_text_button import NormalTextButton
 from src.view.style.normal_text_label import NormalTextLabel
 from src.view.style.title_text_label import TitleTextLabel
@@ -214,6 +213,7 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
+        from src.view.show_runnables_screen import ShowRunnablesScreen
         try:
             show_runnables_screen = ShowRunnablesScreen(self.__model, self.__widget,
                                                         self.__model.get_working_directory_path)
