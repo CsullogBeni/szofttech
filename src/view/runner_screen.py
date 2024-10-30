@@ -49,7 +49,14 @@ class RunnerScreen(QDialog):
         This method call the run_program method of the model to run the chosen runnable with its suitable arguments
         """
         command = self.__runnable.get_prog_path  # TODO + arguments
-        self.__model.run_program(command)
+        result = self.__model.run_program(command)
+        for widget_idx in range(self.__vbox.count()):
+            widget = self.__vbox.itemAt(widget_idx).widget()
+            if isinstance(widget, NormalTextLabel):
+                if widget.text().startswith('Command'):
+                    widget.setText(widget.text() + command)
+                else:
+                    widget.setText(widget.text() + result[0] + result[1])
 
     def __add_back_button(self):
         """
