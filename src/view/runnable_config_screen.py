@@ -214,11 +214,8 @@ class RunnableConfigScreen(QDialog):
             runner_screen = RunnerScreen(self.__model, self.__runnable, self.__widget, command)
             self.__widget.addWidget(runner_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
-        except:
-            msg_box = QtWidgets.QMessageBox()
-            msg_box.setText('Error while running runnable')
-            msg_box.setWindowTitle('Error')
-            msg_box.exec_()
+        except Exception as e:
+            self.__show_message_box(f'Error while running runnable\n{e}', 'Error')
         self.__save_config()
 
     def __go_to_show_runnables_screen(self) -> None:
