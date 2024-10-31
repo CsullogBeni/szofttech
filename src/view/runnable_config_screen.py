@@ -1,3 +1,5 @@
+import re
+
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog
@@ -12,17 +14,9 @@ from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox
 
 
-# TODO: Implement the __split_argument_label_info(arg_description: String) method. This should split description to fit
-#   on the screen
-
-# TODO: Implement the __add_arg_desc_style() method that ads style to the string (similar like html)
 # TODO: Implement the __add_input_field(arg: Argument) method. This should add a input field to the screen.
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
 
-# TODO: Implement the extract_argument(text: String) static method, that filters the the argument name from the
-#  argument's detail.
-# TODO: Implement the remove_text_in_angle_brackets(text: String) static method, that removes the angle brackets.
-#  Usually xml/html codes are located between angle brackets.
 # TODO: Implement the __clear_args() method that clears all the input fields and initialize a new RunnableConfigScreen
 #  with the same runnable.
 # TODO: Implement the __save_config() method. This should save the given runnable's configuration.
@@ -236,3 +230,80 @@ class RunnableConfigScreen(QDialog):
         if window_title is not None:
             msg_box.setWindowTitle(window_title)
         msg_box.exec()
+
+    @staticmethod
+    def __split_argument_label_info(arg_description: str) -> str:
+        """
+        This method splits the description to fit on the screen.
+        Args:
+            arg_description: Description to display
+
+        Returns:
+            str: The modified description
+        """
+        arg_info = arg_description.split(' ')
+        arg_description = ''
+        chars_in_one_line = 0
+        for arg_member in arg_info:
+            if chars_in_one_line + len(arg_member) < 110:
+                arg_description = arg_description + ' ' + arg_member
+                chars_in_one_line = chars_in_one_line + len(arg_member)
+            else:
+                arg_description = arg_description + '<br>' + arg_member
+                chars_in_one_line = len(arg_member)
+        return arg_description.strip()
+
+    @staticmethod
+    def extract_argument(text: str) -> None or str:
+        """
+        This method filters the argument name from the argument's detail.
+        Args:
+            text: the argument's detail
+
+        Returns:
+            None or str: the filtered argument, or None if it doesn't exist
+        """
+        try:
+            start = text.find('Argument: ') + len('Argument: ')
+            end = text.find(' /', start)
+            if end == -1:
+                end = text.find(',', start)
+            if start == -1 or end == -1:
+                return None
+            return text[start:end]
+        except:
+            return None
+
+    @staticmethod
+    def remove_text_in_angle_brackets(text: str) -> str:
+        """
+        This method removes the angle brackets from the given text.
+        Usually xml/html codes are located between angle brackets.
+        Args:
+            text: the text from which square brackets are removed
+
+        Returns:
+            str: the modified text
+        """
+        pattern = r"<.*?>"
+        return re.sub(pattern, "", text)
+
+    @staticmethod
+    def __add_arg_desc_style(arg_description: str) -> str:
+        """
+        This method adds style to the string (similar like html).
+        Args:
+            arg_description: the text to format
+
+        Returns:
+            str: the styled text
+        """
+        if arg_description.endswith(', '):
+            arg_description = arg_description[:-2]
+        if arg_description.endswith(','):
+            arg_description = arg_description[:-1]
+        arg_description = "<p style=\"font-size:16px;\">" + arg_description + "</p>"
+        keywords = ['Argument:', 'Default:', 'Help:', 'Type:', 'Required:', 'Action:']
+        for word in keywords:
+            arg_description = arg_description.replace(word, RunnableConfigScreen.__get_dark_blue_label_text(word))
+        return arg_description
