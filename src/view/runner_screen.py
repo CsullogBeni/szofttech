@@ -17,9 +17,10 @@ class RunnerScreen(QDialog):
         __vbox:        The QVBoxLayout widget of the screen
         __runnable:    The runnable which has to be run
         __button_widget: The widget that contains the button.
+        __command: The command which has to be executed.
     """
 
-    def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, runnable: FileInfo):
+    def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, runnable: FileInfo, command: str):
         super(RunnerScreen, self).__init__()
         self.__model = model
         self.__widget = widget
@@ -27,6 +28,7 @@ class RunnerScreen(QDialog):
         self.__vbox = QtWidgets.QVBoxLayout()
         self.__runnable = runnable
         self.__button_widget = QtWidgets.QWidget(widget)
+        self.__command = command
         self.__init_ui()
 
     def __init_ui(self):
@@ -34,22 +36,19 @@ class RunnerScreen(QDialog):
         This method initializes the UI.
         """
         self.__add_back_button()
-        self.__add_label('Command:\n')
+        self.__add_label('Command:\n' + self.__command)
         self.__add_label('Output:\n')
         self.setLayout(self.__vbox)
 
     def __run_program(self):
         """
-        This method call the run_program method of the model to run the chosen runnable with its suitable arguments
+        This method call the run_program method of the model to run the given command.
         """
-        command = self.__runnable.get_prog_path  # TODO + arguments
-        result = self.__model.run_program(command)
+        result = self.__model.run_program(self.command)
         for widget_idx in range(self.__vbox.count()):
             widget = self.__vbox.itemAt(widget_idx).widget()
             if isinstance(widget, NormalTextLabel):
-                if widget.text().startswith('Command'):
-                    widget.setText(widget.text() + command)
-                else:
+                if widget.text().startswith('Output'):
                     if result[0] is not None:
                         result_string = result[0] + result[1]
                     else:
