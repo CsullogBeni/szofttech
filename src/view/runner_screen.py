@@ -1,4 +1,3 @@
-from typing import List
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
@@ -28,7 +27,7 @@ class RunnerScreen(QDialog):
         self.__vbox = QtWidgets.QVBoxLayout()
         self.__runnable = runnable
         self.__button_widget = QtWidgets.QWidget(widget)
-        self.__init_ui(model.get_runnables)
+        self.__init_ui()
 
     def __init_ui(self):
         """
