@@ -30,17 +30,13 @@ class RunnerScreen(QDialog):
         self.__button_widget = QtWidgets.QWidget(widget)
         self.__init_ui(model.get_runnables)
 
-    def __init_ui(self, searched_runnables: List):
+    def __init_ui(self):
         """
         This method initializes the UI.
-
-        Args:
-            searched_runnables: # TODO
         """
         self.__add_back_button()
         self.__add_label('Command:\n')
         self.__add_label('Output:\n')
-        # TODO what to do with searched_runnables
         self.setLayout(self.__vbox)
 
     def __run_program(self):
