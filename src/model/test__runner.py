@@ -28,6 +28,19 @@ def main() -> None:
 
 
 def run_tests(path: str) -> None:
+    """
+    Runs the tests in the given path.
+
+    This function creates a new `Model`, adds the given path to its working directories,
+    and then iterates over all its runnables. For each runnable, it calls the
+    `execute_test` function.
+
+    Args:
+        path: The path to run the tests in
+
+    Returns:
+        None
+    """
     model = Model()
     model.add_working_directory_path(path)
     for runnable in model.get_runnables:
