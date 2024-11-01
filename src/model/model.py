@@ -112,7 +112,7 @@ class Model:
 
     # TODO: Add some concrete type for list
     # Educated guess: a parameter with a potential value
-    def save_config(self, prog: FileInfo, args: List[Tuple[str, Optional[str]]]):
+    def save_config(self, prog: FileInfo, args: List[str or bool]) -> None:
         """
         Saves a given program and its argument to JSON.
 
@@ -120,17 +120,10 @@ class Model:
             prog: The program.
             args: The arguments.
         """
-        actual_args = prog.get_args
-        args_to_keep = dict()
-        for [a, v] in args:
-            if any([a == p.get_id or a == p.get_second_id for p in actual_args]):
-                args_to_keep[a] = v
-            else:
-                print(f"Model.save_config: Argument {a} couldn't be found in program {prog.get_prog_name}, skipping")
-        self.__data_access.save_config(prog.get_prog_path, args_to_keep)
+        saved_info = {'prog': prog.get_prog_path, 'args': args}
+        self.__data_access.save_config(prog.get_prog_path, saved_info)
 
-    # Will return list above for idempotency
-    def load_config(self, prog: FileInfo) -> List[Tuple[str, Optional[str]]]:
+    def load_config(self, prog: FileInfo) -> List[str or bool]:
         """
         Loads a given program's arguments from JSON.
 
@@ -138,7 +131,7 @@ class Model:
             prog: The program.
         """
         res_dict = self.__data_access.load_config(prog.get_prog_path)
-        return list(res_dict.items())
+        return res_dict['args']
 
     def save_main(self):
         """
