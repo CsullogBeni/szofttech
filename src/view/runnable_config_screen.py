@@ -86,7 +86,8 @@ class RunnableConfigScreen(QDialog):
             None
         """
         # runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
-        runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") +
+                                        self.__split_label_to_fit_screen(self.__runnable.get_prog_path, '\\', 100))
         runnable_path.setMaximumWidth(1100)
         self.__vbox.addWidget(runnable_path)
         if self.__runnable.get_prog_name:
@@ -129,7 +130,7 @@ class RunnableConfigScreen(QDialog):
                 arg_description += f"Action: {arg.get_action}, "
             if arg.get_choices:
                 arg_description += f"Choices: {str(arg.get_choices)}, "
-            arg_description = self.__split_argument_label_info(arg_description)
+            arg_description = self.__split_label_to_fit_screen(arg_description, ' ', 110)
             arg_description = self.__add_arg_desc_style(arg_description)
             widget = NormalTextLabel(arg_description)
             widget.setMaximumWidth(1100)
@@ -236,7 +237,7 @@ class RunnableConfigScreen(QDialog):
         msg_box.exec()
 
     @staticmethod
-    def __split_argument_label_info(arg_description: str) -> str:
+    def __split_label_to_fit_screen(arg_description: str, sep: str, line_length: int) -> str:
         """
         This method splits the description to fit on the screen.
         Args:
@@ -245,15 +246,19 @@ class RunnableConfigScreen(QDialog):
         Returns:
             str: The modified description
         """
-        arg_info = arg_description.split(' ')
+        arg_info = arg_description.split(sep)
         arg_description = ''
         chars_in_one_line = 0
         for arg_member in arg_info:
-            if chars_in_one_line + len(arg_member) < 110:
-                arg_description = arg_description + ' ' + arg_member
-                chars_in_one_line = chars_in_one_line + len(arg_member)
+            if chars_in_one_line + len(arg_member + sep) < line_length:
+                if arg_description != '':
+                    arg_description = arg_description + sep + arg_member
+                    chars_in_one_line = chars_in_one_line + len(arg_member + sep)
+                else:
+                    arg_description = arg_member
+                    chars_in_one_line = chars_in_one_line + len(arg_member)
             else:
-                arg_description = arg_description + '<br>' + arg_member
+                arg_description = arg_description + '<br>' + sep + arg_member
                 chars_in_one_line = len(arg_member)
         return arg_description.strip()
 
