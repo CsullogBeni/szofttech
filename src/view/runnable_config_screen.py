@@ -432,6 +432,14 @@ class RunnableConfigScreen(QDialog):
             return []
 
     def __equip_button_action(self, button: NormalTextButton) -> None:
+        """
+        This method sets the style of the Equip button.
+        Args:
+            button: the Equip button
+
+        Returns:
+            None
+        """
         # TODO try make this method static
         if button.text() == 'Equip':
             button.setText('Equipped')
