@@ -239,12 +239,14 @@ class RunnableConfigScreen(QDialog):
     @staticmethod
     def __split_label_to_fit_screen(label_text: str, sep: str, line_length: int) -> str:
         """
-        This method splits the description to fit on the screen.
+        This method splits the text of a label to fit on the screen.
         Args:
-            label_text: Description to display
+            label_text: Text to display
+            sep: Separator along which the text can be cut into pieces
+            line_length: The maximum number of characters that fits on the screen
 
         Returns:
-            str: The modified description
+            str: The modified text
         """
         label_chunks = label_text.split(sep)
         label_text = ''
