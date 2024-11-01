@@ -1,28 +1,8 @@
-# TODO: Create ShowRunnablesScreen class. The screen should show all the runnables and, main runnables prioritized.
-#  Search bar should be added. Clear history button should be added as well.
-#  It should contain the following private variables:
-#  - __model:       Model
-#  - __widget:      QtWidgets.QStackedWidget
-#  - __scroll_area: QtWidgets.QScrollArea
-#  - __vbox:        QtWidgets.QVBoxLayout
-
-# TODO: Inherit the current class from QtWidgets.QDialog.
-# TODO: Create constructor for ShowRunnablesScreen class, that sets all variables above.
-# TODO: Create __init_ui(searched_runnables: List) method, that initializes the UI.
 # TODO: Implement the add_found_runnables(searched_runnables: List) method. After searching, the found ones should be
 #  added to the screen first, then the main runnables.
 # TODO: Implement the add_search_bar() method. The search bar and a search button should be added to the screen.
 # TODO: Add the __search() function, that calls the model's search_runnables() method.
-# TODO: Implement the __vertical_spacing(space_gap: Int) method. The vertical spacing should be added to the screen
-#  between the search bar, the main runnables and the normal runnables.
-# TODO: Implement the __try_load_runnable(runnable: FileInfo) method. This should initialize a RunnableConfigScreen with
-#  the given runnable.
-# TODO: Implement the __set_main(runnable: FileInfo) method. This should set the given runnable as main.
-# TODO: Implement the __unset_main(runnable: FileInfo) method. This should unset the given runnable as main.
 # TODO: Implement the __clear_history() method. This should clear the history.
-# TODO: Implement the __show_runnables_screen(searched_runnables: List) method. This should list all the runnables for
-#  the user, searched runnables and main runnables should be prioritized.
-# TODO: Implement the __show_message(message: str) static method. This should show the given message to the user.
 
 
 from PyQt5.QtCore import Qt
@@ -32,7 +12,7 @@ from PyQt5.QtWidgets import QDialog
 
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
-# from src.view.runnable_config_screen import RunnableConfigScreen
+from src.view.runnable_config_screen import RunnableConfigScreen
 # from src.view.style.normal_text_label import NormalTextLabel
 from src.view.style.normal_text_button import NormalTextButton
 
@@ -50,6 +30,7 @@ class ShowRunnablesScreen(QDialog):
         __init_ui(searched_runnables: list): Initializes the UI with the searched runnables.
         add_found_runnables(searched_runnables: list): Adds the found runnables to the UI.
     """
+
     def __init__(self, model: Model, widget: QtWidgets.QStackedWidget, working_dir_path: str = '',
                  searched_runnables: List = None) -> None:
         """
@@ -70,7 +51,7 @@ class ShowRunnablesScreen(QDialog):
         self.__button_widget = None
         self.___init_ui()
 
-    def ___init_ui(self) -> None:
+    def ___init_ui(self, searched_runnables: List = None) -> None:
         """
         Initializes the UI with the searched runnables.
         Args:
@@ -90,14 +71,14 @@ class ShowRunnablesScreen(QDialog):
         """
         favourite runnables field
         """
-
-        '''main_counter = 0
-        for runnable in self.__model.get_runnables:
-            if runnable.is_main_runnable:
+        try:
+            self.__model.load_main()
+        except:
+            pass
+        if len(self.__model.get_main_runnables()) > 0:
+            for runnable in self.__model.get_main_runnables():
                 self.__fulfill_vbox(runnable, True)
-                main_counter += 1
-        if main_counter > 0:
-            self.__add_vertical_spacing(20)'''
+            self.__add_vertical_spacing(20)
 
         for runnable in self.__model.get_runnables:
             if not runnable.is_main_runnable:
@@ -149,7 +130,8 @@ class ShowRunnablesScreen(QDialog):
             lambda _, current_runnable=runnable: self.__try_load_runnable(current_runnable)
         )
         horizontal_box.addWidget(button)
-        '''button = NormalTextButton()
+
+        button = NormalTextButton()
         if is_main:
             button.setText('Undo pin')
             button.clicked.connect(
@@ -161,7 +143,7 @@ class ShowRunnablesScreen(QDialog):
                 lambda _, current_runnable=runnable: self.__set_main(current_runnable)
             )
         horizontal_box.addWidget(button)
-        button.setMaximumWidth(400)'''
+        button.setMaximumWidth(400)
         self.__vbox.addLayout(horizontal_box)
 
     def __add_vertical_spacing(self, space_gap: int) -> None:
@@ -192,7 +174,7 @@ class ShowRunnablesScreen(QDialog):
             self.__widget.addWidget(show_runnables_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except:
-            pass
+            self.__show_message('An error occurred. Please try again.')
 
     def __try_load_runnable(self, runnable: FileInfo) -> None:
         """
@@ -206,12 +188,35 @@ class ShowRunnablesScreen(QDialog):
             None
         """
         try:
-            return
             runnable_config_screen = RunnableConfigScreen(self.__model, self.__widget, runnable)
             self.__widget.addWidget(runnable_config_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except:
             pass
+
+    def __set_main(self, runnable: FileInfo) -> None:
+        """
+        Sets the given runnable as the main runnable.
+        This method sets the given runnable as the main runnable in the model.
+        Args:
+            runnable (FileInfo): The runnable to be set as the main runnable.
+        Returns:
+            None
+        """
+        self.__model.set_runnable_main_property(runnable, True)
+        self.__try_load_show_runnables_screen()
+
+    def __unset_main(self, runnable: FileInfo) -> None:
+        """
+        Unsets the given runnable as the main runnable.
+        This method unsets the given runnable as the main runnable in the model.
+        Args:
+            runnable (FileInfo): The runnable to be unset as the main runnable.
+        Returns:
+            None
+        """
+        self.__model.set_runnable_main_property(runnable, False)
+        self.__try_load_show_runnables_screen()
 
     @staticmethod
     def __show_message(message: str) -> None:
