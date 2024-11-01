@@ -335,7 +335,9 @@ class RunnableConfigScreen(QDialog):
         self.__add_vertical_spacing()
 
     def __clear_args(self):
-        pass
+        runnable_screen = RunnableConfigScreen(self.__model, self.__runnable, self.__widget, True)
+        self.__widget.addWidget(runnable_screen)
+        self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
 
     def __save_config(self):
         pass
