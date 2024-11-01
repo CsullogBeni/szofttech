@@ -43,7 +43,10 @@ class Model:
 
         if self.__working_directory_path is None:
             self.__working_directory_path = pathlib.Path(__file__).resolve().parent.parent
-        self.load_main()
+        try:
+            self.load_main()
+        except:
+            pass
 
     @property
     def get_working_directory_path(self) -> str:
@@ -203,3 +206,35 @@ class Model:
             List[FileInfo]: the list of main runnables
         """
         return [r for r in self.__runnables if r.is_main_runnable]
+
+    def search_runnable(self, given_text: str) -> List:
+        """
+        Searches the given_text in the list of runnables prog path.
+        Args:
+            given_text:  The text to be searched.
+
+        Returns:
+            List: The list of runnables that contain the given text.
+        """
+        if given_text == '' or len(self.__runnables) == 0:
+            return []
+        return self.__searching_algorithm(given_text, self.__runnables)
+
+    @staticmethod
+    def __searching_algorithm(given_text: str, runnables: List) -> List:
+        """
+        Searches the given_text in the list of runnables prog path.
+
+        Args:
+            given_text:      The text to be searched.
+            runnables:       The list of runnables.
+
+        Returns:
+            List: The list of runnables that contain the given text.
+        """
+        matching = []
+        for runnable in runnables:
+            if given_text in runnable.get_prog_path:
+                if runnable not in matching:
+                    matching.append(runnable)
+        return matching
