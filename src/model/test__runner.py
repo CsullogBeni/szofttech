@@ -29,3 +29,10 @@ def execute_test(runnable: FileInfo, model: Model) -> None:
         print(out)
     else:
         print(err)
+
+def parse_args() -> argparse.ArgumentParser.parse_args:
+    parser = argparse.ArgumentParser()
+    parser.prog = 'Test runner'
+    parser.description = 'This tool runs the tests in the given folder.'
+    parser.add_argument('-p', '--path', type=str, help='Path to the folder with tests', required=True)
+    return parser.parse_args()
