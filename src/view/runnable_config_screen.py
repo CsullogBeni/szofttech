@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog
 
+from src.model.argument import Argument
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
 from src.view.runner_screen import RunnerScreen
@@ -14,7 +15,6 @@ from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox
 
 
-# TODO: Implement the __add_input_field(arg: Argument) method. This should add a input field to the screen.
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
 
 # TODO: Implement the __clear_args() method that clears all the input fields and initialize a new RunnableConfigScreen
@@ -31,7 +31,7 @@ class RunnableConfigScreen(QDialog):
         __model:       The model of the program.
         __widget:      The widget that contains the screen
         __scroll_area: The QScrollArea widget of the screen
-        __vbox:        The QScrollArea widget of the screen
+        __vbox:        The QVBoxLayout widget of the screen
         __runnable:    The runnable whose configuration has to be shown
         __button_widget: The widget that contains button
     """
@@ -307,3 +307,23 @@ class RunnableConfigScreen(QDialog):
         for word in keywords:
             arg_description = arg_description.replace(word, RunnableConfigScreen.__get_dark_blue_label_text(word))
         return arg_description
+
+    def __add_input_field(self, arg: Argument) -> None:
+        """
+        This method adds an input field to the screen for the given argument.
+        Args:
+            arg: argument to which the input field will be given
+
+        Returns:
+            None
+        """
+        hbox = QtWidgets.QHBoxLayout()
+        arg_flag = NormalTextLabel(arg.get_id + ': ')
+        if len(arg_flag.text()) < 100:
+            arg_flag.setMaximumWidth(150)
+        hbox.addWidget(arg_flag)
+        hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+        self.__vbox.addLayout(hbox)
+        self.__add_vertical_spacing()
+
+        self.__add_vertical_spacing()
