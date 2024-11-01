@@ -16,14 +16,6 @@ from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox'''
 
 
-# TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
-
-# TODO: Implement the __clear_args() method that clears all the input fields and initialize a new RunnableConfigScreen
-#  with the same runnable.
-# TODO: Implement the __save_config() method. This should save the given runnable's configuration.
-# TODO: Implement the __load_config() method. This should load the given runnable's configuration.
-# TODO: Implement the list_reducer(arg_list: List) static method, deletes the first item of the list.
-
 class RunnableConfigScreen(QDialog):
     """
     This screen will show the configuration of a runnable. All the arguments, and its details.
@@ -440,11 +432,9 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        # TODO try make this method static
         if button.text() == 'Equip':
             button.setText('Equipped')
             button.setStyleSheet("background-color: green")
         else:
             button.setText('Equip')
             button.setStyleSheet("background-color: red")
-
