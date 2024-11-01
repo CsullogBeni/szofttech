@@ -71,7 +71,7 @@ class ShowRunnablesScreen(QDialog):
         self.__button_widget = None
         self.___init_ui()
 
-    def ___init_ui(self) -> None:
+    def ___init_ui(self, searched_runnables: List = None) -> None:
         """
         Initializes the UI with the searched runnables.
         Args:
@@ -91,7 +91,10 @@ class ShowRunnablesScreen(QDialog):
         """
         favourite runnables field
         """
-        self.__model.load_main()
+        try:
+            self.__model.load_main()
+        except:
+            pass
         if len(self.__model.get_main_runnables()) > 0:
             for runnable in self.__model.get_main_runnables():
                 self.__fulfill_vbox(runnable, True)
