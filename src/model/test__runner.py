@@ -48,6 +48,21 @@ def run_tests(path: str) -> None:
 
 
 def execute_test(runnable: FileInfo, model: Model) -> None:
+    """
+    Executes a test for the given runnable.
+
+    This function checks if the runnable is not the current test runner
+    and if it is a test file by verifying its name. It then executes
+    the runnable using the model's run_program method and prints the
+    output or the error message.
+
+    Args:
+        runnable (FileInfo): The runnable to be tested.
+        model (Model): The model that executes the runnable.
+
+    Returns:
+        None
+    """
     if 'test_runner.py' in runnable.get_prog_path:
         return
     if 'test_' not in os.path.basename(runnable.get_prog_path):
