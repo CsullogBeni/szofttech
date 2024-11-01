@@ -135,6 +135,8 @@ class RunnableConfigScreen(QDialog):
                 arg_description += f"Required: {arg.get_required}, "
             if arg.get_action:
                 arg_description += f"Action: {arg.get_action}, "
+            if arg.get_choices:
+                arg_description += f"Choices: {str(arg.get_choices)}, "
             arg_description = self.__split_argument_label_info(arg_description)
             arg_description = self.__add_arg_desc_style(arg_description)
             widget = NormalTextLabel(arg_description)
@@ -203,6 +205,7 @@ class RunnableConfigScreen(QDialog):
             runner_screen = RunnerScreen(self.__model, self.__widget, self.__runnable, command)
             self.__widget.addWidget(runner_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+            runner_screen.run_program()
         except Exception as e:
             self.__show_message_box(f'Error while running runnable\n{e}', 'Error')
         self.__save_config()
@@ -309,7 +312,7 @@ class RunnableConfigScreen(QDialog):
         if arg_description.endswith(','):
             arg_description = arg_description[:-1]
         arg_description = "<p style=\"font-size:16px;\">" + arg_description + "</p>"
-        keywords = ['Argument:', 'Default:', 'Help:', 'Type:', 'Required:', 'Action:']
+        keywords = ['Argument:', 'Default:', 'Help:', 'Type:', 'Required:', 'Action:', 'Choices:']
         for word in keywords:
             arg_description = arg_description.replace(word, RunnableConfigScreen.__get_dark_blue_label_text(word))
         return arg_description
