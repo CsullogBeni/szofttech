@@ -10,6 +10,7 @@ from src.model.model import Model
 from src.view.runner_screen import RunnerScreen
 from src.view.style.normal_text_button import NormalTextButton
 from src.view.style.normal_text_label import NormalTextLabel
+
 '''from src.view.style.title_text_label import TitleTextLabel
 from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox'''
@@ -92,7 +93,7 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        #runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        # runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
         runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
         runnable_path.setMaximumWidth(1100)
         self.__vbox.addWidget(runnable_path)
@@ -188,7 +189,7 @@ class RunnableConfigScreen(QDialog):
                 current_arg = self.extract_argument(self.remove_text_in_angle_brackets(widget.text()))
             elif (isinstance(layout, QtWidgets.QHBoxLayout)
                   and isinstance(layout.itemAt(1).widget(), QtWidgets.QLineEdit)):
-                  #and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
+                # and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
                 input_from_widget = layout.itemAt(1).widget().text().strip()
                 if not current_arg:
                     return
@@ -327,7 +328,7 @@ class RunnableConfigScreen(QDialog):
         if len(arg_flag.text()) < 100:
             arg_flag.setMaximumWidth(150)
         hbox.addWidget(arg_flag)
-        #hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+        # hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
         hbox.addWidget(QtWidgets.QLineEdit())
         self.__vbox.addLayout(hbox)
         self.__add_vertical_spacing()
@@ -335,6 +336,9 @@ class RunnableConfigScreen(QDialog):
         self.__add_vertical_spacing()
 
     def __clear_args(self):
+        """
+        This method clears all the input fields and initialize a new RunnableConfigScreen with the same runnable.
+        """
         runnable_screen = RunnableConfigScreen(self.__model, self.__runnable, self.__widget, True)
         self.__widget.addWidget(runnable_screen)
         self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
