@@ -187,12 +187,10 @@ class ShowRunnablesScreen(QDialog):
         Returns:
             None
         """
-        try:
-            runnable_config_screen = RunnableConfigScreen(self.__model, self.__widget, runnable)
-            self.__widget.addWidget(runnable_config_screen)
-            self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
-        except:
-            pass
+
+        runnable_config_screen = RunnableConfigScreen(self.__model, runnable, self.__widget)
+        self.__widget.addWidget(runnable_config_screen)
+        self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
 
     def __set_main(self, runnable: FileInfo) -> None:
         """

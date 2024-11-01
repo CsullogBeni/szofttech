@@ -10,9 +10,9 @@ from src.model.model import Model
 from src.view.runner_screen import RunnerScreen
 from src.view.style.normal_text_button import NormalTextButton
 from src.view.style.normal_text_label import NormalTextLabel
-from src.view.style.title_text_label import TitleTextLabel
+'''from src.view.style.title_text_label import TitleTextLabel
 from src.view.style.normal_text_line_edit import NormalTextLineEdit
-from src.view.style.normal_text_combobox import NormalTextComboBox
+from src.view.style.normal_text_combobox import NormalTextComboBox'''
 
 
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
@@ -92,16 +92,20 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        #runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
         runnable_path.setMaximumWidth(1100)
-        runnable_prog = NormalTextLabel(self.__get_dark_blue_label_text("Program: ") + self.__runnable.get_prog_name)
-        runnable_prog.setMaximumWidth(1100)
-        description = self.split_argument_label_info(self.__runnable.get_prog_description)
-        runnable_desc = NormalTextLabel(self.__get_dark_blue_label_text("Program's description: ") + description)
-        runnable_desc.setMaximumWidth(1100)
         self.__vbox.addWidget(runnable_path)
-        self.__vbox.addWidget(runnable_prog)
-        self.__vbox.addWidget(runnable_desc)
+        if self.__runnable.get_prog_name:
+            runnable_prog = NormalTextLabel(
+                self.__get_dark_blue_label_text("Program: ") + self.__runnable.get_prog_name)
+            runnable_prog.setMaximumWidth(1100)
+            self.__vbox.addWidget(runnable_prog)
+        if self.__runnable.get_prog_description:
+            '''description = self.split_argument_label_info(self.__runnable.get_prog_description)
+            runnable_desc = NormalTextLabel(self.__get_dark_blue_label_text("Program's description: ") + description)
+            runnable_desc.setMaximumWidth(1100)
+            self.__vbox.addWidget(runnable_desc)'''
         self.__add_vertical_spacing()
         self.__show_prog_args(clear)
 
@@ -146,13 +150,13 @@ class RunnableConfigScreen(QDialog):
             None
         """
         button = NormalTextButton('Clear history')
-        button.clicked.connect(self.__clear_args())
+        button.clicked.connect(self.__clear_args)
         self.__vbox.addWidget(button)
         button = NormalTextButton('Run')
-        button.clicked.connect(self.__run_configuration())
+        button.clicked.connect(self.__run_configuration)
         self.__vbox.addWidget(button)
         button = NormalTextButton('Back')
-        button.clicked.connect(self.__go_to_show_runnables_screen())
+        button.clicked.connect(self.__go_to_show_runnables_screen)
         self.__vbox.addWidget(button)
 
         self.__button_widget.setLayout(self.__vbox)
@@ -183,7 +187,8 @@ class RunnableConfigScreen(QDialog):
             if isinstance(widget, NormalTextLabel):
                 current_arg = self.extract_argument(self.remove_text_in_angle_brackets(widget.text()))
             elif (isinstance(layout, QtWidgets.QHBoxLayout)
-                  and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
+                  and isinstance(layout.itemAt(1).widget(), QtWidgets.QLineEdit)):
+                  #and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
                 input_from_widget = layout.itemAt(1).widget().text().strip()
                 if not current_arg:
                     return
@@ -194,7 +199,7 @@ class RunnableConfigScreen(QDialog):
                 else:
                     command = command + ' ' + current_arg + ' ' + input_from_widget
         try:
-            runner_screen = RunnerScreen(self.__model, self.__runnable, self.__widget, command)
+            runner_screen = RunnerScreen(self.__model, self.__widget, self.__runnable, command)
             self.__widget.addWidget(runner_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
         except Exception as e:
@@ -322,8 +327,18 @@ class RunnableConfigScreen(QDialog):
         if len(arg_flag.text()) < 100:
             arg_flag.setMaximumWidth(150)
         hbox.addWidget(arg_flag)
-        hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+        #hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+        hbox.addWidget(QtWidgets.QLineEdit())
         self.__vbox.addLayout(hbox)
         self.__add_vertical_spacing()
 
         self.__add_vertical_spacing()
+
+    def __clear_args(self):
+        pass
+
+    def __save_config(self):
+        pass
+
+    def __load_config(self):
+        pass
