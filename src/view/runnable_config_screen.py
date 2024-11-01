@@ -237,30 +237,30 @@ class RunnableConfigScreen(QDialog):
         msg_box.exec()
 
     @staticmethod
-    def __split_label_to_fit_screen(arg_description: str, sep: str, line_length: int) -> str:
+    def __split_label_to_fit_screen(label_text: str, sep: str, line_length: int) -> str:
         """
         This method splits the description to fit on the screen.
         Args:
-            arg_description: Description to display
+            label_text: Description to display
 
         Returns:
             str: The modified description
         """
-        arg_info = arg_description.split(sep)
-        arg_description = ''
+        label_chunks = label_text.split(sep)
+        label_text = ''
         chars_in_one_line = 0
-        for arg_member in arg_info:
-            if chars_in_one_line + len(arg_member + sep) < line_length:
-                if arg_description != '':
-                    arg_description = arg_description + sep + arg_member
-                    chars_in_one_line = chars_in_one_line + len(arg_member + sep)
+        for chunk in label_chunks:
+            if chars_in_one_line + len(chunk + sep) < line_length:
+                if label_text != '':
+                    label_text = label_text + sep + chunk
+                    chars_in_one_line = chars_in_one_line + len(chunk + sep)
                 else:
-                    arg_description = arg_member
-                    chars_in_one_line = chars_in_one_line + len(arg_member)
+                    label_text = chunk
+                    chars_in_one_line = chars_in_one_line + len(chunk)
             else:
-                arg_description = arg_description + '<br>' + sep + arg_member
-                chars_in_one_line = len(arg_member)
-        return arg_description.strip()
+                label_text = label_text + '<br>' + sep + chunk
+                chars_in_one_line = len(chunk)
+        return label_text.strip()
 
     @staticmethod
     def extract_argument(text: str) -> None or str:
