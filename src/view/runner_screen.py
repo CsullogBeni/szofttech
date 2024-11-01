@@ -1,3 +1,5 @@
+import textwrap
+
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
@@ -36,7 +38,7 @@ class RunnerScreen(QDialog):
         This method initializes the UI.
         """
         self.__add_back_button()
-        self.__add_label('Command:\n' + self.__command)
+        self.__add_label('Command:\n' + self.__split_label_to_fit_screen(self.__command))
         self.__add_label('Output:\n')
         self.setLayout(self.__vbox)
 
@@ -83,3 +85,22 @@ class RunnerScreen(QDialog):
         """
         label = NormalTextLabel(text)
         self.__vbox.addWidget(label)
+
+    @staticmethod
+    def __split_label_to_fit_screen(label_text: str) -> str:
+        """
+        This method splits the text of a label to fit on the screen.
+        Args:
+            label_text: Text to display
+
+        Returns:
+            str: The modified text
+        """
+        label_chunks = textwrap.wrap(label_text, width=130)
+        label_text = ''
+        for chunk in label_chunks:
+            if label_text == '':
+                label_text = chunk
+            else:
+                label_text += '\n' + chunk
+        return label_text.strip()
