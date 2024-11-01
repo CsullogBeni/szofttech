@@ -75,6 +75,15 @@ def execute_test(runnable: FileInfo, model: Model) -> None:
 
 
 def parse_args() -> argparse.ArgumentParser.parse_args:
+    """
+    Parses the command line arguments and returns them.
+
+    This function creates a new ArgumentParser, adds a required argument for the path
+    to the folder with tests, and then returns the parsed arguments.
+
+    Returns:
+        argparse.ArgumentParser.parse_args: The parsed arguments
+    """
     parser = argparse.ArgumentParser()
     parser.prog = 'Test runner'
     parser.description = 'This tool runs the tests in the given folder.'
