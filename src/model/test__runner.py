@@ -6,6 +6,18 @@ from src.model.model import Model
 
 
 def main() -> None:
+    """
+    The main entry point of the test runner.
+
+    This function parses the command line arguments and calls the `run_tests` function
+    with the given path.
+
+    Args:
+        None
+
+    Returns:
+        None
+    """
     args = parse_args()
 
     if args.path:
