@@ -326,16 +326,19 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        hbox = QtWidgets.QHBoxLayout()
-        arg_flag = NormalTextLabel(arg.get_id + ': ')
-        if len(arg_flag.text()) < 100:
-            arg_flag.setMaximumWidth(150)
-        hbox.addWidget(arg_flag)
-        # hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
-        hbox.addWidget(QtWidgets.QLineEdit())
-        self.__vbox.addLayout(hbox)
-        self.__add_vertical_spacing()
-
+        if not arg.get_action:
+            hbox = QtWidgets.QHBoxLayout()
+            arg_flag = NormalTextLabel(arg.get_id + ': ')
+            if len(arg_flag.text()) < 100:
+                arg_flag.setMaximumWidth(150)
+            hbox.addWidget(arg_flag)
+            # hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+            hbox.addWidget(QtWidgets.QLineEdit())
+            self.__vbox.addLayout(hbox)
+        else:
+            button = NormalTextButton(text='Equip', tool_tip=f"Flag: {arg.get_id}\nAction: {arg.get_action}")
+            button.clicked.connect(lambda _, current_button=button: self.__equip_button_action(current_button))
+            self.__vbox.addWidget(button)
         self.__add_vertical_spacing()
 
     def __clear_args(self):
