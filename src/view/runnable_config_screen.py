@@ -344,7 +344,29 @@ class RunnableConfigScreen(QDialog):
         self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
 
     def __save_config(self):
-        pass
+        """
+        This method saves the arguments of the runnable in the model.
+        It iterates over the widgets in the vertical box layout.
+        If the widget is a horizontal box layout with a line edit or a combo box, it adds the text of the line edit or
+        the current text of the combo box to the arguments list.
+        If the widget is a button, it adds True to the arguments list if the button's text is 'Equipped', otherwise it
+        adds False. Finally, it calls the save_config method of the model with the runnable and the arguments list.
+        """
+        args = []
+        for widget_idx in range(self.__vbox.count()):
+            if isinstance(self.__vbox.itemAt(widget_idx).layout(), QtWidgets.QHBoxLayout):
+                # if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
+                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QLineEdit):
+                    args.append(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().text().strip())
+                # elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
+                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QComboBox):
+                    args.append(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().currentText().strip())
+            elif isinstance(self.__vbox.itemAt(widget_idx).widget(), NormalTextButton):
+                if self.__vbox.itemAt(widget_idx).widget().text() == 'Equipped':
+                    args.append(True)
+                else:
+                    args.append(False)
+        self.__model.save_config(self.__runnable, args)
 
     def __load_config(self):
         pass
