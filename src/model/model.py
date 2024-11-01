@@ -103,7 +103,7 @@ class Model:
                         current_file = FileInfo(os.path.join(dirpath, filename), prog, desc, [], False)
                         for arg_name, arg_name_2, default, help_text, arg_type, required, action, choices in args:
                             current_file.add_argument(
-                                Argument(arg_name, arg_name_2, default, help_text, arg_type, required, action, choices))
+                                Argument(arg_name, arg_name_2, help_text, default,required, arg_type, action, choices))
                         self.__runnables.append(current_file)
                 except:
                     continue
@@ -130,8 +130,11 @@ class Model:
         Args:
             prog: The program.
         """
-        res_dict = self.__data_access.load_config(prog.get_prog_path)
-        return res_dict
+        try:
+            res_dict = self.__data_access.load_config(prog.get_prog_path)
+            return res_dict
+        except:
+            return {}
 
     def save_main(self):
         """
