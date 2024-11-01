@@ -261,7 +261,7 @@ class RunnableConfigScreen(QDialog):
                     chars_in_one_line = chars_in_one_line + len(chunk)
             else:
                 label_text = label_text + '<br>' + sep + chunk
-                chars_in_one_line = len(chunk)
+                chars_in_one_line = len(chunk + sep)
         return label_text.strip()
 
     @staticmethod
