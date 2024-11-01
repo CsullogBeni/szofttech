@@ -401,3 +401,23 @@ class RunnableConfigScreen(QDialog):
                     self.__vbox.itemAt(widget_idx).widget().setStyleSheet("background-color: red")
                 current_args = self.__list_reducer(current_args)
 
+    @staticmethod
+    def __list_reducer(arg_list: list = None) -> list:
+        """
+        A static method that reduces a list by one element.
+        If the given list is None, it returns an empty list.
+        If the given list has more than one element, it returns the list without the first element.
+        If the given list has one element, it returns an empty list.
+
+        Args:
+            arg_list (list, optional): The list to be reduced. Defaults to None.
+
+        Returns:
+            list: The reduced list.
+        """
+        if not arg_list:
+            return []
+        if len(arg_list) > 1:
+            return arg_list[1:]
+        else:
+            return []
