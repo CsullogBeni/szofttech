@@ -10,9 +10,10 @@ from src.model.model import Model
 from src.view.runner_screen import RunnerScreen
 from src.view.style.normal_text_button import NormalTextButton
 from src.view.style.normal_text_label import NormalTextLabel
-from src.view.style.title_text_label import TitleTextLabel
+
+'''from src.view.style.title_text_label import TitleTextLabel
 from src.view.style.normal_text_line_edit import NormalTextLineEdit
-from src.view.style.normal_text_combobox import NormalTextComboBox
+from src.view.style.normal_text_combobox import NormalTextComboBox'''
 
 
 # TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
@@ -92,16 +93,20 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        # runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
         runnable_path.setMaximumWidth(1100)
-        runnable_prog = NormalTextLabel(self.__get_dark_blue_label_text("Program: ") + self.__runnable.get_prog_name)
-        runnable_prog.setMaximumWidth(1100)
-        description = self.split_argument_label_info(self.__runnable.get_prog_description)
-        runnable_desc = NormalTextLabel(self.__get_dark_blue_label_text("Program's description: ") + description)
-        runnable_desc.setMaximumWidth(1100)
         self.__vbox.addWidget(runnable_path)
-        self.__vbox.addWidget(runnable_prog)
-        self.__vbox.addWidget(runnable_desc)
+        if self.__runnable.get_prog_name:
+            runnable_prog = NormalTextLabel(
+                self.__get_dark_blue_label_text("Program: ") + self.__runnable.get_prog_name)
+            runnable_prog.setMaximumWidth(1100)
+            self.__vbox.addWidget(runnable_prog)
+        if self.__runnable.get_prog_description:
+            '''description = self.split_argument_label_info(self.__runnable.get_prog_description)
+            runnable_desc = NormalTextLabel(self.__get_dark_blue_label_text("Program's description: ") + description)
+            runnable_desc.setMaximumWidth(1100)
+            self.__vbox.addWidget(runnable_desc)'''
         self.__add_vertical_spacing()
         self.__show_prog_args(clear)
 
@@ -130,6 +135,8 @@ class RunnableConfigScreen(QDialog):
                 arg_description += f"Required: {arg.get_required}, "
             if arg.get_action:
                 arg_description += f"Action: {arg.get_action}, "
+            if arg.get_choices:
+                arg_description += f"Choices: {str(arg.get_choices)}, "
             arg_description = self.__split_argument_label_info(arg_description)
             arg_description = self.__add_arg_desc_style(arg_description)
             widget = NormalTextLabel(arg_description)
@@ -146,13 +153,13 @@ class RunnableConfigScreen(QDialog):
             None
         """
         button = NormalTextButton('Clear history')
-        button.clicked.connect(self.__clear_args())
+        button.clicked.connect(self.__clear_args)
         self.__vbox.addWidget(button)
         button = NormalTextButton('Run')
-        button.clicked.connect(self.__run_configuration())
+        button.clicked.connect(self.__run_configuration)
         self.__vbox.addWidget(button)
         button = NormalTextButton('Back')
-        button.clicked.connect(self.__go_to_show_runnables_screen())
+        button.clicked.connect(self.__go_to_show_runnables_screen)
         self.__vbox.addWidget(button)
 
         self.__button_widget.setLayout(self.__vbox)
@@ -183,7 +190,8 @@ class RunnableConfigScreen(QDialog):
             if isinstance(widget, NormalTextLabel):
                 current_arg = self.extract_argument(self.remove_text_in_angle_brackets(widget.text()))
             elif (isinstance(layout, QtWidgets.QHBoxLayout)
-                  and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
+                  and isinstance(layout.itemAt(1).widget(), QtWidgets.QLineEdit)):
+                # and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
                 input_from_widget = layout.itemAt(1).widget().text().strip()
                 if not current_arg:
                     return
@@ -194,9 +202,10 @@ class RunnableConfigScreen(QDialog):
                 else:
                     command = command + ' ' + current_arg + ' ' + input_from_widget
         try:
-            runner_screen = RunnerScreen(self.__model, self.__runnable, self.__widget, command)
+            runner_screen = RunnerScreen(self.__model, self.__widget, self.__runnable, command)
             self.__widget.addWidget(runner_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+            runner_screen.run_program()
         except Exception as e:
             self.__show_message_box(f'Error while running runnable\n{e}', 'Error')
         self.__save_config()
@@ -303,7 +312,7 @@ class RunnableConfigScreen(QDialog):
         if arg_description.endswith(','):
             arg_description = arg_description[:-1]
         arg_description = "<p style=\"font-size:16px;\">" + arg_description + "</p>"
-        keywords = ['Argument:', 'Default:', 'Help:', 'Type:', 'Required:', 'Action:']
+        keywords = ['Argument:', 'Default:', 'Help:', 'Type:', 'Required:', 'Action:', 'Choices:']
         for word in keywords:
             arg_description = arg_description.replace(word, RunnableConfigScreen.__get_dark_blue_label_text(word))
         return arg_description
@@ -322,8 +331,96 @@ class RunnableConfigScreen(QDialog):
         if len(arg_flag.text()) < 100:
             arg_flag.setMaximumWidth(150)
         hbox.addWidget(arg_flag)
-        hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+        # hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+        hbox.addWidget(QtWidgets.QLineEdit())
         self.__vbox.addLayout(hbox)
         self.__add_vertical_spacing()
 
         self.__add_vertical_spacing()
+
+    def __clear_args(self):
+        """
+        This method clears all the input fields and initialize a new RunnableConfigScreen with the same runnable.
+        """
+        runnable_screen = RunnableConfigScreen(self.__model, self.__runnable, self.__widget, True)
+        self.__widget.addWidget(runnable_screen)
+        self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
+
+    def __save_config(self):
+        """
+        This method saves the arguments of the runnable in the model.
+        It iterates over the widgets in the vertical box layout.
+        If the widget is a horizontal box layout with a line edit or a combo box, it adds the text of the line edit or
+        the current text of the combo box to the arguments list.
+        If the widget is a button, it adds True to the arguments list if the button's text is 'Equipped', otherwise it
+        adds False. Finally, it calls the save_config method of the model with the runnable and the arguments list.
+        """
+        args = []
+        for widget_idx in range(self.__vbox.count()):
+            if isinstance(self.__vbox.itemAt(widget_idx).layout(), QtWidgets.QHBoxLayout):
+                # if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
+                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QLineEdit):
+                    args.append(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().text().strip())
+                # elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
+                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QComboBox):
+                    args.append(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().currentText().strip())
+            elif isinstance(self.__vbox.itemAt(widget_idx).widget(), NormalTextButton):
+                if self.__vbox.itemAt(widget_idx).widget().text() == 'Equipped':
+                    args.append(True)
+                else:
+                    args.append(False)
+        self.__model.save_config(self.__runnable, args)
+
+    def __load_config(self):
+        """
+        This method loads the saved configuration for the runnable.
+        It iterates over the widgets in the vertical box layout.
+        If the widget is a horizontal box layout with a line edit or a combo box, it sets the text of the line edit or
+        the current text of the combo box from the saved configuration.
+        If the widget is a button, it sets the text of the button to 'Equipped' or 'Equip' based on the saved
+        configuration.
+        """
+        current_config = self.__model.load_config(self.__runnable)
+        if current_config == {}:
+            return
+        current_args = current_config['args']
+        for widget_idx in range(self.__vbox.count()):
+            if isinstance(self.__vbox.itemAt(widget_idx).layout(), QtWidgets.QHBoxLayout):
+                # if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
+                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QLineEdit):
+                    self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().setText(current_args[0])
+                    current_args = self.__list_reducer(current_args)
+                # elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
+                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QComboBox):
+                    self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().setCurrentText(current_args[0])
+                    current_args = self.__list_reducer(current_args)
+            elif isinstance(self.__vbox.itemAt(widget_idx).widget(), NormalTextButton):
+                if current_args[0]:
+                    self.__vbox.itemAt(widget_idx).widget().setText('Equipped')
+                    # still nem tudom, hogy jo e
+                    self.__vbox.itemAt(widget_idx).widget().setStyleSheet("background-color: green")
+                else:
+                    self.__vbox.itemAt(widget_idx).widget().setText('Equip')
+                    self.__vbox.itemAt(widget_idx).widget().setStyleSheet("background-color: red")
+                current_args = self.__list_reducer(current_args)
+
+    @staticmethod
+    def __list_reducer(arg_list: list = None) -> list:
+        """
+        A static method that reduces a list by one element.
+        If the given list is None, it returns an empty list.
+        If the given list has more than one element, it returns the list without the first element.
+        If the given list has one element, it returns an empty list.
+
+        Args:
+            arg_list (list, optional): The list to be reduced. Defaults to None.
+
+        Returns:
+            list: The reduced list.
+        """
+        if not arg_list:
+            return []
+        if len(arg_list) > 1:
+            return arg_list[1:]
+        else:
+            return []

@@ -14,7 +14,7 @@ def parse_arguments():
                           "Numbers given from the user as the command line arguments. The program select maximum by "
                           "default, but user can ask minimum by --min flag. The result is printed to the console.")
     parser.add_argument("--min", "-m", action="store_true", help="Whether user wants minimum selection")
-    parser.add_argument("numbers", type=float, nargs="+", help="Numbers to select maximum or minimum from")
+    parser.add_argument("--numbers", type=float, nargs="+", help="Numbers to select maximum or minimum from")
 
     return parser.parse_args()
 

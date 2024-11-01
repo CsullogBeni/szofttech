@@ -40,11 +40,11 @@ class RunnerScreen(QDialog):
         self.__add_label('Output:\n')
         self.setLayout(self.__vbox)
 
-    def __run_program(self):
+    def run_program(self):
         """
         This method call the run_program method of the model to run the given command.
         """
-        result = self.__model.run_program(self.command)
+        result = self.__model.run_program(self.__command)
         for widget_idx in range(self.__vbox.count()):
             widget = self.__vbox.itemAt(widget_idx).widget()
             if isinstance(widget, NormalTextLabel):
