@@ -369,4 +369,35 @@ class RunnableConfigScreen(QDialog):
         self.__model.save_config(self.__runnable, args)
 
     def __load_config(self):
-        pass
+        """
+        This method loads the saved configuration for the runnable.
+        It iterates over the widgets in the vertical box layout.
+        If the widget is a horizontal box layout with a line edit or a combo box, it sets the text of the line edit or
+        the current text of the combo box from the saved configuration.
+        If the widget is a button, it sets the text of the button to 'Equipped' or 'Equip' based on the saved
+        configuration.
+        """
+        current_config = self.__model.load_config(self.__runnable)
+        if current_config == {}:
+            return
+        current_args = current_config['args']
+        for widget_idx in range(self.__vbox.count()):
+            if isinstance(self.__vbox.itemAt(widget_idx).layout(), QtWidgets.QHBoxLayout):
+                # if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
+                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QLineEdit):
+                    self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().setText(current_args[0])
+                    current_args = self.__list_reducer(current_args)
+                # elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
+                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QComboBox):
+                    self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().setCurrentText(current_args[0])
+                    current_args = self.__list_reducer(current_args)
+            elif isinstance(self.__vbox.itemAt(widget_idx).widget(), NormalTextButton):
+                if current_args[0]:
+                    self.__vbox.itemAt(widget_idx).widget().setText('Equipped')
+                    # still nem tudom, hogy jo e
+                    self.__vbox.itemAt(widget_idx).widget().setStyleSheet("background-color: green")
+                else:
+                    self.__vbox.itemAt(widget_idx).widget().setText('Equip')
+                    self.__vbox.itemAt(widget_idx).widget().setStyleSheet("background-color: red")
+                current_args = self.__list_reducer(current_args)
+

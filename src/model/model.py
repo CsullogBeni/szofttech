@@ -123,7 +123,7 @@ class Model:
         saved_info = {'prog': prog.get_prog_path, 'args': args}
         self.__data_access.save_config(prog.get_prog_path, saved_info)
 
-    def load_config(self, prog: FileInfo) -> List[str or bool]:
+    def load_config(self, prog: FileInfo) -> dict:
         """
         Loads a given program's arguments from JSON.
 
@@ -131,7 +131,7 @@ class Model:
             prog: The program.
         """
         res_dict = self.__data_access.load_config(prog.get_prog_path)
-        return res_dict['args']
+        return res_dict
 
     def save_main(self):
         """
