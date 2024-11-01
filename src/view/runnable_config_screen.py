@@ -201,6 +201,9 @@ class RunnableConfigScreen(QDialog):
                     command = command + ' ' + input_from_widget
                 else:
                     command = command + ' ' + current_arg + ' ' + input_from_widget
+            elif isinstance(widget, NormalTextButton):
+                if widget.text() == 'Equipped':
+                    command = command + ' ' + current_arg
         try:
             runner_screen = RunnerScreen(self.__model, self.__widget, self.__runnable, command)
             self.__widget.addWidget(runner_screen)
