@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import QDialog
 
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
-# from src.view.runnable_config_screen import RunnableConfigScreen
+from src.view.runnable_config_screen import RunnableConfigScreen
 # from src.view.style.normal_text_label import NormalTextLabel
 from src.view.style.normal_text_button import NormalTextButton
 
@@ -188,7 +188,6 @@ class ShowRunnablesScreen(QDialog):
             None
         """
         try:
-            return
             runnable_config_screen = RunnableConfigScreen(self.__model, self.__widget, runnable)
             self.__widget.addWidget(runnable_config_screen)
             self.__widget.setCurrentIndex(self.__widget.currentIndex() + 1)
