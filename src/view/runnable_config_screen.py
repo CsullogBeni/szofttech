@@ -130,7 +130,7 @@ class RunnableConfigScreen(QDialog):
                 arg_description += f"Action: {arg.get_action}, "
             if arg.get_choices:
                 arg_description += f"Choices: {str(arg.get_choices)}, "
-            arg_description = self.__split_label_to_fit_screen(arg_description, ' ', 110)
+            arg_description = self.__split_label_to_fit_screen(arg_description, ' ', 120)
             arg_description = self.__add_arg_desc_style(arg_description)
             widget = NormalTextLabel(arg_description)
             widget.setMaximumWidth(1100)
