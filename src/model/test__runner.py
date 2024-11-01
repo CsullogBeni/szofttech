@@ -36,3 +36,6 @@ def parse_args() -> argparse.ArgumentParser.parse_args:
     parser.description = 'This tool runs the tests in the given folder.'
     parser.add_argument('-p', '--path', type=str, help='Path to the folder with tests', required=True)
     return parser.parse_args()
+
+if __name__ == '__main__':
+    main()
