@@ -273,10 +273,11 @@ The screen's wireframe plan can be seen on the \ref{fig:viewwireframe}. image.
 To install the software, follow these steps:
 
 \begin{enumerate}
-    \item Clone the repository\@: \texttt{git clone <repo\_url>}.
-    \item Install dependencies\@: Run \texttt{npm install} (for Node.js environment)\\
-                                  or \texttt{pip install -r requirements.txt} (for Python).
-    \item Start the application\@: \texttt{npm start} or \texttt{python app.py}.
+    \item Clone the repository\@: \texttt{git clone https://github.com/CsullogBeni/szofttech.git}.
+    \item Install dependencies\@: Run \texttt{pip install PyQt5}%\\
+                                  %or \texttt{pip install -r requirements.txt} (for Python).
+    \item Set python path: \texttt{set PYTHONPATH=<Full path to the directory that contains the project>}
+    \item Start the application\@: \texttt{python ./src/view/main.py}.
 \end{enumerate}
 
 \subsection{Software requirements}
@@ -286,7 +287,7 @@ The following tools and environments are required:
 \begin{itemize}
     \item Operating System\@: Windows/Linux/MacOS
     \item Programming Language\@: Node.js or Python (v3.8+)
-    \item Additional dependencies\@: Docker, PostgreSQL (if applicable)
+    \item Additional dependencies\@: PyQt5
     \item Disk space\@: At least 500MB of free space
     \item RAM\@: 4GB minimum (recommended 8GB for better performance)
 \end{itemize}
