@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36" version="24.7.17">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.4">
   <diagram name="Page-1" id="dGkdcWEwHqb5eI0WN991">
-    <mxGraphModel dx="778" dy="387" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1050" dy="522" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -98,7 +98,7 @@
         <mxCell id="OdxFn6sbGUlg3Z93NH0t-31" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="OdxFn6sbGUlg3Z93NH0t-29" vertex="1">
           <mxGeometry y="86" width="277" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="OdxFn6sbGUlg3Z93NH0t-32" value="+ Model()&lt;div&gt;+ add_working_directory(path: String): Void&lt;br&gt;&lt;div&gt;+ add_default_paths(): Void&lt;/div&gt;&lt;div&gt;+ get_runnables(): List&lt;/div&gt;&lt;div&gt;+ get_main_runnables(): List&lt;br&gt;+ __find_all_runnable(): Void&lt;/div&gt;&lt;div&gt;+ run_program(command: String): Tuple&lt;/div&gt;&lt;div&gt;+ clear_history: Bool&lt;/div&gt;&lt;div&gt;+ save_config(runnable: FileInfo, args: List): Void&lt;/div&gt;&lt;div&gt;+ load_config(runnable: FileInfo): Dictionary&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ save_main_runnables(): Void&lt;/div&gt;&lt;div&gt;+ load_main_runnables(): Void&lt;/div&gt;&lt;div&gt;- __filter_main_runnables(runnables: List): Void&lt;/div&gt;&lt;div&gt;+ set_runnable_main_property(runnable: FileInfo, currently_mian: Bool): Void&lt;/div&gt;&lt;div&gt;+ search_runnable(given_text: String): List&lt;/div&gt;&lt;div&gt;- &lt;u&gt;__searching_algorithm&lt;/u&gt;(given: String, runnables: List): List&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OdxFn6sbGUlg3Z93NH0t-29" vertex="1">
+        <mxCell id="OdxFn6sbGUlg3Z93NH0t-32" value="+ Model(dir: String)&lt;div&gt;+ add_working_directory(path: String): Void&lt;br&gt;&lt;div&gt;+ add_default_paths(): Void&lt;/div&gt;&lt;div&gt;+ get_runnables(): List&lt;/div&gt;&lt;div&gt;+ get_main_runnables(): List&lt;br&gt;+ __find_all_runnable(): Void&lt;/div&gt;&lt;div&gt;+ run_program(command: String): Tuple&lt;/div&gt;&lt;div&gt;+ clear_history: Bool&lt;/div&gt;&lt;div&gt;+ save_config(runnable: FileInfo, args: List): Void&lt;/div&gt;&lt;div&gt;+ load_config(runnable: FileInfo): Dictionary&lt;br&gt;&lt;/div&gt;&lt;div&gt;+ save_main_runnables(): Void&lt;/div&gt;&lt;div&gt;+ load_main_runnables(): Void&lt;/div&gt;&lt;div&gt;- __filter_main_runnables(runnables: List): Void&lt;/div&gt;&lt;div&gt;+ set_runnable_main_property(runnable: FileInfo, currently_mian: Bool): Void&lt;/div&gt;&lt;div&gt;+ search_runnable(given_text: String): List&lt;/div&gt;&lt;div&gt;- &lt;u&gt;__searching_algorithm&lt;/u&gt;(given: String, runnables: List): List&lt;/div&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="OdxFn6sbGUlg3Z93NH0t-29" vertex="1">
           <mxGeometry y="94" width="277" height="271" as="geometry" />
         </mxCell>
         <mxCell id="OdxFn6sbGUlg3Z93NH0t-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=0;endSize=20;strokeColor=default;" parent="1" source="OdxFn6sbGUlg3Z93NH0t-18" target="OdxFn6sbGUlg3Z93NH0t-26" edge="1">
@@ -126,7 +126,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_rFSp-jLz___89g0bqdM-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=15;dashed=1;dashPattern=8 8;" edge="1" parent="1">
+        <mxCell id="_rFSp-jLz___89g0bqdM-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=open;endFill=0;endSize=15;dashed=1;dashPattern=8 8;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="870.96" y="372" as="sourcePoint" />
             <mxPoint x="1026.96" y="372" as="targetPoint" />
