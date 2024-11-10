@@ -2,7 +2,6 @@
 #  added to the screen first, then the main runnables.
 # TODO: Implement the add_search_bar() method. The search bar and a search button should be added to the screen.
 # TODO: Add the __search() function, that calls the model's search_runnables() method.
-# TODO: Implement the __clear_history() method. This should clear the history.
 
 
 from PyQt5.QtCore import Qt
@@ -64,6 +63,7 @@ class ShowRunnablesScreen(QDialog):
         self.__add_working_dir_input()
         self.__add_vertical_spacing(20)
 
+        self.__add_clear_history_button()
         """
         search bar field
         """
@@ -214,6 +214,30 @@ class ShowRunnablesScreen(QDialog):
             None
         """
         self.__model.set_runnable_main_property(runnable, False)
+        self.__try_load_show_runnables_screen()
+
+    def __add_clear_history_button(self) -> None:
+        """
+        Adds a button to clear the history.
+        This method adds a button to the vertical box layout that
+        clears the history. The button is connected to the
+        `__clear_history` method.
+        Returns:
+            None
+        """
+        button = NormalTextButton(text='Clear history')
+        button.clicked.connect(self.__clear_history)
+        self.__vbox.addWidget(button)
+        self.__add_vertical_spacing(20)
+
+    def __clear_history(self):
+        """
+        Clears the history and refreshes the screen.
+
+        This method clears the history in the model and refreshes the screen
+        by calling `__try_load_show_runnables_screen`.
+        """
+        self.__model.clear_history()
         self.__try_load_show_runnables_screen()
 
     @staticmethod
