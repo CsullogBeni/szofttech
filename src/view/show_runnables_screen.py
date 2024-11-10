@@ -217,6 +217,14 @@ class ShowRunnablesScreen(QDialog):
         self.__try_load_show_runnables_screen()
 
     def __add_clear_history_button(self) -> None:
+        """
+        Adds a button to clear the history.
+        This method adds a button to the vertical box layout that
+        clears the history. The button is connected to the
+        `__clear_history` method.
+        Returns:
+            None
+        """
         button = NormalTextButton(text='Clear history')
         button.clicked.connect(self.__clear_history)
         self.__vbox.addWidget(button)
