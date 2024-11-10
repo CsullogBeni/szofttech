@@ -16,14 +16,6 @@ from src.view.style.normal_text_line_edit import NormalTextLineEdit
 from src.view.style.normal_text_combobox import NormalTextComboBox'''
 
 
-# TODO: Implement the __equip_button_action(button: QtButton) method. This should add aa button to the screen.
-
-# TODO: Implement the __clear_args() method that clears all the input fields and initialize a new RunnableConfigScreen
-#  with the same runnable.
-# TODO: Implement the __save_config() method. This should save the given runnable's configuration.
-# TODO: Implement the __load_config() method. This should load the given runnable's configuration.
-# TODO: Implement the list_reducer(arg_list: List) static method, deletes the first item of the list.
-
 class RunnableConfigScreen(QDialog):
     """
     This screen will show the configuration of a runnable. All the arguments, and its details.
@@ -94,7 +86,8 @@ class RunnableConfigScreen(QDialog):
             None
         """
         # runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
-        runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
+        runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") +
+                                        self.__split_label_to_fit_screen(self.__runnable.get_prog_path, '\\', 100))
         runnable_path.setMaximumWidth(1100)
         self.__vbox.addWidget(runnable_path)
         if self.__runnable.get_prog_name:
@@ -137,7 +130,7 @@ class RunnableConfigScreen(QDialog):
                 arg_description += f"Action: {arg.get_action}, "
             if arg.get_choices:
                 arg_description += f"Choices: {str(arg.get_choices)}, "
-            arg_description = self.__split_argument_label_info(arg_description)
+            arg_description = self.__split_label_to_fit_screen(arg_description, ' ', 120)
             arg_description = self.__add_arg_desc_style(arg_description)
             widget = NormalTextLabel(arg_description)
             widget.setMaximumWidth(1100)
@@ -201,6 +194,9 @@ class RunnableConfigScreen(QDialog):
                     command = command + ' ' + input_from_widget
                 else:
                     command = command + ' ' + current_arg + ' ' + input_from_widget
+            elif isinstance(widget, NormalTextButton):
+                if widget.text() == 'Equipped':
+                    command = command + ' ' + current_arg
         try:
             runner_screen = RunnerScreen(self.__model, self.__widget, self.__runnable, command)
             self.__widget.addWidget(runner_screen)
@@ -241,26 +237,32 @@ class RunnableConfigScreen(QDialog):
         msg_box.exec()
 
     @staticmethod
-    def __split_argument_label_info(arg_description: str) -> str:
+    def __split_label_to_fit_screen(label_text: str, sep: str, line_length: int) -> str:
         """
-        This method splits the description to fit on the screen.
+        This method splits the text of a label to fit on the screen.
         Args:
-            arg_description: Description to display
+            label_text: Text to display
+            sep: Separator along which the text can be cut into pieces
+            line_length: The maximum number of characters that fits on the screen
 
         Returns:
-            str: The modified description
+            str: The modified text
         """
-        arg_info = arg_description.split(' ')
-        arg_description = ''
+        label_chunks = label_text.split(sep)
+        label_text = ''
         chars_in_one_line = 0
-        for arg_member in arg_info:
-            if chars_in_one_line + len(arg_member) < 110:
-                arg_description = arg_description + ' ' + arg_member
-                chars_in_one_line = chars_in_one_line + len(arg_member)
+        for chunk in label_chunks:
+            if chars_in_one_line + len(chunk + sep) < line_length:
+                if label_text != '':
+                    label_text = label_text + sep + chunk
+                    chars_in_one_line = chars_in_one_line + len(chunk + sep)
+                else:
+                    label_text = chunk
+                    chars_in_one_line = chars_in_one_line + len(chunk)
             else:
-                arg_description = arg_description + '<br>' + arg_member
-                chars_in_one_line = len(arg_member)
-        return arg_description.strip()
+                label_text = label_text + '<br>' + sep + chunk
+                chars_in_one_line = len(chunk + sep)
+        return label_text.strip()
 
     @staticmethod
     def extract_argument(text: str) -> None or str:
@@ -326,16 +328,19 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        hbox = QtWidgets.QHBoxLayout()
-        arg_flag = NormalTextLabel(arg.get_id + ': ')
-        if len(arg_flag.text()) < 100:
-            arg_flag.setMaximumWidth(150)
-        hbox.addWidget(arg_flag)
-        # hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
-        hbox.addWidget(QtWidgets.QLineEdit())
-        self.__vbox.addLayout(hbox)
-        self.__add_vertical_spacing()
-
+        if not arg.get_action:
+            hbox = QtWidgets.QHBoxLayout()
+            arg_flag = NormalTextLabel(arg.get_id + ': ')
+            if len(arg_flag.text()) < 100:
+                arg_flag.setMaximumWidth(150)
+            hbox.addWidget(arg_flag)
+            # hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+            hbox.addWidget(QtWidgets.QLineEdit())
+            self.__vbox.addLayout(hbox)
+        else:
+            button = NormalTextButton(text='Equip', tool_tip=f"Flag: {arg.get_id}\nAction: {arg.get_action}")
+            button.clicked.connect(lambda _, current_button=button: self.__equip_button_action(current_button))
+            self.__vbox.addWidget(button)
         self.__add_vertical_spacing()
 
     def __clear_args(self):
@@ -424,3 +429,19 @@ class RunnableConfigScreen(QDialog):
             return arg_list[1:]
         else:
             return []
+
+    def __equip_button_action(self, button: NormalTextButton) -> None:
+        """
+        This method sets the style of the Equip button.
+        Args:
+            button: the Equip button
+
+        Returns:
+            None
+        """
+        if button.text() == 'Equip':
+            button.setText('Equipped')
+            button.setStyleSheet("background-color: green")
+        else:
+            button.setText('Equip')
+            button.setStyleSheet("background-color: red")

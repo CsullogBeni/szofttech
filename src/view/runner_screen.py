@@ -1,4 +1,7 @@
+import textwrap
+
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
@@ -16,7 +19,7 @@ class RunnerScreen(QDialog):
         __scroll_area: The QScrollArea widget of the screen
         __vbox:        The QVBoxLayout widget of the screen
         __runnable:    The runnable which has to be run
-        __button_widget: The widget that contains the button.
+        __content_widget: The widget of the content.
         __command: The command which has to be executed.
     """
 
@@ -27,7 +30,7 @@ class RunnerScreen(QDialog):
         self.__scroll_area = QtWidgets.QScrollArea()
         self.__vbox = QtWidgets.QVBoxLayout()
         self.__runnable = runnable
-        self.__button_widget = QtWidgets.QWidget(widget)
+        self.__content_widget = QtWidgets.QWidget(widget)
         self.__command = command
         self.__init_ui()
 
@@ -36,9 +39,18 @@ class RunnerScreen(QDialog):
         This method initializes the UI.
         """
         self.__add_back_button()
-        self.__add_label('Command:\n' + self.__command)
+        self.__add_label('Command:\n' + self.__split_label_to_fit_screen(self.__command))
         self.__add_label('Output:\n')
-        self.setLayout(self.__vbox)
+
+        self.__content_widget.setLayout(self.__vbox)
+        self.__scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.__scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.__scroll_area.setWidgetResizable(True)
+        self.__scroll_area.setWidget(self.__content_widget)
+
+        main_layout = QtWidgets.QVBoxLayout(self)
+        main_layout.addWidget(self.__scroll_area)
+        self.setLayout(main_layout)
 
     def run_program(self):
         """
@@ -83,3 +95,22 @@ class RunnerScreen(QDialog):
         """
         label = NormalTextLabel(text)
         self.__vbox.addWidget(label)
+
+    @staticmethod
+    def __split_label_to_fit_screen(label_text: str) -> str:
+        """
+        This method splits the text of a label to fit on the screen.
+        Args:
+            label_text: Text to display
+
+        Returns:
+            str: The modified text
+        """
+        label_chunks = textwrap.wrap(label_text, width=130)
+        label_text = ''
+        for chunk in label_chunks:
+            if label_text == '':
+                label_text = chunk
+            else:
+                label_text += '\n' + chunk
+        return label_text.strip()
