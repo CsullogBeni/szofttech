@@ -199,18 +199,6 @@ class Model:
         """
         return [r for r in self.__runnables if r.is_main_runnable]
 
-    def search_runnable(self, given_text: str) -> List:
-        """
-        Searches the given_text in the list of runnables prog path.
-        Args:
-            given_text:  The text to be searched.
-
-        Returns:
-            List: The list of runnables that contain the given text.
-        """
-        if given_text == '' or len(self.__runnables) == 0:
-            return []
-        return self.__searching_algorithm(given_text, self.__runnables)
 
     @staticmethod
     def __searching_algorithm(given_text: str, runnables: List) -> List:
@@ -230,3 +218,16 @@ class Model:
                 if runnable not in matching:
                     matching.append(runnable)
         return matching
+
+    def search_runnable(self, given_text: str) -> List:
+        """
+        Searches the given_text in the list of runnables prog path.
+        Args:
+            given_text:  The text to be searched.
+
+        Returns:
+            List: The list of runnables that contain the given text.
+        """
+        if given_text == '' or len(self.__runnables) == 0:
+            return []
+        return self.__searching_algorithm(given_text, self.__runnables)
