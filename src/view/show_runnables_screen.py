@@ -217,6 +217,12 @@ class ShowRunnablesScreen(QDialog):
         self.__try_load_show_runnables_screen()
 
     def __clear_history(self):
+        """
+        Clears the history and refreshes the screen.
+
+        This method clears the history in the model and refreshes the screen
+        by calling `__try_load_show_runnables_screen`.
+        """
         self.__model.clear_history()
         self.__try_load_show_runnables_screen()
 
