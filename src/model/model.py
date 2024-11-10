@@ -1,10 +1,3 @@
-# TODO: Creat clear_history() method that clears the history.
-# TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
-# TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
-
-# TODO: Create search_runnables(given_string: str) method that searches the given_string in __runnables and __main_runnables.
-# TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
-
 import os
 import pathlib
 import subprocess
@@ -110,8 +103,6 @@ class Model:
 
         self.__data_access.save_working_directory_path(self.__working_directory_path)
 
-    # TODO: Add some concrete type for list
-    # Educated guess: a parameter with a potential value
     def save_config(self, prog: FileInfo, args: List[str or bool]) -> None:
         """
         Saves a given program and its argument to JSON.
@@ -203,18 +194,6 @@ class Model:
         """
         return [r for r in self.__runnables if r.is_main_runnable]
 
-    def search_runnable(self, given_text: str) -> List:
-        """
-        Searches the given_text in the list of runnables prog path.
-        Args:
-            given_text:  The text to be searched.
-
-        Returns:
-            List: The list of runnables that contain the given text.
-        """
-        if given_text == '' or len(self.__runnables) == 0:
-            return []
-        return self.__searching_algorithm(given_text, self.__runnables)
 
     @staticmethod
     def __searching_algorithm(given_text: str, runnables: List) -> List:
@@ -234,3 +213,16 @@ class Model:
                 if runnable not in matching:
                     matching.append(runnable)
         return matching
+
+    def search_runnable(self, given_text: str) -> List:
+        """
+        Searches the given_text in the list of runnables prog path.
+        Args:
+            given_text:  The text to be searched.
+
+        Returns:
+            List: The list of runnables that contain the given text.
+        """
+        if given_text == '' or len(self.__runnables) == 0:
+            return []
+        return self.__searching_algorithm(given_text, self.__runnables)
