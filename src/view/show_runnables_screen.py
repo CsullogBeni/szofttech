@@ -216,6 +216,10 @@ class ShowRunnablesScreen(QDialog):
         self.__model.set_runnable_main_property(runnable, False)
         self.__try_load_show_runnables_screen()
 
+    def __clear_history(self):
+        self.__model.clear_history()
+        self.__try_load_show_runnables_screen()
+
     @staticmethod
     def __show_message(message: str) -> None:
         """
