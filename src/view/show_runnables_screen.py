@@ -216,6 +216,12 @@ class ShowRunnablesScreen(QDialog):
         self.__model.set_runnable_main_property(runnable, False)
         self.__try_load_show_runnables_screen()
 
+    def __add_clear_history_button(self) -> None:
+        button = NormalTextButton(text='Clear history')
+        button.clicked.connect(self.__clear_history)
+        self.__vbox.addWidget(button)
+        self.__add_vertical_spacing(20)
+
     def __clear_history(self):
         """
         Clears the history and refreshes the screen.
