@@ -2,7 +2,6 @@
 #  added to the screen first, then the main runnables.
 # TODO: Implement the add_search_bar() method. The search bar and a search button should be added to the screen.
 # TODO: Add the __search() function, that calls the model's search_runnables() method.
-# TODO: Implement the __clear_history() method. This should clear the history.
 
 
 from PyQt5.QtCore import Qt
@@ -64,6 +63,7 @@ class ShowRunnablesScreen(QDialog):
         self.__add_working_dir_input()
         self.__add_vertical_spacing(20)
 
+        self.__add_clear_history_button()
         """
         search bar field
         """
