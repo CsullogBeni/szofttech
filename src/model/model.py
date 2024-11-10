@@ -2,8 +2,6 @@
 # TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
 # TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
 
-# TODO: Create search_runnables(given_string: str) method that searches the given_string in __runnables and __main_runnables.
-# TODO: Implement the searching algorithm in __searching_algorithm(given_string: str, runnables: List).
 
 import os
 import pathlib
@@ -110,8 +108,6 @@ class Model:
 
         self.__data_access.save_working_directory_path(self.__working_directory_path)
 
-    # TODO: Add some concrete type for list
-    # Educated guess: a parameter with a potential value
     def save_config(self, prog: FileInfo, args: List[str or bool]) -> None:
         """
         Saves a given program and its argument to JSON.
