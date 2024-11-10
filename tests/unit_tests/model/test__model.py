@@ -134,6 +134,15 @@ class TestModel(unittest.TestCase):
         self.assertEqual(std_out, '')
         self.assertIn('-h] --number1 NUMBER1 [--number2 NUMBER2]', std_err)
 
+    def test__search_runnables(self):
+        """
+        Testing Model.search_runnables method.
+        """
+        model = Model(test_path)
+        model.add_working_directory_path(test_path)
+        self.assertEqual(model.search_runnable(''), [])
+        self.assertEqual(model.search_runnable('calculator'), [model.get_runnables[0]])
+
 
 if __name__ == '__main__':
     unittest.main()
