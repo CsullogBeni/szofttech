@@ -1,8 +1,3 @@
-# TODO: Creat clear_history() method that clears the history.
-# TODO: Create __filter_main_runnables() method that filters the runnables that are marked as main.
-# TODO: Create set_runnable_main_property(runnable: FileInfo, currently_mian: Bool) method that sets the main property of the given runnable.
-
-
 import os
 import pathlib
 import subprocess
