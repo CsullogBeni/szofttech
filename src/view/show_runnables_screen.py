@@ -240,6 +240,21 @@ class ShowRunnablesScreen(QDialog):
         self.__model.clear_history()
         self.__try_load_show_runnables_screen()
 
+    def __add_search_bar(self) -> None:
+        self.__add_vertical_spacing(20)
+        horizontal_box = QtWidgets.QHBoxLayout()
+        search_button = NormalTextButton(text='Search', tool_tip='Search for runnables')
+        search_line_edit = NormalTextLineEdit()
+        search_line_edit.returnPressed.connect(search_button.click)
+        search_button.clicked.connect(self.__search)
+        horizontal_box.addWidget(search_line_edit)
+        horizontal_box.addWidget(search_button)
+        search_button = NormalTextButton(text='Clear', tool_tip='Clear search')
+        search_button.clicked.connect(self.__clear_search)
+        horizontal_box.addWidget(search_button)
+        self.__vbox.addLayout(horizontal_box)
+        self.__add_vertical_spacing(20)
+
     @staticmethod
     def __show_message(message: str) -> None:
         """
