@@ -240,6 +240,86 @@ class ShowRunnablesScreen(QDialog):
         self.__model.clear_history()
         self.__try_load_show_runnables_screen()
 
+    def __add_search_bar(self) -> None:
+        """
+        Adds a search bar to the screen.
+        This method adds a horizontal box layout to the vertical box layout
+        with a line edit, a search button and a clear button. The search button
+        is connected to the `__search` method and the clear button is connected
+        to the `__clear_search` method. The line edit is connected to the search
+        button's click event.
+        """
+        self.__add_vertical_spacing(20)
+        horizontal_box = QtWidgets.QHBoxLayout()
+        search_button = NormalTextButton(text='Search', tool_tip='Search for runnables')
+        search_line_edit = NormalTextLineEdit()
+        search_line_edit.returnPressed.connect(search_button.click)
+        search_button.clicked.connect(self.__search)
+        horizontal_box.addWidget(search_line_edit)
+        horizontal_box.addWidget(search_button)
+        search_button = NormalTextButton(text='Clear', tool_tip='Clear search')
+        search_button.clicked.connect(self.__clear_search)
+        horizontal_box.addWidget(search_button)
+        self.__vbox.addLayout(horizontal_box)
+        self.__add_vertical_spacing(20)
+
+    def __search(self) -> None:
+        """
+        Searches for runnables in the model based on the text in the search bar
+        and refreshes the screen with the results.
+
+        This method gets the text from the search bar and calls the
+        `search_runnable` method of the model with the text. If the result is
+        empty, it displays a message box with an error message. Otherwise, it
+        calls `__try_load_show_runnables_screen` with the result as the argument.
+        """
+        searched_runnables = self.__model.search_runnable(
+            self.__vbox.itemAt(4).layout().itemAt(0).widget().text().strip())
+        if (not searched_runnables) or searched_runnables == []:
+            self.__show_message('No runnables found. Please try again.')
+        else:
+            self.__try_load_show_runnables_screen(searched_runnables=searched_runnables)
+
+    def __clear_search(self) -> None:
+        """
+        Clears the search bar and refreshes the screen with all runnables.
+        This method clears the search bar and calls `__try_load_show_runnables_screen`
+        with no arguments. If the model's `clear_history` method raises an exception,
+        it displays a message box with an error message.
+        Returns:
+            None
+        """
+        try:
+            self.__model.clear_history()
+            self.__try_load_show_runnables_screen()
+        except:
+            self.__show_message('An error occurred. Please try again.')
+
+    def __add_found_runnables(self, searched_runnables: List = None) -> None:
+        """
+        Adds a vertical box layout to the main vertical box layout with buttons for
+        the searched runnables.
+
+        This method creates a vertical box layout and adds buttons for each of the
+        searched runnables to it. The buttons are connected to the `__try_load_runnable`
+        method with the respective runnable as the argument. The vertical box layout
+        is then added to the main vertical box layout and a vertical spacing of 20
+        is added.
+
+        Args:
+            searched_runnables (List): The list of searched runnables.
+        Returns:
+            None
+        """
+        if searched_runnables:
+            inner_box = QtWidgets.QVBoxLayout()
+            for runnable in searched_runnables:
+                button = NormalTextButton(text=runnable.get_prog_path)
+                button.clicked.connect(lambda _, current_runnable=runnable: self.__try_load_runnable(current_runnable))
+                inner_box.addWidget(button)
+            self.__vbox.addLayout(inner_box)
+            self.__add_vertical_spacing(20)
+
     @staticmethod
     def __show_message(message: str) -> None:
         """
