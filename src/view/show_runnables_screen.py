@@ -295,6 +295,16 @@ class ShowRunnablesScreen(QDialog):
         except:
             self.__show_message('An error occurred. Please try again.')
 
+    def __add_found_runnables(self, searched_runnables: List = None) -> None:
+        if searched_runnables:
+            inner_box = QtWidgets.QVBoxLayout()
+            for runnable in searched_runnables:
+                button = NormalTextButton(text=runnable.get_prog_path)
+                button.clicked.connect(lambda _, current_runnable=runnable: self.__try_load_runnable(current_runnable))
+                inner_box.addWidget(button)
+            self.__vbox.addLayout(inner_box)
+            self.__add_vertical_spacing(20)
+
     @staticmethod
     def __show_message(message: str) -> None:
         """
