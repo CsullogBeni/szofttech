@@ -31,11 +31,11 @@ class TestArgumentVisitor(unittest.TestCase):
                          ' operators given from the user as the command line arguments. The result is ' +
                          'printed to the console.')
         self.assertEqual(len(args), 3)
-        self.assertEqual(args[0], ('--number1', None, None, 'First number to do operation with', 'float', True, None,
+        self.assertEqual(args[0], ('--number1', '-n1', None, 'First number to do operation with', 'float', True, None,
                                    []))
-        self.assertEqual(args[1], ('number2', None, None, 'Second number to do operation with', 'float', False, None,
+        self.assertEqual(args[1], ('--number2', '-n2', None, 'Second number to do operation with', 'float', False, None,
                                    []))
-        self.assertEqual(args[2], ('--operation', None, '+', 'Operation, which can be: +, -, *, /', None, False, None,
+        self.assertEqual(args[2], ('--operation', '-o', '+', 'Operation, which can be: +, -, *, /', None, False, None,
                                    ['+', '-', '*', '/']))
 
     def test__extract_arguments_minmax(self):
@@ -57,7 +57,7 @@ class TestArgumentVisitor(unittest.TestCase):
         self.assertEqual(len(args), 2)
         self.assertEqual(args[0], ('--min', '-m', None, 'Whether user wants minimum selection', None, False,
                                    'store_true', []))
-        self.assertEqual(args[1], ('numbers', None, None, 'Numbers to select maximum or minimum from', 'float',
+        self.assertEqual(args[1], ('--numbers', None, None, 'Numbers to select maximum or minimum from', 'float',
                                    False, None, []))
 
 

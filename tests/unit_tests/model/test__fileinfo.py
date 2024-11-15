@@ -9,6 +9,7 @@ import unittest
 from src.model.fileinfo import FileInfo
 from src.model.argument import Argument
 
+
 class TestFileInfo(unittest.TestCase):
     """
     Test class for the src.model.FileInfo object.
@@ -104,6 +105,7 @@ class TestFileInfo(unittest.TestCase):
 
         file_info.add_argument(arg)
         self.assertEqual(file_info.get_args, [arg])
+
 
 if __name__ == '__main__':
     unittest.main()

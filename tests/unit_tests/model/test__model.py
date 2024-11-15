@@ -69,7 +69,7 @@ class TestModel(unittest.TestCase):
         self.assertEqual(model.get_runnables[1].get_prog_path, test_path + '\\minmax\\minmax.py')
         self.assertEqual(model.get_runnables[1].is_main_runnable, False)
         self.assertEqual(len(model.get_runnables[1].get_args), 2)
-        self.assertEqual(model.get_runnables[1].get_args[1].get_id, 'numbers')
+        self.assertEqual(model.get_runnables[1].get_args[1].get_id, '--numbers')
         self.assertIn('This program can select', model.get_runnables[1].get_prog_description)
         self.assertEqual(model.get_runnables[1].get_prog_name, 'Minmax')
 
@@ -86,7 +86,7 @@ class TestModel(unittest.TestCase):
         model.save_config(prog, args)
 
         res_dict = model.get_data_access.load_config(prog.get_prog_path)
-        self.assertEqual(res_dict, {'arg1': 'value1', 'arg2': 'value2'})
+        self.assertEqual(res_dict, {'args': [['arg1', 'value1'], ['arg2', 'value2']], 'prog': '/path/to/program'})
 
     def test__load_config(self):
         """
@@ -102,7 +102,7 @@ class TestModel(unittest.TestCase):
 
         loaded_args = model.load_config(prog)
 
-        self.assertEqual(loaded_args, [('arg1', 'value1'), ('arg2', 'value2')])
+        self.assertEqual(loaded_args, {'args': [['arg1', 'value1'], ['arg2', 'value2']], 'prog': '/path/to/program'})
 
     def test__load_main(self):
         """
