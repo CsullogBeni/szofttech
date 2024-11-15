@@ -281,6 +281,14 @@ class ShowRunnablesScreen(QDialog):
             self.__try_load_show_runnables_screen(searched_runnables=searched_runnables)
 
     def __clear_search(self) -> None:
+        """
+        Clears the search bar and refreshes the screen with all runnables.
+        This method clears the search bar and calls `__try_load_show_runnables_screen`
+        with no arguments. If the model's `clear_history` method raises an exception,
+        it displays a message box with an error message.
+        Returns:
+            None
+        """
         try:
             self.__model.clear_history()
             self.__try_load_show_runnables_screen()
