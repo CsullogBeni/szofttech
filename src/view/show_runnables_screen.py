@@ -241,6 +241,14 @@ class ShowRunnablesScreen(QDialog):
         self.__try_load_show_runnables_screen()
 
     def __add_search_bar(self) -> None:
+        """
+        Adds a search bar to the screen.
+        This method adds a horizontal box layout to the vertical box layout
+        with a line edit, a search button and a clear button. The search button
+        is connected to the `__search` method and the clear button is connected
+        to the `__clear_search` method. The line edit is connected to the search
+        button's click event.
+        """
         self.__add_vertical_spacing(20)
         horizontal_box = QtWidgets.QHBoxLayout()
         search_button = NormalTextButton(text='Search', tool_tip='Search for runnables')
