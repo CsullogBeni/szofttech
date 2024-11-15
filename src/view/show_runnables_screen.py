@@ -255,6 +255,14 @@ class ShowRunnablesScreen(QDialog):
         self.__vbox.addLayout(horizontal_box)
         self.__add_vertical_spacing(20)
 
+    def __search(self) -> None:
+        searched_runnables = self.__model.search_runnable(
+            self.__vbox.itemAt(4).layout().itemAt(0).widget().text().strip())
+        if (not searched_runnables) or searched_runnables == []:
+            self.__show_message('No runnables found. Please try again.')
+        else:
+            self.__try_load_show_runnables_screen(searched_runnables=searched_runnables)
+
     @staticmethod
     def __show_message(message: str) -> None:
         """
