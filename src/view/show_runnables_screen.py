@@ -263,6 +263,23 @@ class ShowRunnablesScreen(QDialog):
         self.__vbox.addLayout(horizontal_box)
         self.__add_vertical_spacing(20)
 
+    def __search(self) -> None:
+        """
+        Searches for runnables in the model based on the text in the search bar
+        and refreshes the screen with the results.
+
+        This method gets the text from the search bar and calls the
+        `search_runnable` method of the model with the text. If the result is
+        empty, it displays a message box with an error message. Otherwise, it
+        calls `__try_load_show_runnables_screen` with the result as the argument.
+        """
+        searched_runnables = self.__model.search_runnable(
+            self.__vbox.itemAt(4).layout().itemAt(0).widget().text().strip())
+        if (not searched_runnables) or searched_runnables == []:
+            self.__show_message('No runnables found. Please try again.')
+        else:
+            self.__try_load_show_runnables_screen(searched_runnables=searched_runnables)
+
     @staticmethod
     def __show_message(message: str) -> None:
         """
