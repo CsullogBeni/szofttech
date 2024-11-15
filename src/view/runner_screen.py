@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QDialog
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
 from src.view.style.normal_text_label import NormalTextLabel
+from src.view.style.normal_text_button import NormalTextButton
 
 
 class RunnerScreen(QDialog):
@@ -71,7 +72,7 @@ class RunnerScreen(QDialog):
         """
         This method adds Back button to the UI and adds the suitable action to the button.
         """
-        button = QtWidgets.QPushButton("Back")
+        button = NormalTextButton("Back")
         self.__vbox.addWidget(button)
         button.clicked.connect(lambda: self.__back())
 
