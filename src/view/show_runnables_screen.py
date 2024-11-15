@@ -280,6 +280,13 @@ class ShowRunnablesScreen(QDialog):
         else:
             self.__try_load_show_runnables_screen(searched_runnables=searched_runnables)
 
+    def __clear_search(self) -> None:
+        try:
+            self.__model.clear_history()
+            self.__try_load_show_runnables_screen()
+        except:
+            self.__show_message('An error occurred. Please try again.')
+
     @staticmethod
     def __show_message(message: str) -> None:
         """
