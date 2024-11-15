@@ -304,6 +304,22 @@ class ShowRunnablesScreen(QDialog):
             self.__show_message('An error occurred. Please try again.')
 
     def __add_found_runnables(self, searched_runnables: List = None) -> None:
+        """
+        Adds found runnables to the UI.
+
+        This method takes a list of searched runnables and adds each runnable
+        as a button to a vertical box layout within the UI. Each button is
+        associated with a click event that attempts to load the runnable in a
+        new configuration screen. The layout is then added to the main vertical
+        box layout of the screen, followed by adding vertical spacing.
+
+        Args:
+            searched_runnables (List, optional): The list of runnables to be
+            added to the UI. Defaults to None.
+
+        Returns:
+            None
+        """
         if searched_runnables:
             inner_box = QtWidgets.QVBoxLayout()
             for runnable in searched_runnables:
