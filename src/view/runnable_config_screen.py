@@ -94,7 +94,7 @@ class RunnableConfigScreen(QDialog):
             runnable_prog.setMaximumWidth(1100)
             self.__vbox.addWidget(runnable_prog)
         if self.__runnable.get_prog_description:
-            description = self.__split_label_to_fit_screen(self.__runnable.get_prog_description, ' ', 100)
+            description = self.__split_label_to_fit_screen(self.__runnable.get_prog_description, ' ', 90)
             runnable_desc = NormalTextLabel(self.__get_dark_blue_label_text("Program's description: ") + description)
             runnable_desc.setMaximumWidth(1100)
             self.__vbox.addWidget(runnable_desc)
@@ -340,7 +340,7 @@ class RunnableConfigScreen(QDialog):
                 arg_flag.setMaximumWidth(150)
             hbox.addWidget(arg_flag)
             if not arg.get_choices:
-                hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
+                hbox.addWidget(NormalTextLineEdit(default_text='', arg_default=arg.get_default))
             else:
                 hbox.addWidget(NormalTextComboBox(choices=arg.get_choices))
             self.__vbox.addLayout(hbox)
