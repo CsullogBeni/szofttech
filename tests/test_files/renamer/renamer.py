@@ -85,3 +85,45 @@ def _rename_directory(full_path: str, new_name: str, directory: str, overwrite: 
             raise FileExistsError(f"Directory already exists: {os.path.join(os.path.dirname(full_path), new_name)}")
     os.rename(full_path, os.path.join(directory, new_name))
 
+
+def parse_arguments() -> argparse.Namespace:
+    """
+    Parse the command line arguments and return them.
+
+    Returns:
+        argparse.Namespace: The parsed arguments
+    """
+    parser = argparse.ArgumentParser()
+    parser.prog = "Renamer"
+    parser.description = ("This program can rename a file or directory. The new name is given from the user as the "
+                          "command line arguments. The full path argument is required, it will be renamed.")
+    parser.add_argument("--full_path", "-p", type=str, help="Full path to the file or directory to be renamed",
+                        required=True)
+    parser.add_argument("--new_name", "-n", type=str, help="New name for the file or directory", required=True)
+    parser.add_argument("--overwrite", "-o", action="store_true",
+                        help="Whether to overwrite the existing file or not", default=False)
+    parser.add_argument("--file", "-f", choices=["file", "directory"], help="Whether the path is a file or not",
+                        default='file', type=str)
+
+    return parser.parse_args()
+
+
+def main() -> None:
+    """
+    The main entry point of the file renamer.
+
+    This function parses the command line arguments, renames the given file or directory
+    and prints out the result.
+    """
+    args = parse_arguments()
+    try:
+        rename_file_or_directory(args.full_path, args.new_name, args.overwrite, args.file)
+        print("Renaming successful.")
+        print("New path:", os.path.join(os.path.dirname(args.full_path), args.new_name))
+    except Exception as e:
+        print(f"Error: {e}")
+        print("Renaming failed.")
+
+
+if __name__ == "__main__":
+    main()
