@@ -10,10 +10,9 @@ from src.model.model import Model
 from src.view.runner_screen import RunnerScreen
 from src.view.style.normal_text_button import NormalTextButton
 from src.view.style.normal_text_label import NormalTextLabel
-
-'''from src.view.style.title_text_label import TitleTextLabel
+from src.view.style.title_text_label import TitleTextLabel
 from src.view.style.normal_text_line_edit import NormalTextLineEdit
-from src.view.style.normal_text_combobox import NormalTextComboBox'''
+from src.view.style.normal_text_combo_box import NormalTextComboBox
 
 
 class RunnableConfigScreen(QDialog):
@@ -85,9 +84,8 @@ class RunnableConfigScreen(QDialog):
         Returns:
             None
         """
-        # runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") + self.__runnable.get_prog_path)
-        runnable_path = NormalTextLabel(self.__get_dark_blue_label_text("Fullpath: ") +
-                                        self.__split_label_to_fit_screen(self.__runnable.get_prog_path, '\\', 100))
+        runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") +
+                                       self.__split_label_to_fit_screen(self.__runnable.get_prog_path, '\\', 100))
         runnable_path.setMaximumWidth(1100)
         self.__vbox.addWidget(runnable_path)
         if self.__runnable.get_prog_name:
@@ -96,10 +94,10 @@ class RunnableConfigScreen(QDialog):
             runnable_prog.setMaximumWidth(1100)
             self.__vbox.addWidget(runnable_prog)
         if self.__runnable.get_prog_description:
-            '''description = self.split_argument_label_info(self.__runnable.get_prog_description)
+            description = self.__split_label_to_fit_screen(self.__runnable.get_prog_description, ' ', 90)
             runnable_desc = NormalTextLabel(self.__get_dark_blue_label_text("Program's description: ") + description)
             runnable_desc.setMaximumWidth(1100)
-            self.__vbox.addWidget(runnable_desc)'''
+            self.__vbox.addWidget(runnable_desc)
         self.__add_vertical_spacing()
         self.__show_prog_args(clear)
 
@@ -183,8 +181,7 @@ class RunnableConfigScreen(QDialog):
             if isinstance(widget, NormalTextLabel):
                 current_arg = self.extract_argument(self.remove_text_in_angle_brackets(widget.text()))
             elif (isinstance(layout, QtWidgets.QHBoxLayout)
-                  and isinstance(layout.itemAt(1).widget(), QtWidgets.QLineEdit)):
-                # and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
+                  and isinstance(layout.itemAt(1).widget(), NormalTextLineEdit)):
                 input_from_widget = layout.itemAt(1).widget().text().strip()
                 if not current_arg:
                     return
@@ -194,6 +191,14 @@ class RunnableConfigScreen(QDialog):
                     command = command + ' ' + input_from_widget
                 else:
                     command = command + ' ' + current_arg + ' ' + input_from_widget
+            elif (isinstance(layout, QtWidgets.QHBoxLayout)
+                  and isinstance(layout.itemAt(1).widget(), NormalTextComboBox)):
+                if not current_arg:
+                    return
+                if not layout.itemAt(1).widget().currentText():
+                    continue
+                else:
+                    command = command + ' ' + current_arg + ' ' + layout.itemAt(1).widget().currentText()
             elif isinstance(widget, NormalTextButton):
                 if widget.text() == 'Equipped':
                     command = command + ' ' + current_arg
@@ -334,11 +339,14 @@ class RunnableConfigScreen(QDialog):
             if len(arg_flag.text()) < 100:
                 arg_flag.setMaximumWidth(150)
             hbox.addWidget(arg_flag)
-            # hbox.addWidget(NormalTextLineEdit(default_text=arg.get_id, arg_default=arg.get_default))
-            hbox.addWidget(QtWidgets.QLineEdit())
+            if not arg.get_choices:
+                hbox.addWidget(NormalTextLineEdit(default_text='', arg_default=arg.get_default))
+            else:
+                hbox.addWidget(NormalTextComboBox(choices=arg.get_choices))
             self.__vbox.addLayout(hbox)
         else:
             button = NormalTextButton(text='Equip', tool_tip=f"Flag: {arg.get_id}\nAction: {arg.get_action}")
+            button.setStyleSheet("background-color: red")
             button.clicked.connect(lambda _, current_button=button: self.__equip_button_action(current_button))
             self.__vbox.addWidget(button)
         self.__add_vertical_spacing()
@@ -363,11 +371,9 @@ class RunnableConfigScreen(QDialog):
         args = []
         for widget_idx in range(self.__vbox.count()):
             if isinstance(self.__vbox.itemAt(widget_idx).layout(), QtWidgets.QHBoxLayout):
-                # if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
-                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QLineEdit):
+                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
                     args.append(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().text().strip())
-                # elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
-                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QComboBox):
+                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
                     args.append(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().currentText().strip())
             elif isinstance(self.__vbox.itemAt(widget_idx).widget(), NormalTextButton):
                 if self.__vbox.itemAt(widget_idx).widget().text() == 'Equipped':
@@ -391,12 +397,10 @@ class RunnableConfigScreen(QDialog):
         current_args = current_config['args']
         for widget_idx in range(self.__vbox.count()):
             if isinstance(self.__vbox.itemAt(widget_idx).layout(), QtWidgets.QHBoxLayout):
-                # if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
-                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QLineEdit):
+                if isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextLineEdit):
                     self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().setText(current_args[0])
                     current_args = self.__list_reducer(current_args)
-                # elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
-                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), QtWidgets.QComboBox):
+                elif isinstance(self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget(), NormalTextComboBox):
                     self.__vbox.itemAt(widget_idx).layout().itemAt(1).widget().setCurrentText(current_args[0])
                     current_args = self.__list_reducer(current_args)
             elif isinstance(self.__vbox.itemAt(widget_idx).widget(), NormalTextButton):
