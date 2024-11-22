@@ -33,3 +33,28 @@ def rename_file_or_directory(full_path: str, new_name: str, overwrite: bool = Fa
         raise ValueError(f"Invalid file type: {file}")
 
 
+def _rename_file(full_path: str, new_name: str, directory: str, overwrite: bool = False) -> None:
+    """
+    Renames a file.
+
+    Args:
+        full_path (str): The full path to the file to be renamed.
+        new_name (str): The new name for the file.
+        directory (str): The directory of the file to be renamed.
+        overwrite (bool, optional): Whether to overwrite the existing file or not. Defaults to False.
+
+    Raises:
+        IOError: If the path is not a file.
+        FileExistsError: If the file already exists.
+    """
+    if not os.path.isfile(full_path):
+        raise IOError(f"Path is not a file: {full_path}")
+    if overwrite:
+        if os.path.exists(os.path.join(directory, new_name)):
+            os.remove(os.path.join(directory, new_name))
+    else:
+        if os.path.exists(os.path.join(directory, new_name)):
+            raise FileExistsError(f"File already exists: {os.path.join(directory, new_name)}")
+    os.rename(full_path, os.path.join(directory, new_name))
+
+
