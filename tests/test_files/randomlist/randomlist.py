@@ -12,8 +12,14 @@ def parse_arguments():
   return parser.parse_args()
 
 def generate(args):
- l = [randint(args.lowerbound, args.upperbound) for _ in range(1, args.count)]
- print(*l, sep=' ')
+  """
+  Generates random numbers seperated by spaces. Count and bounds specified by the args parameter.
+
+  Args:
+    args:  The populated namespace from the arguments
+  """
+  l = [randint(args.lowerbound, args.upperbound) for _ in range(1, args.count)]
+  print(*l, sep=' ')
 
 
 if __name__ == "__main__":
