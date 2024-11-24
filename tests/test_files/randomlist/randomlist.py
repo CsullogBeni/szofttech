@@ -9,3 +9,7 @@ def parse_arguments():
   parser.add_argument("--upperbound", "-ub", type=int, help="Upper bound, defaults to the integer limit", default=2147483647)
 
   return parser.parse_args()
+
+
+if __name__ = "__main__":
+  parsed_args = parse_arguments()
