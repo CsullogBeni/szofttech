@@ -61,6 +61,13 @@ class TestArgumentVisitor(unittest.TestCase):
                                    False, None, []))
 
     def test__extract_arguments_randomlist(self):
+        """
+        Test if the extract_arguments function can extract the program name, description and argument details from the
+        randomlist.py file. The randomlist.py file is a simple python script, which generates a list of random integers.
+
+        The test checks if the extract_arguments function can extract the program name, description and argument details
+        from the randomlist.py file.
+        """
         randomlist_path = os.path.join(working_dir_path, 'randomlist', 'randomlist.py')
         prog, desc, args = extract_arguments(randomlist_path)
         self.assertEqual(prog, 'Random List Generator')
