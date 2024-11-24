@@ -60,6 +60,19 @@ class TestArgumentVisitor(unittest.TestCase):
         self.assertEqual(args[1], ('--numbers', None, None, 'Numbers to select maximum or minimum from', 'float',
                                    False, None, []))
 
+    def test__extract_arguments_randomlist(self):
+        randomlist_path = os.path.join(working_dir_path, 'randomlist', 'randomlist.py')
+        prog, desc, args = extract_arguments(randomlist_path)
+        self.assertEqual(prog, 'Random List Generator')
+        self.assertEqual(desc, 'Generates a random list of integers')
+        self.assertEqual(len(args), 3)
+        self.assertEqual(args[0], ('--count', '-c', None, 'How many integers to generate', 'int', True, None,
+                                   []))
+        self.assertEqual(args[1], ('--lowerbound', '-lb', 0, 'Lower bound, defaults to 0', 'int', False, None,
+                                   []))
+        self.assertEqual(args[2], ('--upperbound', '-ub', 2147483647, 'Upper bound, defaults to the integer limit', 'int', False, None,
+                                   []))
+
 
 if __name__ == '__main__':
     unittest.main()
