@@ -17,6 +17,13 @@ def parse_arguments():
     return parser.parse_args()
 
 def gcd(a, b):
+    """
+    This function calculates the GCD of two numbers using the Euclidean algorithm.
+
+    Args:
+        a: The first number
+        b: The second number
+    """
     while b:
         a, b = b, a % b
     return a
