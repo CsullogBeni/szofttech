@@ -36,3 +36,7 @@ def calculate_gcd(args):
     """
     result = gcd(args.number1, args.number2)
     print(f"The GCD of {args.number1} and {args.number2} is: {result}")
+
+if __name__ == "__main__":
+    parsed_args = parse_arguments()
+    calculate_gcd(parsed_args)
