@@ -15,3 +15,8 @@ def parse_arguments():
     parser.add_argument("--number2", "-n2", type=int, help="The second number",required=True)
 
     return parser.parse_args()
+
+def gcd(a, b):
+    while b:
+        a, b = b, a % b
+    return a
