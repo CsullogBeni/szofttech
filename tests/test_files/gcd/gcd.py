@@ -28,5 +28,11 @@ def gcd(a, b):
         a, b = b, a % b
     return a
 def calculate_gcd(args):
+    """
+    This function calculates the GCD of the input numbers.
+
+    Args:
+        args: The populated namespace from the arguments
+    """
     result = gcd(args.number1, args.number2)
     print(f"The GCD of {args.number1} and {args.number2} is: {result}")
