@@ -1,6 +1,12 @@
 import argparse
 
 def parse_arguments():
+    """
+    Parse the arguments with argparse
+
+    Returns:
+        The populated namespace from the arguments
+    """
     parser = argparse.ArgumentParser()
     parser.prog = "gcd"
     parser.description = ("This program calculates the Greatest Common Divisor (GCD) of two given numbers. "
