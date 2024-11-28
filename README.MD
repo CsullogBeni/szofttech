@@ -1,13 +1,12 @@
-![](/img/Proving_theory.png)
+![](/img/PyRunner.png)
 
 
 
-<img alt="Static Badge" src="https://img.shields.io/badge/Downloads%20-%20822KB%20-%20lightblue">
+<img alt="Static Badge" src="https://img.shields.io/badge/Downloads%20-%201MB%20-%20lightblue">
 <img alt="Static Badge" src="https://img.shields.io/badge/Python-%20v3.11%2B%20-%20blue">
 <img alt="Static Badge" src="https://img.shields.io/badge/Packages-%20PyQt5%2B%20-%20red">
-<img alt="Static Badge" src="https://img.shields.io/badge/Packages-%20sympy%20-%20lime">
 
-# SZOFTECH - RUNNABLE MANAER
+# PyRunner
 
 * [About](#about)
 * [Installation](#installation)
@@ -19,11 +18,12 @@
 ## About
 
 This program allows to comfortably select, search and save your most important runnables in your project.
+Automatic Project Detection And Tooling For Devs project was made for Advanced Software Technologies in ELTE university.
 
 ## Installation
 
 1. Clone the repository.
-2. Get the 3.11+ Python interpreter, or create a conda environment.
+2. Get the 3.11+ Python interpreter.
 3. Install `PyQt5` with pip.
 
 ## Run the program
