@@ -54,9 +54,9 @@ will be saved until the Clear history button is clicked.
 
 ## Maintainers
   - Csüllög Benedek
-  - Gergely Dániel
-  - Petes Márton
   - Merth Borbála
+  - Petes Márton
+  - Gergely Dániel
 
 
 ## Feedback
