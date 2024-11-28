@@ -35,34 +35,28 @@ Run the program from command line prompt:
 
 ## Usage
 
---TODO keződkép
 
-![](/img/welcome_screen.png)
+![](/img/main_page.png)
 
-On the opening screen, users can choose to start a new proof theory configuration or reload a previous one.
+The mainpage is about changing the working directory, clearing the history which is currently empty. 
 
---search/select
+![](/img/search.png)
+Search bar can be used for searching runnable files under the given working directory. History section can be cleared
+with the Clear button. All the other runnable are listed under that also pinning as favourite is available.
 
-![](/img/welcome_screen.png)
+![](/img/pinned.png)
 
--load type
-On the configuration screen, users can type in a set of formulas and a consequence formula. The program checks that the formulas are valid logical formulas and that brackets are in the correct positions. Further details are available in the help menu.
+Pinned runnables will always be at the top section above the listed content and under the search section.
 
--run
-![](/img/help.png)
-
-Help screen.
-
-![](/img/proof_theory_screen.png)
-
-In the proving area, users can use the hypothesis axiom and various detaching rules. It is also possible to add an axiom, provided the given formula is an axiom. The help section shows further details about rule usage. The hint button attempts to execute a detaching rule if feasible. Users can also save the current derivation.
-
-![](/img/loading_screen.png)
-
-On the loading screen, users can load a previous derivation of a conclusion. The buttons display the saving date, time, and the conclusion. Saves can be deleted.
+![](/img/running.png)
+A runnables name, description, arguments will be displayed and can be given in the input fields. Also, this fields content
+will be saved until the Clear history button is clicked.
 
 ## Maintainers
-
+  - Csüllög Benedek
+  - Gergely Dániel
+  - Petes Márton
+  - Merth Borbála
 
 
 ## Feedback
