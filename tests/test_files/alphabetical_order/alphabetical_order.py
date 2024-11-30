@@ -22,7 +22,7 @@ def parse_arguments():
 def alphabetical_order(args):
     """
     This function creates the ordered list of the given list from the user as the command line arguments.
-    Order direction selection depends on the user.
+    Order direction depends on the user.
     The result is printed to the console.
 
     Args:
@@ -33,6 +33,6 @@ def alphabetical_order(args):
 
 
 if __name__ == "__main__":
-    """call the parser and the minmax_selection method"""
+    """call the parser and the alphabetical_order method"""
     parsed_args = parse_arguments()
     alphabetical_order(parsed_args)
