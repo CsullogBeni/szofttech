@@ -13,7 +13,8 @@ def parse_arguments():
     parser.prog = "FormulaToCNForDNF"
     parser.description = ("This program can convert a formula to conjunctive normal form or disjunctive normal form."
                           "Negation: ~, disjunction: |, conjunction: &, implication: >>")
-    parser.add_argument("--formula", "-f", type=str, help="The formula, which has to be convert")
+    parser.add_argument("--formula", "-f", type=str, help="The formula, which has to be convert. "
+                                                          "User must give it without spaces or in double quotation marks.")
     parser.add_argument("--conversion", "-c", choices=["cnf", "dnf"], help="Which conversion has to be done")
 
     return parser.parse_args()
