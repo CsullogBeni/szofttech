@@ -35,6 +35,6 @@ def conversion(args):
 
 
 if __name__ == "__main__":
-    """call the parser and the minmax_selection method"""
+    """call the parser and the conversion method"""
     parsed_args = parse_arguments()
     conversion(parsed_args)
