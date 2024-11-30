@@ -54,6 +54,7 @@ will be saved until the Clear history button is clicked.
 
 ## Maintainers
   - Csüllög Benedek
+  - Laczkó Zsófia
   - Merth Borbála
   - Petes Márton
   - Gergely Dániel
