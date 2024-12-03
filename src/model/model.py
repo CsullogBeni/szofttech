@@ -28,11 +28,13 @@ class Model:
         if working_directory_path is not None:
             if os.path.isdir(working_directory_path):
                 self.__working_directory_path = working_directory_path
+            else:
+                raise IOError
         else:
             try:
                 self.__working_directory_path = self.__data_access.load_working_directory_path()
             except:
-                pass
+                raise IOError
 
         if self.__working_directory_path is None:
             self.__working_directory_path = pathlib.Path(__file__).resolve().parent.parent
