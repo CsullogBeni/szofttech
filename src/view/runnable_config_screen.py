@@ -85,7 +85,7 @@ class RunnableConfigScreen(QDialog):
             None
         """
         runnable_path = TitleTextLabel(self.__get_dark_blue_label_text("Fullpath: ") +
-                                       self.__split_label_to_fit_screen(self.__runnable.get_prog_path, '\\', 100))
+                                       self.__split_label_to_fit_screen(self.__runnable.get_prog_path, '\\', 80))
         runnable_path.setMaximumWidth(1100)
         self.__vbox.addWidget(runnable_path)
         if self.__runnable.get_prog_name:
@@ -128,7 +128,7 @@ class RunnableConfigScreen(QDialog):
                 arg_description += f"Action: {arg.get_action}, "
             if arg.get_choices:
                 arg_description += f"Choices: {str(arg.get_choices)}, "
-            arg_description = self.__split_label_to_fit_screen(arg_description, ' ', 120)
+            arg_description = self.__split_label_to_fit_screen(arg_description, ' ', 140)
             arg_description = self.__add_arg_desc_style(arg_description)
             widget = NormalTextLabel(arg_description)
             widget.setMaximumWidth(1100)
