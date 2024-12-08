@@ -24,7 +24,7 @@ def generate(args):
     Args:
       args:  The populated namespace from the arguments
     """
-    l = [randint(args.lowerbound, args.upperbound) for _ in range(1, args.count)]
+    l = [randint(args.lowerbound, args.upperbound) for _ in range(0, args.count)]
     print(*l, sep=' ')
 
 

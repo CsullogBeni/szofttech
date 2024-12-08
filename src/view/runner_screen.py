@@ -107,7 +107,7 @@ class RunnerScreen(QDialog):
         Returns:
             str: The modified text
         """
-        label_chunks = textwrap.wrap(label_text, width=130)
+        label_chunks = textwrap.wrap(label_text, width=115)
         label_text = ''
         for chunk in label_chunks:
             if label_text == '':

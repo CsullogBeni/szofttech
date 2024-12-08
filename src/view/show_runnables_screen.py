@@ -1,7 +1,10 @@
 from PyQt5.QtCore import Qt
 from PyQt5 import QtWidgets
 from typing import List
+
+from PyQt5.QtGui import QFontMetrics
 from PyQt5.QtWidgets import QDialog
+from sympy.physics.units import length
 
 from src.model.fileinfo import FileInfo
 from src.model.model import Model
@@ -118,6 +121,11 @@ class ShowRunnablesScreen(QDialog):
         """
         horizontal_box = QtWidgets.QHBoxLayout()
         button = NormalTextButton(text=runnable.get_prog_path)
+        font_metrics = QFontMetrics(button.font())
+        elided_text = font_metrics.elidedText(runnable.get_prog_path, Qt.ElideLeft, 990)
+        button.setText(elided_text)
+        if elided_text != runnable.get_prog_path:
+            button.setToolTip(runnable.get_prog_path)
         button.clicked.connect(
             lambda _, current_runnable=runnable: self.__try_load_runnable(current_runnable)
         )
