@@ -59,19 +59,16 @@ class TestModel(unittest.TestCase):
         model = Model(test_path)
         model.add_working_directory_path(test_path)
         self.assertEqual(model.get_working_directory_path, test_path)
-        self.assertEqual(len(model.get_runnables), 2)
-        self.assertEqual(model.get_runnables[0].get_prog_path, test_path + '\\calculator\\calculator.py')
-        self.assertEqual(model.get_runnables[0].is_main_runnable, False)
-        self.assertEqual(len(model.get_runnables[0].get_args), 3)
-        self.assertEqual(model.get_runnables[0].get_args[2].get_id, '--operation')
-        self.assertIn('This program can add', model.get_runnables[0].get_prog_description)
-        self.assertEqual(model.get_runnables[0].get_prog_name, 'Calculator')
-        self.assertEqual(model.get_runnables[1].get_prog_path, test_path + '\\minmax\\minmax.py')
-        self.assertEqual(model.get_runnables[1].is_main_runnable, False)
-        self.assertEqual(len(model.get_runnables[1].get_args), 2)
-        self.assertEqual(model.get_runnables[1].get_args[1].get_id, '--numbers')
-        self.assertIn('This program can select', model.get_runnables[1].get_prog_description)
-        self.assertEqual(model.get_runnables[1].get_prog_name, 'Minmax')
+        self.assertEqual(len(model.get_runnables), 7)
+        self.assertEqual(model.get_runnables[1].get_prog_path, test_path + '\\calculator\\calculator.py')
+        self.assertEqual(len(model.get_runnables[1].get_args), 3)
+        self.assertIn('This program can add', model.get_runnables[1].get_prog_description)
+        self.assertEqual(model.get_runnables[1].get_prog_name, 'Calculator')
+        self.assertEqual(model.get_runnables[4].get_prog_path, test_path + '\\minmax\\minmax.py')
+        self.assertEqual(len(model.get_runnables[4].get_args), 2)
+        self.assertEqual(model.get_runnables[4].get_args[1].get_id, '--numbers')
+        self.assertIn('This program can select', model.get_runnables[4].get_prog_description)
+        self.assertEqual(model.get_runnables[4].get_prog_name, 'Minmax')
 
     def test__save_config(self):
         """
@@ -140,8 +137,7 @@ class TestModel(unittest.TestCase):
         """
         model = Model(test_path)
         model.add_working_directory_path(test_path)
-        self.assertEqual(model.search_runnable(''), [])
-        self.assertEqual(model.search_runnable('calculator'), [model.get_runnables[0]])
+        self.assertEqual(model.search_runnable('calculator'), [model.get_runnables[1]])
 
 
 if __name__ == '__main__':

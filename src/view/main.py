@@ -11,7 +11,7 @@ def main():
     Main function of the program. Initialize the User interface.
     """
     app = QApplication(sys.argv)
-    app.setApplicationName('PyRun')
+    app.setApplicationName('PyRunner')
     widget = QtWidgets.QStackedWidget()
     model = Model()
     show_runnable_screen = ShowRunnablesScreen(model, widget)
